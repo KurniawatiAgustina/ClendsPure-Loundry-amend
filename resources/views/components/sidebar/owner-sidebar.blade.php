@@ -7,5 +7,6 @@
     <x-sidebar-menu-dashboard routeName="dashboard.service.index" title="Layanan" icon="tabler:clipboard-list"/>
     <x-sidebar-menu-dashboard routeName="dashboard.service-promotion.index" title="Promo" icon="tabler:clipboard-list"/>
     <x-sidebar-menu-dashboard routeName="dashboard.article.index" title="Artikel" icon="tabler:file-text"/>
+    <x-sidebar-menu-dashboard routeName="dashboard.branch.index" title="Cabang" icon="tabler:map-2"/>
 </x-sidebar-dashboard>
 
