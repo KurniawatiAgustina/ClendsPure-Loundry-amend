@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AreaController;
+use App\Http\Controllers\AuthController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,15 +15,20 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::name('index-practice')->get('/', function () {
-    return view('pages.practice.index');
+
+Route::get('/', function () {
+    Auth::loginUsingId(1);
+    return 1;
 });
 
-Route::name('practice.')->group(function () {
-    Route::name('first')->get('practice/1', function () {
-        return view('pages.practice.1');
-    });
-    Route::name('second')->get('practice/2', function () {
-        return view('pages.practice.2');
-    });
+Route::get('/tes', function () {
+    dd(Auth::user());
+});
+
+Route::controller(AuthController::class)->name('auth.')->group(function () {
+    Route::get('login', 'loginPage')->name('loginPage');
+    Route::post('login', 'login')->name('login');
+    Route::get('register', 'registerPage')->name('registerPage');
+    Route::post('register', 'register')->name('register');
+    Route::get('logout', 'logout')->name('logout');
 });
