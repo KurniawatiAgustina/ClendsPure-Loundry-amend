@@ -14,10 +14,10 @@ class RoleScope implements Scope
      */
     public function apply(Builder $builder, Model $model): void
     {
-        $user = Auth::user();
+        // $user = Auth::user();
 
-        if ($user && $user->role === 'Admin' || $user->role === 'Cashier') {
-            $builder->where('branch_id', $user->branch_id);
-        }
+        // if ($user && $user->role === 'Admin' || $user->role === 'Cashier') {
+        //     $builder->where('branch_id', $user->branch_id);
+        // }
     }
 }

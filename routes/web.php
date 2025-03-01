@@ -32,3 +32,11 @@ Route::controller(AuthController::class)->name('auth.')->group(function () {
     Route::post('register', 'register')->name('register');
     Route::get('logout', 'logout')->name('logout');
 });
+
+Route::prefix('data-getter')->group(function () {
+    Route::controller(AreaController::class)->name('area.')->group(function () {
+        Route::get('cities', 'City')->name('cities');
+        Route::get('subdistricts/{cityId}', 'subdistrict')->name('subdistricts');
+        Route::get('villages/{subdistrictId}', 'villages')->name('villages');
+    });
+});

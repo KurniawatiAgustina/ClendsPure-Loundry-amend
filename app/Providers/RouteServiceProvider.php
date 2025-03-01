@@ -39,6 +39,18 @@ class RouteServiceProvider extends ServiceProvider
                 ->prefix('dashboard')
                 ->name('dashboard.')
                 ->group(base_path('routes/dashboard.php'));
+
+            Route::middleware('web')
+                ->middleware('checkrole:cashier')
+                ->prefix('cashier')
+                ->name('cashier.')
+                ->group(base_path('routes/cashier.php'));
+
+            Route::middleware('web')
+                ->middleware('checkrole:customer')
+                ->prefix('customer')
+                ->name('customer.')
+                ->group(base_path('routes/customer.php'));
         });
     }
 
