@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AreaController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -17,8 +16,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    Auth::loginUsingId(1);
-    return 1;
+    // Auth::loginUsingId(1);
+    // return 1;
 });
 
 Route::get('/tes', function () {
@@ -34,9 +33,4 @@ Route::controller(AuthController::class)->name('auth.')->group(function () {
 });
 
 Route::prefix('data-getter')->group(function () {
-    Route::controller(AreaController::class)->name('area.')->group(function () {
-        Route::get('cities', 'City')->name('cities');
-        Route::get('subdistricts/{cityId}', 'subdistrict')->name('subdistricts');
-        Route::get('villages/{subdistrictId}', 'villages')->name('villages');
-    });
 });

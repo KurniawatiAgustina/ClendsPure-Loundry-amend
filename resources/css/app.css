@@ -178,6 +178,18 @@
   @apply hover:bg-gray-50 cursor-pointer !important;
 }
 
+@layer utilities {
+    /* Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+}
+
 /* feed styles */
 
 @media (min-width: 1280px) {

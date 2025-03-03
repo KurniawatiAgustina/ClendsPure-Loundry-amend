@@ -16,7 +16,7 @@
             </div>
 
             <div class="flex-shrink-0 px-2 py-4 bg-customcustomprimary-500 dark:bg-gray-800">
-                <a href=""
+                <a href="{{ route('auth.logout') }}"
                     class="flex items-center p-2 pl-4 text-base font-normal rounded-lg text-gray-500 hover:text-customprimary-500 focus:text-gray-500 hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700">
                     <span class="iconify" data-icon="majesticons:door-exit" style="width: 24px; height: 24px;"></span>
                     <span class="ml-3">Keluar</span>
