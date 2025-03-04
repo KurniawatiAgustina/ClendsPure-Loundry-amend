@@ -6,6 +6,7 @@ use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentMethodController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ServicePromotionController;
 use App\Http\Controllers\UserController;
@@ -91,4 +92,11 @@ Route::controller(UserController::class)->name('user.')->prefix('user')->group(f
     Route::get('/edit/{id}', 'edit')->name('edit');
     Route::post('/update/{id}', 'update')->name('update');
     Route::get('/destroy/{id}', 'destroy')->name('destroy');
+});
+
+Route::controller(ProfileController::class)->name('profile.')->prefix('profile')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::post('/update', 'update')->name('update');
+    Route::get('/change-password', 'changePassword')->name('change-password');
+    Route::post('/update-password', 'updatePassword')->name('update-password');
 });

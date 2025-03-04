@@ -31,7 +31,7 @@ class UserController extends Controller
             'password' => 'required|min:8',
             'phone' => 'required',
             'address' => 'required',
-            'role' => 'required|in:Owner,Cashier,Customer',
+            'role' => 'required|in:Owner,Cashier,Customer,Admin',
         ], [
             'branch_id.required' => 'Cabang wajib dipilih.',
             'branch_id.exists' => 'Cabang tidak ditemukan.',
@@ -66,7 +66,7 @@ class UserController extends Controller
             'password' => 'required|min:8',
             'phone' => 'required',
             'address' => 'required',
-            'role' => 'required|in:Owner,Cashier,Customer',
+            'role' => 'required|in:Owner,Cashier,Customer,Admin',
         ], [
             'branch_id.required' => 'Cabang wajib dipilih.',
             'branch_id.exists' => 'Cabang tidak ditemukan.',
