@@ -100,19 +100,69 @@
             </div>
         </div>
 
+        <div
+            class="bg-white border mt-8 dark:border-gray-500 dark:bg-gray-800 shadow-md rounded-lg p-6 w-full  mx-auto col-span-2">
+            <div class="flex justify-between items-center">
+                <h3 class="text-xl dark:text-white font-bold">Filter Grafik Laporan</h3>
+                <div class="flex space-x-2 items-center">
+                    <div class="relative max-w-sm">
+                        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                            </svg>
+                        </div>
+                        <input id="datepicker-autohide" datepicker datepicker-autohide type="text"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
+                            placeholder="Select date">
+                    </div>
+                    <div class="dark:text-white">s/d</div>
+                    <div class="relative max-w-sm">
+                        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                            </svg>
+                        </div>
+                        <input id="datepicker-autohide" datepicker datepicker-autohide type="text"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
+                            placeholder="Select date">
+                    </div>
+                    <div class="relative max-w-sm hidden">
+                        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                            </svg>
+                        </div>
+                        <input id="datepicker-autohide" datepicker datepicker-autohide type="text"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
+                            placeholder="Select date">
+                    </div>
+                    <button type="button"
+                        class="text-white bg-customprimary-500 hover:bg-customprimary-700 focus:ring-4 focus:outline-none focus:ring-customprimary-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-customprimary-600 dark:hover:bg-customprimary-700 dark:focus:ring-customprimary-800">
+                        <svg class="w-5 h-5 text-gray-800 text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                            viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+                                d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" />
+                        </svg>
+
+                        <span class="sr-only">Icon description</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
         {{-- CHART --}}
         <div class="grid w-full grid-cols-1 gap-5  mt-8 h-full lg:grid-cols-3">
-            <div class="bg-white border dark:border-gray-500 dark:bg-gray-800 shadow-md rounded-lg p-6 w-full  mx-auto col-span-2">
+            <div
+                class="bg-white border dark:border-gray-500 dark:bg-gray-800 shadow-md rounded-lg p-6 w-full  mx-auto col-span-2">
                 <div class="flex justify-between items-center mb-3">
                     <h3 class="text-xl dark:text-white font-bold">Grafik Pemasukan</h3>
-                    <div class="flex space-x-2 items-center">
-                        <select class="text-sm border-gray-300 rounded px-2 py-1  focus:ring-customprimary-500 focus:border-customprimary-500">
-                            <option>Tahun</option>
-                        </select>
-                        <select class="text-sm border-gray-300 rounded px-2 py-1 focus:ring-customprimary-500 focus:border-customprimary-500">
-                            <option>2024</option>
-                        </select>
-                    </div>
                 </div>
                 <h4 class="text-xl font-bold text-customprimary-600">Rp 5.000.000</h4>
                 <p class="text-sm dark:text-white text-gray-500 mb-4">Saldo masuk</p>

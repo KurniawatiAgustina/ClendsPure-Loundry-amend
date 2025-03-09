@@ -135,75 +135,40 @@
         }
 
         document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById('edit-btn').addEventListener('click', function() {
-                console.log('edit button clicked');
-                const modalId = this.getAttribute('data-modal-id');
-                const inputs = document.querySelectorAll(`#${modalId} input, #${modalId} select, #${modalId} textarea`);
+            document.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                const modalId = btn.dataset.modalId;
+                const modal   = document.getElementById(modalId);
+                const inputs  = modal.querySelectorAll('input, select, textarea');
 
-                inputs.forEach(input => {
-                    input.disabled = false;
-                    input.classList.remove('bg-gray-50');
+                inputs.forEach(i => {
+                    i.disabled = false;
+                    i.classList.remove('bg-gray-50');
                 });
 
-                const checkboxes = document.querySelectorAll(`#${modalId} input[type="checkbox"]`);
-                checkboxes.forEach(checkbox => {
-                    checkbox.disabled = false;
+                modal.querySelector('.submit-btn').classList.remove('hidden');
+                modal.querySelector('.cancel-btn').classList.remove('hidden');
+                modal.querySelector('.close-btn' ).classList.add   ('hidden');
+                btn.classList.add('hidden');
                 });
-
-                const listItems = document.querySelectorAll(`#${modalId} li`);
-                listItems.forEach(listItem => {
-                    listItem.classList.remove('bg-gray-50');
-                    listItem.classList.add('bg-white', 'cursor-pointer', 'transition', 'transform',
-                        'hover:scale-105', 'hover:shadow-lg');
-                });
-
-                const labels = document.querySelectorAll(`#${modalId} label`);
-                labels.forEach(label => {
-                    label.classList.add('cursor-pointer');
-                });
-
-                document.getElementById('submit-btn').classList.remove('hidden');
-                document.getElementById('cancel-btn').classList.remove('hidden');
-                document.getElementById('close-btn').classList.add('hidden');
-                this.classList.add('hidden');
-
-                const imgDiv = document.querySelector(`#${modalId} .img-action-div`);
-                imgDiv.classList.remove('hidden');
             });
 
-            document.getElementById('cancel-btn').addEventListener('click', function() {
-                const modalId = this.getAttribute('data-modal-id');
-                const inputs = document.querySelectorAll(`#${modalId} input, #${modalId} select, #${modalId} textarea`);
+            document.querySelectorAll('.cancel-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                const modalId = btn.dataset.modalId;
+                const modal   = document.getElementById(modalId);
+                const inputs  = modal.querySelectorAll('input, select, textarea');
 
-                inputs.forEach(input => {
-                    input.disabled = true;
-                    input.classList.add('bg-gray-50');
+                inputs.forEach(i => {
+                    i.disabled = true;
+                    i.classList.add('bg-gray-50');
                 });
 
-                const checkboxes = document.querySelectorAll(`#${modalId} input[type="checkbox"]`);
-                checkboxes.forEach(checkbox => {
-                    checkbox.disabled = true;
+                modal.querySelector('.submit-btn').classList.add   ('hidden');
+                btn.classList.add   ('hidden');
+                modal.querySelector('.close-btn' ).classList.remove('hidden');
+                modal.querySelector('.edit-btn'  ).classList.remove('hidden');
                 });
-
-                const listItems = document.querySelectorAll(`#${modalId} li`);
-                listItems.forEach(listItem => {
-                    listItem.classList.add('bg-gray-50');
-                    listItem.classList.remove('bg-white', 'cursor-pointer', 'transition',
-                        'transform', 'hover:scale-105', 'hover:shadow-lg');
-                });
-
-                const labels = document.querySelectorAll(`#${modalId} label`);
-                labels.forEach(label => {
-                    label.classList.remove('cursor-pointer');
-                });
-
-                document.getElementById('submit-btn').classList.add('hidden');
-                document.getElementById('cancel-btn').classList.add('hidden');
-                document.getElementById('close-btn').classList.remove('hidden');
-                document.getElementById('edit-btn').classList.remove('hidden');
-
-                const imgDiv = document.querySelector(`#${modalId} .img-action-div`);
-                imgDiv.classList.add('hidden');
             });
         });
     </script>

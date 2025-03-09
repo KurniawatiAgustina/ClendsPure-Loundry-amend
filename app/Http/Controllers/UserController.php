@@ -6,6 +6,7 @@ use App\Models\Branch;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -62,8 +63,8 @@ class UserController extends Controller
         $validated = $request->validate([
             'branch_id' => 'required|exists:branches,id',
             'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:8',
+            'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($id)],
+            'password' => 'nullable|min:8',
             'phone' => 'required',
             'address' => 'required',
             'role' => 'required|in:Owner,Cashier,Customer,Admin',
@@ -74,7 +75,6 @@ class UserController extends Controller
             'email.required' => 'Alamat email harus diisi.',
             'email.email' => 'Alamat email tidak valid.',
             'email.unique' => 'Alamat email sudah terdaftar.',
-            'password.required' => 'Kata sandi harus diisi.',
             'password.min' => 'Kata sandi minimal 8 karakter.',
             'phone.required' => 'Nomor telepon harus diisi.',
             'address.required' => 'Alamat harus diisi.',
