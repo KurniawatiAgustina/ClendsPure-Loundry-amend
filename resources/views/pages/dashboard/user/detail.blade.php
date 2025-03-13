@@ -21,7 +21,7 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form action="{{ route('dashboard.user.update', ['id' => 1 ]) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('dashboard.user.update', ['id' => $data->id ]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="p-6 space-y-6 max-h-96 overflow-y-auto [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
                     <div class="grid grid-cols-1 gap-x-8 gap-y-4">
@@ -30,6 +30,7 @@
                             <select disabled name="role" id="role_detail_{{ $data->id }}" class="role-detail block w-full mt-1 text-sm border-gray-300 rounded-md shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                                 required>
                                 <option value="" disabled>-- Pilih Jenis Pengguna --</option>
+                                <option value="Admin" {{ $data->role === 'Admin' ? 'selected' : '' }}>Admin</option>
                                 <option value="Cashier" {{ $data->role === 'Cashier' ? 'selected' : '' }}>Cashier</option>
                                 <option value="Customer" {{ $data->role === 'Customer' ? 'selected' : '' }}>Customer</option>
                             </select>
@@ -136,7 +137,7 @@
             const branchDiv = document.getElementById('branchSelectDiv_detail_' + uniqueId);
 
             function toggleBranchSelect() {
-                if (roleSelect.value === 'Cashier') {
+                if (roleSelect.value === 'Cashier' || roleSelect.value === 'Admin') {
                     branchDiv.style.display = 'block';
                 } else {
                     branchDiv.style.display = 'none';

@@ -21,7 +21,7 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form action="{{ route('dashboard.service.update', ['id' => 1 ]) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('dashboard.service.update', ['id' => $data->id ]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="p-6 space-y-6 max-h-96 overflow-y-auto [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">

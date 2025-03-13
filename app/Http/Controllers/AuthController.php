@@ -43,7 +43,7 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/')->with('toast_success', 'Logout successful');
+        return redirect('/login')->with('toast_success', 'Logout successful');
     }
 
     /**

@@ -63,7 +63,7 @@ class UserController extends Controller
         $validated = $request->validate([
             'branch_id' => 'required|exists:branches,id',
             'name' => 'required',
-            'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($id)],
+            'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($id, 'id')],
             'password' => 'nullable|min:8',
             'phone' => 'required',
             'address' => 'required',
@@ -84,6 +84,8 @@ class UserController extends Controller
 
         if (isset($validated['password'])) {
             $validated['password'] = Hash::make($validated['password']);
+        } else {
+            unset($validated['password']);
         }
 
         $user = User::findOrFail($id);
