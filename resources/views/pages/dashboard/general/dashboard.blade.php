@@ -162,7 +162,7 @@
             <div
                 class="bg-white border dark:border-gray-500 dark:bg-gray-800 shadow-md rounded-lg p-6 w-full  mx-auto col-span-2">
                 <div class="flex justify-between items-center mb-3">
-                    <h3 class="text-xl dark:text-white font-bold">Grafik Pemasukan</h3>
+                    <h3 class="text-xl dark:text-white font-bold">Grafik Pemasukan Bulan Ini</h3>
                 </div>
                 <h4 class="text-xl font-bold text-customprimary-600">Rp 5.000.000</h4>
                 <p class="text-sm dark:text-white text-gray-500 mb-4">Saldo masuk</p>
@@ -186,12 +186,10 @@
             new Chart(incomeChartCtx, {
                 type: 'line',
                 data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov',
-                        'Des'
-                    ],
+                    labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17','18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31',],
                     datasets: [{
                         label: 'Saldo Masuk',
-                        data: [3, 4, 5, 3.5, 6, 7, 5, 6.5, 4.5, 5.5, 3.5, 4],
+                        data: [3, 4, 5, 3.5, 6, 7, 5, 6.5, 4.5, 5.5, 3.5, 4, 5, 6, 7, 5, 6.5, 4.5, 5.5, 3.5, 4, 5, 6, 7, 5, 6.5, 4.5, 5.5, 3.5, 4, 5, 6],
                         borderColor: '#ff9000',
                         backgroundColor: '#ffd756',
                         tension: 0.4,

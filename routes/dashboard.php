@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\AreaCoverageController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\ProfileController;
@@ -18,9 +18,7 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', function () {
-    return view('pages.dashboard.general.dashboard');
-})->name('dashboard');
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::controller(BranchController::class)->name('branch.')->prefix('branch')->group(function () {
     Route::get('/', 'index')->name('index');
