@@ -181,12 +181,12 @@
             class="sticky bottom-0 right-0 items-center w-full p-4 bg-white border-t border-gray-200 sm:flex sm:justify-between dark:bg-gray-800 dark:border-gray-700">
             <div class="flex items-center mb-4 sm:mb-0">
                 <span class="text-xs font-normal text-gray-900 dark:text-white">Menampilkan <span
-                        class="font-semibold text-gray-900 dark:text-white">1-20</span> dari <span
-                        class="font-semibold text-gray-900 dark:text-white">2290</span></span>
+                    class="font-semibold text-gray-900 dark:text-white"> {{ $service->firstItem() }}-{{ $service->lastItem() }}</span> dari <span
+                    class="font-semibold text-gray-900 dark:text-white">{{ $service->total() }}</span></span>
             </div>
             <div class="flex items-center space-x-3">
-                <a href="#"
-                    class="inline-flex items-center justify-center flex-1 px-3 py-2 text-xs font-medium text-center text-customprimary-700 border border-customprimary-700 rounded-lg hover:text-white hover:bg-customprimary-700 focus:ring-4 focus:ring-customprimary-300 dark:bg-customprimary-600 dark:hover:bg-customprimary-700 dark:focus:ring-customprimary-800 dark:text-white">
+                <a @if (1 !== $service->currentPage()) href="{{ $service->previousPageUrl() }}" @endif
+                    class="@if (1 === $service->currentPage()) cursor-not-allowed @endif inline-flex items-center justify-center flex-1 px-3 py-2 text-xs font-medium text-center text-customprimary-700 border border-customprimary-700 rounded-lg hover:text-white hover:bg-customprimary-700 focus:ring-4 focus:ring-customprimary-300 dark:bg-customprimary-600 dark:hover:bg-customprimary-700 dark:focus:ring-customprimary-800 dark:text-white">
                     <svg class="w-5 h-5 mr-1 -ml-1" fill="currentColor" viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
@@ -195,8 +195,8 @@
                     </svg>
                     Sebelumnya
                 </a>
-                <a href="#"
-                    class="inline-flex items-center justify-center flex-1 px-3 py-2 text-xs font-medium text-center text-customprimary-700 border border-customprimary-700 rounded-lg hover:text-white hover:bg-customprimary-700 focus:ring-4 focus:ring-customprimary-300 dark:bg-customprimary-600 dark:hover:bg-customprimary-700 dark:focus:ring-customprimary-800 dark:text-white">
+                <a @if ($service->lastPage() !== $service->currentPage()) href="{{ $service->nextPageUrl() }}" @endif
+                    class="@if ($service->lastPage() === $service->currentPage()) cursor-not-allowed @endif inline-flex items-center justify-center flex-1 px-3 py-2 text-xs font-medium text-center text-customprimary-700 border border-customprimary-700 rounded-lg hover:text-white hover:bg-customprimary-700 focus:ring-4 focus:ring-customprimary-300 dark:bg-customprimary-600 dark:hover:bg-customprimary-700 dark:focus:ring-customprimary-800 dark:text-white">
                     Berikutnya
                     <svg class="w-5 h-5 ml-1 -mr-1" fill="currentColor" viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg">

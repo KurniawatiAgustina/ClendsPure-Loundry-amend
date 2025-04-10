@@ -13,7 +13,7 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $service = Service::all();
+        $service = Service::paginate(10);
         $cabangs = Branch::all();
         return view('pages.dashboard.service.index', compact('service', 'cabangs'));
     }

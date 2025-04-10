@@ -15,7 +15,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $order = Order::with('details')->get();
+        $order = Order::with('details')->paginate(10);
         return view('pages.dashboard.order.index', compact('order'));
     }
 
