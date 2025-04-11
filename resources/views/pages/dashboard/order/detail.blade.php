@@ -24,56 +24,92 @@
             <form action="{{ route('dashboard.order.update', ['id' => $data->id ]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="p-6 space-y-6 max-h-96 overflow-y-auto [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-1 gap-x-8 gap-y-4">
                         <div>
                             <label for="nama"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
-                                Customer</label>
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Customer</label>
                             <input type="text" id="nama" name="nama" disabled
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
-                                value="{{ $data->nama }}" required />
+                                value="{{ $data->customer->name }}" required />
                         </div>
                         <div>
                             <label for="role"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Provinsi</label>
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cabang</label>
                             <input type="text" id="role" name="role" disabled
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
-                                value="{{ $data->provinsi }}" required />
+                                value="{{ $data->branch->name }}" required />
                         </div>
                         <div>
                             <label for="alamat"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kategori</label>
                             <input type="text" id="alamat" name="alamat" disabled
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
-                                value="{{ $data->alamat }}" required />
+                                value="{{ $data->category }}" required />
                         </div>
                         <div>
                             <label for="role"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">kabupaten</label>
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Metode Pembayaran</label>
                             <input type="text" id="role" name="role" disabled
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
-                                value="{{ $data->kabupaten }}" required />
+                                value="{{ $data->payment_method == 'Cash' ? 'Cash' : 'Transfer - ' . $data->paymentMethod->bank_name . ' - ' . $data->paymentMethod->account_name . ' - ' . $data->paymentMethod->account_number }}" required />
                         </div>
                         <div>
                             <label for="no_hp"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No HP</label>
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total Harga</label>
                             <input type="text" id="no_hp" name="no_hp" disabled
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
-                                value="{{ $data->no_hp }}" required />
+                                value="{{ $data->total_price }}" required />
                         </div>
                         <div>
                             <label for="role"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kecamatan</label>
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
                             <input type="text" id="role" name="role" disabled
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
-                                value="{{ $data->kecamatan }}" required />
+                                value="{{ $data->status }}" required />
+                        </div>
+                        <div class="grid grid-cols-1 gap-x-4">
+                            <label for="role"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Detail</label>
+                            <div class="border rounded-lg border-gray-300 dark:border-gray-600">
+                                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                    <thead
+                                        class="sticky top-0 z-10 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                        <tr>
+                                            <th scope="col"
+                                                class="px-6 py-3 border-gray-50 dark:border-gray-700 rounded-tl-lg">
+                                                Layanan
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 border-gray-50 dark:border-gray-700">
+                                                Jumlah
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 border-gray-50 dark:border-gray-700">
+                                                Subtotal
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($data->details as $item)
+                                            <tr class="bg-white {{ $loop->last ? '' : 'border-b' }} dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+                                                <th scope="row"
+                                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white {{ $loop->last ? 'rounded-bl-lg' : '' }}">
+                                                    {{ $item->is_promo == '1' && $item->service_promotion ? $item->service->name . ' - ' . $item->service_promotion->name . ' (' . $item->service_promotion->discount_percentage . '%)' : $item->service->name }}
+                                                </th>
+                                                <td class="px-6 py-4">{{ $item->quantity }}</td>
+                                                <td class="px-6 py-4">
+                                                    {{ 'Rp ' . number_format($item->subtotal, 0, ',', '.') }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <!-- Modal footer -->
                 <div
                     class="items-center p-6 border-t border-gray-200 rounded-b dark:border-gray-700 flex justify-end space-x-2">
-                    <button type="button" id="edit-btn" data-modal-id="detail-customer-modal{{ $data->id }}"
+                    {{-- <button type="button" id="edit-btn" data-modal-id="detail-customer-modal{{ $data->id }}"
                         class="edit-btn inline-flex items-center px-3 py-2.5 text-xs font-medium text-center text-customprimary-700 border border-customprimary-700 rounded-lg hover:text-white hover:bg-customprimary-700 focus:ring-4 focus:ring-customblue-200 dark:text-white dark:border-none dark:bg-customprimary-600 dark:hover:bg-customprimary-700 dark:focus:ring-customprimary-800">
                         <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
@@ -84,7 +120,7 @@
                                 clip-rule="evenodd"></path>
                         </svg>
                         Edit
-                    </button>
+                    </button> --}}
                     <button type="button" id="close-btn" data-modal-toggle="detail-customer-modal{{ $data->id }}"
                         class="close-btn inline-flex items-center px-3 py-2.5 text-xs font-medium text-center text-red-600 border border-red-600 rounded-lg hover:text-white hover:bg-red-600 focus:ring-4 focus:ring-red-300 dark:text-white dark:border-none dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
                         <svg class="w-4 h-4 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"

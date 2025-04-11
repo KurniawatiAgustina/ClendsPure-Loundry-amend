@@ -26,5 +26,14 @@ class Order extends Model
     {
         return $this->belongsTo(Customer::class);
     }
+    public function paymentMethod()
+    {
+        return $this->belongsTo(PaymentMethod::class);
+    }
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
 
 }

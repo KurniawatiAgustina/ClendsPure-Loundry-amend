@@ -15,7 +15,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $order = Order::with('details')->paginate(10);
+        $order = Order::with(['details' => ['service', 'service_promotion']])->paginate(10);
         return view('pages.dashboard.order.index', compact('order'));
     }
 

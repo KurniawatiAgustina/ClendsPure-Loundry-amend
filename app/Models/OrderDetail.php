@@ -15,4 +15,12 @@ class OrderDetail extends Model
     {
         return $this->belongsTo(Order::class);
     }
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
+    }
+    public function service_promotion()
+    {
+        return $this->belongsTo(ServicePromotion::class);
+    }
 }
