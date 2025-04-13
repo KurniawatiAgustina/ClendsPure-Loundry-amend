@@ -42,6 +42,7 @@
             text-overflow: ellipsis;
         }
     </style>
+    @stack('styles')
 
     <title>CledsPure - Dashboard</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -202,6 +203,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     @include('sweetalert::alert')
+    @stack('scripts')
 </body>
 
 </html>
