@@ -34,6 +34,9 @@ return new class extends Migration
         Schema::table('payment_methods', function (Blueprint $table) {
             $table->foreign('branch_id')->references('id')->on('branches');
         });
+        Schema::table('customers', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users');
+        });
         Schema::table('articles', function (Blueprint $table) {
             //
         });
