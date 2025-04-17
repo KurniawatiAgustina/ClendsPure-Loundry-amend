@@ -13,7 +13,7 @@ class PaymentMethodController extends Controller
      */
     public function index()
     {
-        $payment_method = PaymentMethod::paginate(10);
+        $payment_method = PaymentMethod::orderBy('id', 'desc')->paginate(10);
         $cabangs = Branch::all();
         return view('pages.dashboard.payment-method.index', compact('payment_method', 'cabangs'));
     }

@@ -15,8 +15,14 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $order = Order::with(['details' => ['service', 'service_promotion']])->paginate(10);
+        $order = Order::with(['details' => ['service', 'service_promotion']])->orderBy('id', 'desc')->paginate(10);
         return view('pages.dashboard.order.index', compact('order'));
+    }
+
+    public function active()
+    {
+        $order = Order::with(['details' => ['service', 'service_promotion']])->where('status', 'New')->orWhere('status', 'Processing')->orderBy('id', 'desc')->paginate(10);
+        return view('pages.dashboard.active-order.index', compact('order'));
     }
 
     /**
@@ -25,7 +31,6 @@ class OrderController extends Controller
     public function create()
     {
         return view('pages.dashboard.order.create');
-
     }
 
     /**

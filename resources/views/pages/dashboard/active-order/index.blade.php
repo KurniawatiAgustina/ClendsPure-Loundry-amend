@@ -194,7 +194,6 @@
         </div>
     </div>
 
-
     @foreach ($order as $data)
         @include('pages.dashboard.order.detail', ['data' => $data])
         @include('pages.dashboard.general.delete', ['data' => $data, 'url' => route('dashboard.order.destroy', ['id' => $data->id])])

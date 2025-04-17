@@ -50,6 +50,7 @@ Route::controller(CustomerController::class)->name('customer.')->prefix('custome
 Route::controller(OrderController::class)->name('order.')->prefix('order')->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/create', 'create')->name('create');
+    Route::get('/active', 'active')->name('active');
     Route::post('/store', 'store')->name('store');
     Route::get('/edit/{id}', 'edit')->name('edit');
     Route::post('/update/{id}', 'update')->name('update');

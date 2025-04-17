@@ -12,7 +12,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customer = Customer::paginate(10);
+        $customer = Customer::orderBy('id', 'desc')->paginate(10);
         return view('pages.dashboard.customer.index', compact('customer'));
     }
 

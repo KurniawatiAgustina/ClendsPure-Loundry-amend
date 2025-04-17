@@ -12,7 +12,7 @@ class BranchController extends Controller
      */
     public function index()
     {
-        $branch = Branch::paginate(10);
+        $branch = Branch::orderBy('id', 'desc')->paginate(10);
         return view('pages.dashboard.branch.index', compact('branch'));
     }
 

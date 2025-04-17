@@ -15,7 +15,7 @@ class ServicePromotionController extends Controller
     public function index()
     {
         $services = Service::all();
-        $service_promotion = ServicePromotion::paginate(10);
+        $service_promotion = ServicePromotion::orderBy('id', 'desc')->paginate(10);
         $cabangs = Branch::all();
         return view('pages.dashboard.service-promotion.index', compact('service_promotion', 'services', 'cabangs'));
     }

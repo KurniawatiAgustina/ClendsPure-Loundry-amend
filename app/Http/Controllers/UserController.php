@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(10);
+        $users = User::orderBy('id', 'desc')->paginate(10);
         $branch = Branch::all();
         return view('pages.dashboard.user.index', compact('users', 'branch'));
     }
