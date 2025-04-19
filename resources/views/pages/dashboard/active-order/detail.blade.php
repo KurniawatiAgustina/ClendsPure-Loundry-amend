@@ -33,6 +33,20 @@
                                 value="{{ $data->customer->name }}" required />
                         </div>
                         <div>
+                            <label for="phone"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor Customer</label>
+                            <input type="text" id="phone" name="phone" disabled
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
+                                value="{{ $data->customer->phone }}" required />
+                        </div>
+                        <div>
+                            <label for="address"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat Customer</label>
+                            <input type="text" id="address" name="address" disabled
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
+                                value="{{ $data->customer->address }}" required />
+                        </div>
+                        <div>
                             <label for="role"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cabang</label>
                             <input type="text" id="role" name="role" disabled
