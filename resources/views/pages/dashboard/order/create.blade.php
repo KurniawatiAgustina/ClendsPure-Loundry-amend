@@ -69,11 +69,11 @@
                     <div class="flex mx-2 my-1 gap-2">
                         <select id="productSelect"
                             class="basis-[75%] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500">
-                            <option>-- Pilih Layanan --</option>
-                            {{-- @foreach ($products as $product)
-                                <option value="{{ $product->id }}">{{ $product->name }} - {{ $product->barcode ?? '' }}
+                            <option disabled selected>-- Pilih Layanan --</option>
+                            @foreach ($items as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}
                                 </option>
-                            @endforeach --}}
+                            @endforeach
                         </select>
                         <input type="number" id="jumlah" placeholder="Jumlah" value="1"
                             class="basis-[20%] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500" />
@@ -84,21 +84,40 @@
             </div>
 
             <div class="basis-[35%] border rounded-lg border-gray-300 dark:border-gray-600 h-full">
-                <div class="m-4">
-                    <h2 class="text-xl font-semibold text-gray-900 sm:text-xl dark:text-white mb-2">Pembayaran</h2>
-                    <div class="mb-5">
+                <div class="mx-3 my-2">
+                    <div class="mb-2">
+                        <label for="customer_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Customer</label>
+                        <input type="text" id="customer_name"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500" />
+                    </div>
+                    <div class="mb-2">
+                        <label for="customer_phone"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor Telepon</label>
+                        <input type="text" id="customer_phone"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500" />
+                    </div>
+                    <div class="mb-2">
+                        <label for="customer_address"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
+                        <input type="text" id="customer_address"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500" />
+                    </div>
+                </div>
+                <hr class="border-gray-200 dark:border-gray-600 mx-3">
+                <div class="mx-3 my-2">
+                    <div class="mb-2">
                         <label for="total-harga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
                             Harga</label>
                         <input type="text" id="total-harga" readonly
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500" />
                     </div>
-                    <div class="mb-5">
+                    <div class="mb-2">
                         <label for="bayar"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bayar</label>
                         <input type="text" id="bayar"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500" />
                     </div>
-                    <div class="mb-5">
+                    <div class="mb-2">
                         <label for="kembali"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kembalian</label>
                         <input type="text" id="kembali" readonly
@@ -113,19 +132,19 @@
 @endsection
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    {{-- <script>
+    <script>
         $('#productSelect').select2({
             theme: 'tailwindcss-3',
         });
 
-        const rawProducts = @json($products);
-        const productsData = {};
-        rawProducts.forEach(product => {
-            productsData[product.id] = {
-                id: product.id,
-                name: product.name,
-                price: product.selling_price,
-                barcode: product.barcode,
+        const rawItems = @json($items);
+
+        const itemsData = {};
+        rawItems.forEach(item => {
+            itemsData[item.id] = {
+                id: item.id,
+                name: item.name,
+                price: item.price,
             };
         });
 
@@ -143,21 +162,20 @@
                     return;
                 }
 
-                const productInfo = productsData[productId];
+                const productInfo = itemsData[productId];
                 if (!productInfo) {
                     alert("Data produk tidak ditemukan.");
                     return;
                 }
 
                 const productName = productInfo.name;
-                const productBarcode = productInfo.barcode;
                 const unitPrice = productInfo.price;
                 const totalPrice = unitPrice * quantity;
 
                 const newRow = `
                     <tr data-product-id="${productId}" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        ${productName} ${productBarcode ? '-' : ''} ${productBarcode ?? ''}
+                        ${productName}
                         </th>
                         <td class="px-6 py-4">${quantity}</td>
                         <td class="px-6 py-4">Rp ${unitPrice.toLocaleString('id-ID')}</td>
@@ -269,7 +287,7 @@
                 console.log(dataPayload);
                 $.ajax({
                     type: 'POST',
-                    url: '{{ route('dashboard.transaction.store') }}',
+                    url: '{{ route('dashboard.order.store') }}',
                     data: dataPayload,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -298,17 +316,27 @@
                 });
             });
         });
-    </script> --}}
+    </script>
 @endpush
 @push('styles')
     <style>
         .select2-container--tailwindcss-3 .select2-results__option--highlighted {
-            background-color: #2563eb !important;
+            background-color: #ff9000 !important;
         }
 
         .select2-container--tailwindcss-3.select2-container--focus .select2-selection--single {
-            border-color: #2563eb !important;
-            --tw-ring-color: #2563eb !important;
+            border-color: #ff9000 !important;
+            --tw-ring-color: #ff9000 !important;
         }
+        .select2-container--tailwindcss-3.select2-container--open .select2-dropdown--above {
+            height: 200px !important;
+            overflow-y: hidden !important;
+        }
+        .select2-results {
+            overflow-y: hidden !important;
+        }
+        /* .select2-search--dropdown {
+            order: 2 !important;
+        } */
     </style>
 @endpush

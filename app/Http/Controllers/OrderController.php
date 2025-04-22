@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\Service;
+use App\Models\ServicePromotion;
 use App\utils\Whatsapp;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
@@ -30,7 +33,39 @@ class OrderController extends Controller
      */
     public function create()
     {
-        return view('pages.dashboard.order.create');
+        $now = Carbon::now()->toDateTimeString();
+
+        $services = Service::where('is_active', 1)
+            ->select('id','name','price')
+            ->get()
+            ->map(function($s) {
+                return (object)[
+                    'id'       => $s->id,
+                    'name'     => $s->name,
+                    'price'    => $s->price,
+                    'is_promo' => 0,
+                ];
+            });
+
+        $promos = ServicePromotion::with('service')
+            ->where('start_date', '<=', $now)
+            ->where('end_date',   '>=', $now)
+            ->get()
+            ->map(function($p) {
+                $orig = $p->service;
+                $discounted = intval($orig->price * (100 - $p->discount_percentage) / 100);
+
+                return (object)[
+                    'id'           => $p->id,
+                    'name'         => $orig->name . ' (Promo: ' . $p->name . ')',
+                    'price'        => $discounted,
+                    'is_promo'     => 1,
+                ];
+            });
+
+        $items = $services->merge($promos);
+
+        return view('pages.dashboard.order.create', compact('items'));
     }
 
     /**
