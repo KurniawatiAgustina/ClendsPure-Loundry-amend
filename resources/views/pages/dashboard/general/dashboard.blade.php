@@ -37,7 +37,7 @@
         </div>
 
         <div
-            class="bg-white border mt-8 dark:border-gray-500 dark:bg-gray-800 shadow-md rounded-lg p-6 w-full  mx-auto col-span-2">
+            class="bg-white border dark:border-gray-500 dark:bg-gray-800 shadow-md rounded-lg p-6 w-full  mx-auto col-span-2">
             <div class="flex justify-between items-center">
                 <h3 class="text-xl dark:text-white font-bold">Filter Grafik Laporan</h3>
                 <form action="" method="get">

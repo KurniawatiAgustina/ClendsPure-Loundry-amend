@@ -44,7 +44,7 @@
                             class="sticky top-0 z-10 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3 border-gray-50 dark:border-gray-700 rounded-tl-lg">
-                                    Produk
+                                    Layanan
                                 </th>
                                 <th scope="col" class="px-6 py-3 border-gray-50 dark:border-gray-700">
                                     Jumlah
@@ -71,7 +71,7 @@
                             class="basis-[75%] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500">
                             <option disabled selected>-- Pilih Layanan --</option>
                             @foreach ($items as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}
+                                <option value="{{ $item->id }}" data-is-promo="{{ $item->is_promo }}" data-price="{{ $item->price }}">{{ $item->name }}
                                 </option>
                             @endforeach
                         </select>
@@ -136,6 +136,10 @@
         $('#productSelect').select2({
             theme: 'tailwindcss-3',
         });
+        $('#productSelect').on('select2:open', function () {
+            console.log('Select2 opened');
+            $('.select2-search__field').focus();
+        });
 
         const rawItems = @json($items);
 
@@ -145,6 +149,7 @@
                 id: item.id,
                 name: item.name,
                 price: item.price,
+                is_promo: item.is_promo
             };
         });
 
@@ -245,9 +250,9 @@
             $('#btnSave').on('click', function() {
                 let items = [];
                 $('#cartTableBody tr').each(function() {
-                    let productId = $(this).data('product-id');
-                    let quantityText = $(this).find('td:eq(0)').text();
-                    let quantity = parseInt(quantityText, 10);
+                    let productId    = $(this).data('product-id');
+                    let quantityText = $(this).find('td:nth-child(2)').text();
+                    let quantity     = parseInt(quantityText, 10) || 0;
                     items.push({
                         product_id: Number(productId),
                         quantity: quantity
@@ -332,11 +337,20 @@
             height: 200px !important;
             overflow-y: hidden !important;
         }
-        .select2-results {
-            overflow-y: hidden !important;
+        .select2-dropdown .select2-results .select2-results__options{
+            scrollbar-width: none !important;
         }
-        /* .select2-search--dropdown {
+        /* .select2-dropdown {
+            display: flex !important;
+            flex-direction: column !important;
+        }
+
+        .select2-dropdown .select2-search {
             order: 2 !important;
+        }
+
+        .select2-dropdown .select2-results {
+            order: 1 !important;
         } */
     </style>
 @endpush

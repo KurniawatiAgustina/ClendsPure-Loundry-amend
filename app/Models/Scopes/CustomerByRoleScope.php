@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Support\Facades\Auth;
 
-class RoleScope implements Scope
+class CustomerByRoleScope implements Scope
 {
     /**
      * Apply the scope to a given Eloquent query builder.
@@ -17,7 +17,9 @@ class RoleScope implements Scope
         $user = Auth::user();
 
         if ($user && $user->role === 'Admin' || $user->role === 'Cashier') {
-            $builder->where('branch_id', $user->branch_id);
+            $builder->whereHas('order', function (Builder $query) use ($user) {
+                $query->where('branch_id', $user->branch_id);
+            });
         }
     }
 }
