@@ -71,25 +71,47 @@ class DashboardController extends Controller
             ->groupBy('full_date')
             ->orderBy('full_date', 'asc');
 
-        $topServices = Service::select(
+            if (auth()->user()->role !== 'Owner') {
+                $topServices = Service::withoutGlobalScopes()->select(
                 'services.id',
                 'services.name',
                 DB::raw('SUM(order_details.quantity) as total_ordered')
-            )
-            ->join('order_details', 'services.id', '=', 'order_details.service_id')
-            ->join('orders', 'order_details.order_id', '=', 'orders.id')
-            ->whereMonth('orders.created_at', date('m'))
-            ->whereYear('orders.created_at', date('Y'))
-            ->groupBy('services.id', 'services.name')
-            ->orderByDesc('total_ordered')
-            ->limit(5);
+                )
+                ->join('order_details', 'services.id', '=', 'order_details.service_id')
+                ->join('orders', 'order_details.order_id', '=', 'orders.id')
+                ->whereMonth('orders.created_at', date('m'))
+                ->whereYear('orders.created_at', date('Y'))
+                ->groupBy('services.id', 'services.name')
+                ->orderByDesc('total_ordered')
+                ->limit(5);
 
-            $userCount = User::count();
-            $branchCount = Branch::count();
-            $customerCount = Customer::count();
-            $sumIncome = Order::sum('total_price');
-            $sumIncomeThisMonth = Order::whereMonth('created_at', date('m'))->sum('total_price');
-            $transactionCount = Order::count();
+                $userCount = User::count();
+                $branchCount = Branch::count();
+                $customerCount = Customer::count();
+                $sumIncome = Order::sum('total_price');
+                $sumIncomeThisMonth = Order::whereMonth('created_at', date('m'))->sum('total_price');
+                $transactionCount = Order::count();
+            } else {
+                $topServices = Service::withoutGlobalScopes()->select(
+                'services.id',
+                'services.name',
+                DB::raw('SUM(order_details.quantity) as total_ordered')
+                )
+                ->join('order_details', 'services.id', '=', 'order_details.service_id')
+                ->join('orders', 'order_details.order_id', '=', 'orders.id')
+                ->whereMonth('orders.created_at', date('m'))
+                ->whereYear('orders.created_at', date('Y'))
+                ->groupBy('services.id', 'services.name')
+                ->orderByDesc('total_ordered')
+                ->limit(5);
+
+                $userCount = User::count();
+                $branchCount = Branch::count();
+                $customerCount = Customer::count();
+                $sumIncome = Order::sum('total_price');
+                $sumIncomeThisMonth = Order::whereMonth('created_at', date('m'))->sum('total_price');
+                $transactionCount = Order::count();
+            }
 
             $data = (object)[
                 'userCount' => $userCount,

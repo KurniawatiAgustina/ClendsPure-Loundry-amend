@@ -48,10 +48,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected static function booted(): void
-    {
-        static::addGlobalScope(new RoleScope);
-    }
+    // protected static function booted(): void
+    // {
+    //     static::addGlobalScope(new RoleScope);
+    // }
 
     public function branch()
     {

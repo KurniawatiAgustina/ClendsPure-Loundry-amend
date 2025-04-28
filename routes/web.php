@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\LandingController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -15,11 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    if (Auth::check()) {
-        return redirect('/dashboard');
-    }
-    return redirect('/login');
+Route::controller(LandingController::class)->name('landing.')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/about', 'about')->name('about');
+    Route::get('/blog', 'blog')->name('blog');
+    Route::get('/service', 'service')->name('service');
+    Route::get('/store', 'store')->name('store');
 });
 
 Route::get('/tes', function () {

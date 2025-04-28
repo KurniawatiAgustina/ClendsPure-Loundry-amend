@@ -1,0 +1,96 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+}
+
+.container {
+    text-align: center;
+    margin: 30px auto;
+    max-width: 1200px;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+
+/* Grid Configuration */
+.grid-container {
+    display: flex;
+    flex-wrap: wrap; /* Membungkus elemen jika lebar layar kecil */
+    justify-content: center; /* Posisi rata tengah horizontal */
+    gap: 20px; /* Jarak antar card */
+}
+
+.card {
+    background-color: #fff;
+    border: none;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: center;
+    flex: 1 1 calc(var(--card-width, 3800px)); /* Ukuran fleksibel */
+    max-width: calc(var(--card-width, 320px));
+    min-width: 100px; /* Batas minimum */
+    gap:  80px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card img {
+    width: 80%;            /* Lebar gambar 80% dari lebar card */
+    height: 280px;         /* Tinggi gambar tetap 280px */
+    object-fit: cover;     /* Mengatur gambar untuk tetap memenuhi area tanpa distorsi */
+    margin-top: 20px;      /* Menambahkan jarak di bagian atas gambar */
+    display: block;        /* Mengubah gambar menjadi elemen blok */
+    margin-left: auto;     /* Menambahkan margin kiri otomatis untuk memposisikan gambar ke tengah */
+    margin-right: auto;    /* Menambahkan margin kanan otomatis untuk memposisikan gambar ke tengah */
+    border-radius: 12px;
+    
+}
+
+
+.card .content {
+    padding: 15px;
+    margin-top: -80px; 
+}
+
+.card h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #000;
+}
+
+.card p {
+    font-size: 14px;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.card .button {
+    display: inline-block;
+    background-color: #ff9000;
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.card .button:hover {
+    background-color: #ff9000;
+}
