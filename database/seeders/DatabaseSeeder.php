@@ -173,59 +173,59 @@ class DatabaseSeeder extends Seeder
         }
         DB::table('service_promotions')->insert($promos);
 
-        $customerIds = DB::table('customers')->pluck('id')->toArray();
-        $paymentIds  = DB::table('payment_methods')->pluck('id')->toArray();
+        // $customerIds = DB::table('customers')->pluck('id')->toArray();
+        // $paymentIds  = DB::table('payment_methods')->pluck('id')->toArray();
 
-        for ($i = 0; $i < 200; $i++) {
-            $created = $faker->dateTimeBetween('-4 months', 'now');
-            $orderId = DB::table('orders')->insertGetId([
-                'customer_id'      => $faker->randomElement($customerIds),
-                'branch_id'        => $faker->randomElement($branchIds),
-                'total_price'      => 0,
-                'status'           => $faker->randomElement(['New','Processing','Delivered','Cancelled']),
-                'category'         => $faker->randomElement(['AntarJemput','AntarSaja','JemputSaja','Mandiri']),
-                'payment_method'   => $faker->randomElement(['Cash','Transfer']),
-                'payment_method_id'=> $faker->randomElement($paymentIds),
-                'created_at'       => $created,
-                'updated_at'       => Carbon::instance($created)->addHours(rand(1, 72)),
-            ]);
+        // for ($i = 0; $i < 200; $i++) {
+        //     $created = $faker->dateTimeBetween('-4 months', 'now');
+        //     $orderId = DB::table('orders')->insertGetId([
+        //         'customer_id'      => $faker->randomElement($customerIds),
+        //         'branch_id'        => $faker->randomElement($branchIds),
+        //         'total_price'      => 0,
+        //         'status'           => $faker->randomElement(['New','Processing','Delivered','Cancelled']),
+        //         'category'         => $faker->randomElement(['AntarJemput','AntarSaja','JemputSaja','Mandiri']),
+        //         'payment_method'   => $faker->randomElement(['Cash','Transfer']),
+        //         'payment_method_id'=> $faker->randomElement($paymentIds),
+        //         'created_at'       => $created,
+        //         'updated_at'       => Carbon::instance($created)->addHours(rand(1, 72)),
+        //     ]);
 
-            $detailCount = rand(1, 4);
-            $total = 0;
-            for ($d = 0; $d < $detailCount; $d++) {
-                $sid          = $faker->randomElement($serviceIds);
-                $isPromo      = $faker->boolean(30);
-                $promoRecord  = null;
-                $price        = DB::table('services')->where('id', $sid)->value('price');
+        //     $detailCount = rand(1, 4);
+        //     $total = 0;
+        //     for ($d = 0; $d < $detailCount; $d++) {
+        //         $sid          = $faker->randomElement($serviceIds);
+        //         $isPromo      = $faker->boolean(30);
+        //         $promoRecord  = null;
+        //         $price        = DB::table('services')->where('id', $sid)->value('price');
 
-                if ($isPromo) {
-                    $promoRecord = DB::table('service_promotions')
-                        ->where('service_id', $sid)
-                        ->where('start_date', '<=', Carbon::now())
-                        ->where('end_date', '>=', Carbon::now())
-                        ->inRandomOrder()
-                        ->first();
-                }
+        //         if ($isPromo) {
+        //             $promoRecord = DB::table('service_promotions')
+        //                 ->where('service_id', $sid)
+        //                 ->where('start_date', '<=', Carbon::now())
+        //                 ->where('end_date', '>=', Carbon::now())
+        //                 ->inRandomOrder()
+        //                 ->first();
+        //         }
 
-                $unitPrice = $isPromo && $promoRecord
-                    ? $price * (100 - $promoRecord->discount_percentage) / 100
-                    : $price;
-                $qty = $faker->numberBetween(1, 5);
-                $subtotal = $unitPrice * $qty;
-                $total += $subtotal;
+        //         $unitPrice = $isPromo && $promoRecord
+        //             ? $price * (100 - $promoRecord->discount_percentage) / 100
+        //             : $price;
+        //         $qty = $faker->numberBetween(1, 5);
+        //         $subtotal = $unitPrice * $qty;
+        //         $total += $subtotal;
 
-                DB::table('order_details')->insert([
-                    'order_id'             => $orderId,
-                    'service_id'           => $sid,
-                    'service_promotions_id'=> $promoRecord->id ?? null,
-                    'is_promo'             => $isPromo,
-                    'quantity'             => $qty,
-                    'subtotal'             => $subtotal,
-                    'created_at'           => now(),
-                    'updated_at'           => now(),
-                ]);
-            }
-            DB::table('orders')->where('id', $orderId)->update(['total_price' => $total]);
-        }
+        //         DB::table('order_details')->insert([
+        //             'order_id'             => $orderId,
+        //             'service_id'           => $sid,
+        //             'service_promotions_id'=> $promoRecord->id ?? null,
+        //             'is_promo'             => $isPromo,
+        //             'quantity'             => $qty,
+        //             'subtotal'             => $subtotal,
+        //             'created_at'           => now(),
+        //             'updated_at'           => now(),
+        //         ]);
+        //     }
+        //     DB::table('orders')->where('id', $orderId)->update(['total_price' => $total]);
+        // }
     }
 }
