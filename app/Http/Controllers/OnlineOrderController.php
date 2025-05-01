@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\OnlineOrder;
 use App\Models\OnlineOrderDetail;
+use App\Models\Order;
+use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,14 +16,14 @@ class OnlineOrderController extends Controller
      */
     public function index()
     {
-        $order = OnlineOrder::with(['details' => ['service', 'service_promotion']])->orderBy('id', 'desc')->paginate(10);
-        return view('pages.dashboard.order.index', compact('order'));
+        $order = OnlineOrder::with(['details' => ['service', 'service_promotion']])->whereNot('status', 'New')->orderBy('id', 'desc')->paginate(10);
+        return view('pages.dashboard.online-order.index', compact('order'));
     }
 
-    public function active()
+    public function new()
     {
-        $order = OnlineOrder::with(['details' => ['service', 'service_promotion']])->where('status', 'New')->orWhere('status', 'Processing')->orderBy('id', 'desc')->paginate(10);
-        return view('pages.dashboard.active-order.index', compact('order'));
+        $order = OnlineOrder::with(['details' => ['service', 'service_promotion']])->where('status', 'New')->orderBy('id', 'desc')->paginate(10);
+        return view('pages.dashboard.new-online-order.index', compact('order'));
     }
 
     /**
@@ -191,6 +193,44 @@ class OnlineOrderController extends Controller
         });
 
         return redirect()->back()->with('toast_success', 'Order updated successfully');
+    }
+
+    public function accept(string $id) {
+        DB::transaction(function () use ($id) {
+            $order = OnlineOrder::findOrFail($id);
+            $order->update(['status' => 'Accepted']);
+
+            $newOrder =Order::create([
+                'customer_id' => $order->customer_id,
+                'branch_id' => $order->branch_id,
+                'total_price' => $order->total_price,
+                'status' => 'New',
+                'category' => $order->category,
+                'payment_method' => $order->payment_method,
+                'payment_method_id' => $order->payment_method_id,
+            ]);
+            foreach ($order->details as $detail) {
+                OrderDetail::create([
+                    'order_id' => $newOrder->id,
+                    'service_id' => $detail->service_id,
+                    'service_promotions_id' => $detail->service_promotions_id,
+                    'is_promo' => $detail->is_promo,
+                    'quantity' => $detail->quantity,
+                    'subtotal' => $detail->subtotal,
+                ]);
+            }
+        });
+
+        return redirect()->back()->with('toast_success', 'Order accepted successfully');
+    }
+
+    public function cancel(string $id) {
+        DB::transaction(function () use ($id) {
+            $order = OnlineOrder::findOrFail($id);
+            $order->update(['status' => 'Cancelled']);
+        });
+
+        return redirect()->back()->with('toast_success', 'Order cancelled successfully');
     }
 
     /**
