@@ -36,7 +36,7 @@
     </div>
     <div class="dark:bg-gray-800 bg-white">
         <div class="flex gap-4 px-4 pb-4">
-            <div class="basis-[65%] border rounded-lg border-gray-300 dark:border-gray-600 flex flex-col h-[34rem]">
+            <div class="basis-[65%] border rounded-lg border-gray-300 dark:border-gray-600 flex flex-col h-[38.6rem]">
                 <!-- Section Table -->
                 <div class="overflow-x-auto flex-1 no-scrollbar">
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -71,7 +71,7 @@
                             class="basis-[75%] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500">
                             <option disabled selected>-- Pilih Layanan --</option>
                             @foreach ($items as $item)
-                                <option value="{{ $item->id }}" data-is-promo="{{ $item->is_promo }}" data-price="{{ $item->price }}">{{ $item->name }}
+                                <option value="{{ $loop->index }}" data-id="{{ $item->id }}" data-is-promo="{{ $item->is_promo }}" data-price="{{ $item->price }}">{{ $item->name }}
                                 </option>
                             @endforeach
                         </select>
@@ -102,6 +102,28 @@
                         <input type="text" id="customer_address"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500" />
                     </div>
+                    <div class="mb-2">
+                        <label for="category"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis Layanan</label>
+                        <select name="category" id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500">
+                            <option value="" selected disabled>-- Pilih Jenis Layanan --</option>
+                            <option value="AntarJemput">AntarJemput</option>
+                            <option value="AntarSaja">AntarSaja</option>
+                            <option value="JemputSaja">JemputSaja</option>
+                            <option value="Mandiri">Mandiri</option>
+                        </select>
+                    </div>
+                    <div class="mb-2">
+                        <label for="payment_method"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Metode Pembayaran</label>
+                        <select name="payment_method" id="payment_method" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500">
+                            <option value="" selected disabled>-- Pilih Metode Pembayaran --</option>
+                            <option value="Cash" data-type="Cash">Cash</option>
+                            @foreach ($paymentMethodsAvailable as $item)
+                                <option value="{{ $item->id }}" data-type="Transfer">{{ $item->bank_name }}({{ $item->account_name }}) - {{ $item->account_number }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
                 <hr class="border-gray-200 dark:border-gray-600 mx-3">
                 <div class="mx-3 my-2">
@@ -123,6 +145,7 @@
                         <input type="text" id="kembali" readonly
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500" />
                     </div>
+                    <input type="hidden" name="branch_id" id="branch_id" value="{{ auth()->user()->branch_id ?? '1' }}">
                     <button type="button" id="btnSave"
                         class="w-full text-white bg-customprimary-700 hover:bg-customprimary-800 focus:ring-4 focus:ring-customprimary-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-customprimary-600 dark:hover:bg-customprimary-700 focus:outline-none dark:focus:ring-customprimary-800">Simpan</button>
                 </div>
@@ -144,8 +167,8 @@
         const rawItems = @json($items);
 
         const itemsData = {};
-        rawItems.forEach(item => {
-            itemsData[item.id] = {
+        rawItems.forEach((item, index) => {
+            itemsData[index] = {
                 id: item.id,
                 name: item.name,
                 price: item.price,
@@ -155,30 +178,23 @@
 
         $(document).ready(function() {
             $('#btnAddProduct').on('click', function() {
-                const productId = $('#productSelect').val();
-                const quantity = parseInt($('#jumlah').val(), 10);
-
-                if (!productId || productId === "-- Pilih Produk --") {
-                    alert("Silahkan pilih produk.");
-                    return;
-                }
-                if (!quantity || quantity < 1) {
-                    alert("Jumlah produk tidak valid.");
-                    return;
-                }
-
-                const productInfo = itemsData[productId];
-                if (!productInfo) {
-                    alert("Data produk tidak ditemukan.");
-                    return;
-                }
-
+                const selectedIndex = $('#productSelect').val();
+                const productInfo = rawItems[selectedIndex];
+                const productId = productInfo.id;
                 const productName = productInfo.name;
-                const unitPrice = productInfo.price;
+                const unitPrice   = productInfo.price;
+                const isPromo     = productInfo.is_promo;
+
+                const quantity = parseInt($('#jumlah').val(), 10);
+                if (!productInfo || !quantity || quantity < 1) {
+                    alert("Silahkan pilih produk dan jumlah valid.");
+                    return;
+                }
+
                 const totalPrice = unitPrice * quantity;
 
                 const newRow = `
-                    <tr data-product-id="${productId}" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+                    <tr data-product-id="${productId}" data-index="${selectedIndex}" data-is-promo="${isPromo}" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         ${productName}
                         </th>
@@ -289,11 +305,42 @@
                     change_amount: change_amount,
                 };
 
-                console.log(dataPayload);
+                const $payOpt = $('#payment_method').find(':selected');
+                const paymentType     = $payOpt.data('type');
+                const paymentMethodId = paymentType === 'Transfer' ? $payOpt.val() : null;
+
+                const newPayload = {
+                    _token: '{{ csrf_token() }}',
+                    customer_name: $('#customer_name').val(),
+                    customer_phone: $('#customer_phone').val(),
+                    customer_address: $('#customer_address').val(),
+                    branch_id: $('#branch_id').val(),
+                    total_price: total,
+                    category: $('#category').val(),
+                    payment_method:     paymentType,
+                    payment_method_id:  paymentMethodId,
+                    details: $('#cartTableBody tr').map(function() {
+                        const index   = $(this).data('index');
+                        const qty  = parseInt($(this).find('td:nth-child(2)').text(), 10);
+                        const price= itemsData[index].price;
+                        const id    = itemsData[index].id;
+                        const isPromo = itemsData[index].is_promo;
+                        return {
+                        service_id: isPromo ? null : id,
+                        service_promotions_id: isPromo ? id : null,
+                        is_promo: isPromo ? 1 : 0,
+                        quantity: qty,
+                        subtotal: price * qty
+                        };
+                    }).get()
+                };
+
+                console.log('Data yang akan dikirim:', newPayload);
+
                 $.ajax({
                     type: 'POST',
                     url: '{{ route('dashboard.order.store') }}',
-                    data: dataPayload,
+                    data: newPayload,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
@@ -340,17 +387,5 @@
         .select2-dropdown .select2-results .select2-results__options{
             scrollbar-width: none !important;
         }
-        /* .select2-dropdown {
-            display: flex !important;
-            flex-direction: column !important;
-        }
-
-        .select2-dropdown .select2-search {
-            order: 2 !important;
-        }
-
-        .select2-dropdown .select2-results {
-            order: 1 !important;
-        } */
     </style>
 @endpush

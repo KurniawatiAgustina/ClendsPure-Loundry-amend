@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\PaymentMethod;
 use App\Models\Service;
 use App\Models\ServicePromotion;
 use App\utils\Whatsapp;
@@ -64,8 +66,9 @@ class OrderController extends Controller
             });
 
         $items = $services->merge($promos);
+        $paymentMethodsAvailable = PaymentMethod::all();
 
-        return view('pages.dashboard.order.create', compact('items'));
+        return view('pages.dashboard.order.create', compact('items', 'paymentMethodsAvailable'));
     }
 
     /**
@@ -74,25 +77,27 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'customer_id' => 'required|exists:customers,id',
+            'customer_name' => 'required',
+            'customer_phone' => 'required',
+            'customer_address' => 'required',
             'branch_id' => 'required|exists:branches,id',
             'total_price' => 'required',
-            'status' => 'required|in:New,Processing,Delivered,Cancelled',
             'category' => 'required|in:AntarJemput,AntarSaja,JemputSaja,Mandiri',
             'payment_method' => 'required|in:Cash,Transfer',
             'payment_method_id' => 'nullable|exists:payment_methods,id',
             'details' => 'required|array',
-            'details.*.service_id' => 'required|exists:services,id',
+            'details.*.service_id' => 'nullable|exists:services,id',
+            'details.*.service_promotions_id' => 'nullable|exists:service_promotions,id',
+            'details.*.is_promo' => 'required|boolean',
             'details.*.quantity' => 'required|min:1',
             'details.*.subtotal' => 'required',
         ], [
-            'customer_id.required' => 'Pelanggan harus diisi.',
-            'customer_id.exists' => 'Pelanggan tidak ditemukan.',
+            'customer_name.required' => 'Nama pelanggan harus diisi.',
+            'customer_phone.required' => 'Nomor telepon pelanggan harus diisi.',
+            'customer_address.required' => 'Alamat pelanggan harus diisi.',
             'branch_id.required' => 'Cabang harus diisi.',
             'branch_id.exists' => 'Cabang tidak ditemukan.',
             'total_price.required' => 'Total harga harus diisi.',
-            'status.required' => 'Status harus diisi.',
-            'status.in' => 'Status harus berupa New, Processing, Delivered, atau Cancelled.',
             'category.required' => 'Kategori harus diisi.',
             'category.in' => 'Kategori harus berupa AntarJemput, AntarSaja, JemputSaja, atau Mandiri.',
             'payment_method.required' => 'Metode pembayaran harus diisi.',
@@ -101,17 +106,26 @@ class OrderController extends Controller
             'details.required' => 'Detail harus diisi.',
             'details.*.service_id.required' => 'ID layanan harus diisi.',
             'details.*.service_id.exists' => 'ID layanan tidak ditemukan.',
+            'details.*.service_promotions_id.exists' => 'ID promo tidak ditemukan.',
+            'details.*.is_promo.required' => 'Promo harus diisi.',
             'details.*.quantity.required' => 'Jumlah harus diisi.',
             'details.*.quantity.min' => 'Jumlah harus minimal 1.',
             'details.*.subtotal.required' => 'Subtotal harus diisi.',
         ]);
 
+
         DB::transaction(function () use ($validated) {
+            $customer = Customer::create([
+                'name' => $validated['customer_name'],
+                'phone' => $validated['customer_phone'],
+                'address' => $validated['customer_address'],
+            ]);
+
             $order = Order::create([
-                'customer_id' => $validated['customer_id'],
+                'customer_id' => $customer->id,
                 'branch_id' => $validated['branch_id'],
                 'total_price' => $validated['total_price'],
-                'status' => $validated['status'],
+                'status' => 'New',
                 'category' => $validated['category'],
                 'payment_method' => $validated['payment_method'],
                 'payment_method_id' => $validated['payment_method_id'],
