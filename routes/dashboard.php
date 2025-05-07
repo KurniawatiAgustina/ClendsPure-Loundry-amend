@@ -54,6 +54,7 @@ Route::controller(OrderController::class)->name('order.')->prefix('order')->grou
     Route::get('/active', 'active')->name('active');
     Route::post('/store', 'store')->name('store');
     Route::get('/edit/{id}', 'edit')->name('edit');
+    Route::get('/change-status/{id}/{status}', 'changeStatus')->name('change-status');
     Route::post('/update/{id}', 'update')->name('update');
     Route::get('/destroy/{id}', 'destroy')->name('destroy');
 });
@@ -64,6 +65,7 @@ Route::controller(OnlineOrderController::class)->name('online-order.')->prefix('
     Route::get('/new', 'new')->name('new');
     Route::post('/store', 'store')->name('store');
     Route::get('/edit/{id}', 'edit')->name('edit');
+    Route::get('/change-status/{id}/{status}', 'changeStatus')->name('change-status');
     Route::post('/update/{id}', 'update')->name('update');
     Route::get('/destroy/{id}', 'destroy')->name('destroy');
 });

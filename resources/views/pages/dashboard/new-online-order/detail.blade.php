@@ -135,6 +135,32 @@
                         </svg>
                         Edit
                     </button> --}}
+                    <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
+                        class="inline-flex items-center px-4 py-2 text-xs font-medium text-center text-customprimary-500 border border-customprimary-500 rounded-lg hover:text-white hover:bg-customprimary-500 focus:ring-4 focus:ring-custompurple-200 dark:text-white dark:border-none dark:bg-customprimary-600 dark:hover:bg-customprimary-700 dark:focus:ring-customprimary-800"
+                        type="button">Ubah Status <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" d="m1 1 4 4 4-4" />
+                        </svg>
+                    </button>
+                    <div id="dropdown"
+                        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700">
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                            aria-labelledby="dropdownDefaultButton">
+                            <li @if ($data->status == 'New') class="hidden" @endif>
+                                <a href="{{ route('dashboard.online-order.change-status', ['id' => $data->id, 'status' => 'New']) }}"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">New</a>
+                            </li>
+                            <li @if ($data->status == 'Accepted') class="hidden" @endif>
+                                <a href="{{ route('dashboard.online-order.change-status', ['id' => $data->id, 'status' => 'Accepted']) }}"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Accepted</a>
+                            </li>
+                            <li @if ($data->status == 'Cancelled') class="hidden" @endif>
+                                <a href="{{ route('dashboard.online-order.change-status', ['id' => $data->id, 'status' => 'Cancelled']) }}"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Cancelled</a>
+                            </li>
+                        </ul>
+                    </div>
                     <button type="button" id="close-btn" data-modal-toggle="detail-customer-modal{{ $data->id }}"
                         class="close-btn inline-flex items-center px-3 py-2.5 text-xs font-medium text-center text-red-600 border border-red-600 rounded-lg hover:text-white hover:bg-red-600 focus:ring-4 focus:ring-red-300 dark:text-white dark:border-none dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
                         <svg class="w-4 h-4 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"

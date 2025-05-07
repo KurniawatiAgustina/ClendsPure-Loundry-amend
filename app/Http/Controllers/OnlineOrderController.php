@@ -233,6 +233,36 @@ class OnlineOrderController extends Controller
         return redirect()->back()->with('toast_success', 'Order cancelled successfully');
     }
 
+    public function changeStatus(string $id, string $status)
+    {
+        $order = Order::findOrFail($id);
+        $order->update(['status' => $status]);
+
+        if ($status == 'Accepted') {
+            $newOrder =Order::create([
+                'customer_id' => $order->customer_id,
+                'branch_id' => $order->branch_id,
+                'total_price' => $order->total_price,
+                'status' => 'New',
+                'category' => $order->category,
+                'payment_method' => $order->payment_method,
+                'payment_method_id' => $order->payment_method_id,
+            ]);
+            foreach ($order->details as $detail) {
+                OrderDetail::create([
+                    'order_id' => $newOrder->id,
+                    'service_id' => $detail->service_id,
+                    'service_promotions_id' => $detail->service_promotions_id,
+                    'is_promo' => $detail->is_promo,
+                    'quantity' => $detail->quantity,
+                    'subtotal' => $detail->subtotal,
+                ]);
+            }
+        }
+
+        return redirect()->back()->with('toast_success', 'Order status updated successfully');
+    }
+
     /**
      * Remove the specified resource from storage.
      */

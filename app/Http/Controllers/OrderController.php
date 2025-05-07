@@ -211,6 +211,14 @@ class OrderController extends Controller
         return redirect()->back()->with('toast_success', 'Order updated successfully');
     }
 
+    public function changeStatus(string $id, string $status)
+    {
+        $order = Order::findOrFail($id);
+        $order->update(['status' => $status]);
+
+        return redirect()->back()->with('toast_success', 'Order status updated successfully');
+    }
+
     /**
      * Remove the specified resource from storage.
      */

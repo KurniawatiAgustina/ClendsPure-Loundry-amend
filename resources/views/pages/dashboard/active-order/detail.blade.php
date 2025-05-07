@@ -1,4 +1,5 @@
-<div class="fixed inset-0 z-50 flex items-center hidden justify-center overflow-y-auto" id="detail-customer-modal{{ $data->id }}">
+<div class="fixed inset-0 z-50 flex items-center hidden justify-center overflow-y-auto"
+    id="detail-customer-modal{{ $data->id }}">
     <div class="relative w-full px-2 max-w-md md:max-w-4xl mx-auto my-auto">
         <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-800">
@@ -6,7 +7,7 @@
             <div class="relative flex items-center px-5 py-8 border-b rounded-t dark:border-gray-700">
                 <div class="absolute left-1/2 transform -translate-x-1/2 text-center ">
                     <h3 class="text-xl font-semibold dark:text-white">
-                         Detail Order
+                        Detail Order
                     </h3>
                 </div>
 
@@ -21,27 +22,32 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form action="{{ route('dashboard.order.update', ['id' => $data->id ]) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('dashboard.order.update', ['id' => $data->id]) }}" method="POST"
+                enctype="multipart/form-data">
                 @csrf
-                <div class="p-6 space-y-6 max-h-96 overflow-y-auto [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
+                <div
+                    class="p-6 space-y-6 max-h-96 overflow-y-auto [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
                     <div class="grid grid-cols-1 md:grid-cols-1 gap-x-8 gap-y-4">
                         <div>
                             <label for="nama"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Customer</label>
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
+                                Customer</label>
                             <input type="text" id="nama" name="nama" disabled
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
                                 value="{{ $data->customer->name }}" required />
                         </div>
                         <div>
                             <label for="phone"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor Customer</label>
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor
+                                Customer</label>
                             <input type="text" id="phone" name="phone" disabled
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
                                 value="{{ $data->customer->phone }}" required />
                         </div>
                         <div>
                             <label for="address"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat Customer</label>
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat
+                                Customer</label>
                             <input type="text" id="address" name="address" disabled
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
                                 value="{{ $data->customer->address }}" required />
@@ -62,10 +68,12 @@
                         </div>
                         <div>
                             <label for="role"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Metode Pembayaran</label>
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Metode
+                                Pembayaran</label>
                             <input type="text" id="role" name="role" disabled
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
-                                value="{{ $data->payment_method == 'Cash' ? 'Cash' : 'Transfer - ' . $data->paymentMethod->bank_name . ' - ' . $data->paymentMethod->account_name . ' - ' . $data->paymentMethod->account_number }}" required />
+                                value="{{ $data->payment_method == 'Cash' ? 'Cash' : 'Transfer - ' . $data->paymentMethod->bank_name . ' - ' . $data->paymentMethod->account_name . ' - ' . $data->paymentMethod->account_number }}"
+                                required />
                         </div>
                         <div>
                             <label for="no_hp"
@@ -103,7 +111,8 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($data->details as $item)
-                                            <tr class="bg-white {{ $loop->last ? '' : 'border-b' }} dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+                                            <tr
+                                                class="bg-white {{ $loop->last ? '' : 'border-b' }} dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                                                 <th scope="row"
                                                     class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white {{ $loop->last ? 'rounded-bl-lg' : '' }}">
                                                     {{ $item->is_promo == '1' && $item->service_promotion ? $item->service->name . ' - ' . $item->service_promotion->name . ' (' . $item->service_promotion->discount_percentage . '%)' : $item->service->name }}
@@ -135,21 +144,52 @@
                         </svg>
                         Edit
                     </button> --}}
-                    <button type="button" id="close-btn" data-modal-toggle="detail-customer-modal{{ $data->id }}"
+                    <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
+                        class="inline-flex items-center px-4 py-2 text-xs font-medium text-center text-customprimary-500 border border-customprimary-500 rounded-lg hover:text-white hover:bg-customprimary-500 focus:ring-4 focus:ring-custompurple-200 dark:text-white dark:border-none dark:bg-customprimary-600 dark:hover:bg-customprimary-700 dark:focus:ring-customprimary-800"
+                        type="button">Ubah Status <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" d="m1 1 4 4 4-4" />
+                        </svg>
+                    </button>
+                    <div id="dropdown"
+                        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700">
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                            aria-labelledby="dropdownDefaultButton">
+                            <li @if ($data->status == 'New') class="hidden" @endif>
+                                <a href="{{ route('dashboard.order.change-status', ['id' => $data->id, 'status' => 'New']) }}"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">New</a>
+                            </li>
+                            <li @if ($data->status == 'Processing') class="hidden" @endif>
+                                <a href="{{ route('dashboard.order.change-status', ['id' => $data->id, 'status' => 'Processing']) }}"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Processing</a>
+                            </li>
+                            <li @if ($data->status == 'Delivered') class="hidden" @endif>
+                                <a href="{{ route('dashboard.order.change-status', ['id' => $data->id, 'status' => 'Delivered']) }}"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Delivered</a>
+                            </li>
+                            <li @if ($data->status == 'Cancelled') class="hidden" @endif>
+                                <a href="{{ route('dashboard.order.change-status', ['id' => $data->id, 'status' => 'Cancelled']) }}"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Cancelled</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <button type="button" id="close-btn"
+                        data-modal-toggle="detail-customer-modal{{ $data->id }}"
                         class="close-btn inline-flex items-center px-3 py-2.5 text-xs font-medium text-center text-red-600 border border-red-600 rounded-lg hover:text-white hover:bg-red-600 focus:ring-4 focus:ring-red-300 dark:text-white dark:border-none dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
-                        <svg class="w-4 h-4 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12" />
+                        <svg class="w-4 h-4 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                         Tutup
                     </button>
                     <button type="submit" id="submit-btn"
                         class="submit-btn hidden inline-flex items-center px-3 py-2.5 text-xs font-medium text-center text-customprimary-500 border border-customprimary-500 rounded-lg hover:text-white hover:bg-customprimary-500 focus:ring-4 focus:ring-customblue-200 dark:text-white dark:border-none dark:bg-customprimary-400 dark:hover:bg-customprimary-500 dark:focus:ring-customprimary-600">
-                        <svg class="w-4 h-4 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M5 13l4 4L19 7" />
+                        <svg class="w-4 h-4 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" d="M5 13l4 4L19 7" />
                         </svg>
                         Submit
                     </button>
