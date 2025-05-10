@@ -13,14 +13,14 @@ class OnlineOrderDetail extends Model
 
     public function order()
     {
-        return $this->belongsTo(OnlineOrder::class);
+        return $this->belongsTo(OnlineOrder::class, 'order_id', 'id');
     }
     public function service()
     {
-        return $this->belongsTo(Service::class);
+        return $this->belongsTo(Service::class, 'service_id', 'id');
     }
     public function service_promotion()
     {
-        return $this->belongsTo(ServicePromotion::class);
+        return $this->belongsTo(ServicePromotion::class, 'service_promotion_id', 'id');
     }
 }

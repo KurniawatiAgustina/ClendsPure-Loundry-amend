@@ -19,7 +19,7 @@ class OnlineOrder extends Model
 
     public function details()
     {
-        return $this->hasMany(OnlineOrderDetail::class);
+        return $this->hasMany(OnlineOrderDetail::class, 'order_id', 'id');
     }
 
     public function customer()

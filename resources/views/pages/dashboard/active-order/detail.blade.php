@@ -115,7 +115,8 @@
                                                 class="bg-white {{ $loop->last ? '' : 'border-b' }} dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                                                 <th scope="row"
                                                     class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white {{ $loop->last ? 'rounded-bl-lg' : '' }}">
-                                                    {{ $item->is_promo == '1' && $item->service_promotion ? $item->service->name . ' - ' . $item->service_promotion->name . ' (' . $item->service_promotion->discount_percentage . '%)' : $item->service->name }}
+                                                    {{-- {{ $item->is_promo == '1' && $item->service_promotion ? $item->service->name . ' - ' . $item->service_promotion->name . ' (' . $item->service_promotion->discount_percentage . '%)' : $item->service->name }} --}}
+                                                    {{ $item->service->name ?? '' }} {{ $item->service_promotion->name ?? '' }}
                                                 </th>
                                                 <td class="px-6 py-4">{{ $item->quantity }}</td>
                                                 <td class="px-6 py-4">

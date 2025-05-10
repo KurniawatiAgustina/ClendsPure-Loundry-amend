@@ -1,8 +1,8 @@
 @extends('layouts.dashboard')
 @section('content')
     <div class="px-4 pt-4 bg-white block sm:flex items-center justify-between lg:mt-1.5 dark:bg-gray-800">
-        <div class="w-full mb-1">
-            <div class="mb-4">
+        <div class="w-full pb-1">
+            <div class="pb-4">
                 <nav class="flex mb-5" aria-label="Breadcrumb">
                     <ol class="inline-flex items-center space-x-1 text-sm font-medium md:space-x-2">
                         <li class="inline-flex items-center">
@@ -30,327 +30,187 @@
                         </li>
                     </ol>
                 </nav>
-                <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Kasir Penjualan</h1>
+                <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Buat Pesanan Baru</h1>
             </div>
         </div>
     </div>
     <div class="dark:bg-gray-800 bg-white">
-        <div class="flex gap-4 px-4 pb-4">
-            <div class="basis-[65%] border rounded-lg border-gray-300 dark:border-gray-600 flex flex-col h-[34rem]">
-                <!-- Section Table -->
-                <div class="overflow-x-auto flex-1 no-scrollbar">
-                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                        <thead
-                            class="sticky top-0 z-10 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                            <tr>
-                                <th scope="col" class="px-6 py-3 border-gray-50 dark:border-gray-700 rounded-tl-lg">
-                                    Layanan
-                                </th>
-                                <th scope="col" class="px-6 py-3 border-gray-50 dark:border-gray-700">
-                                    Jumlah
-                                </th>
-                                <th scope="col" class="px-6 py-3 border-gray-50 dark:border-gray-700">
-                                    Harga Satuan
-                                </th>
-                                <th scope="col" class="px-6 py-3 border-gray-50 dark:border-gray-700 rounded-tr-lg">
-                                    Total Harga
-                                </th>
-                                <th scope="col" class="px-6 py-3 border-gray-50 dark:border-gray-700 rounded-tr-lg">
-                                    Aksi
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody id="cartTableBody">
-                        </tbody>
-                    </table>
+        <div class="gap-4 px-4 pb-4">
+            <form action="{{ route('dashboard.online-order.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="mb-3">
+                    <label for="customer_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama</label>
+                    <input type="text" id="customer_name" name="customer_name"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
+                        />
                 </div>
-                <!-- Form tambah produk yang menempel di bawah -->
-                <div class="border rounded-b-lg dark:border-gray-700 border-gray-200 bg-gray-50 dark:bg-gray-700">
-                    <div class="flex mx-2 my-1 gap-2">
-                        <select id="productSelect"
-                            class="basis-[75%] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500">
-                            <option disabled selected>-- Pilih Layanan --</option>
-                            @foreach ($items as $item)
-                                <option value="{{ $item->id }}" data-is-promo="{{ $item->is_promo }}" data-price="{{ $item->price }}">{{ $item->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                        <input type="number" id="jumlah" placeholder="Jumlah" value="1"
-                            class="basis-[20%] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500" />
-                        <button type="button" id="btnAddProduct"
-                            class="basis-[5%] text-white bg-customprimary-700 hover:bg-customprimary-800 focus:ring-4 focus:ring-customprimary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-customprimary-600 dark:hover:bg-customprimary-700 focus:outline-none dark:focus:ring-customprimary-800">+</button>
-                    </div>
+                <div class="mb-3">
+                    <label for="customer_phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor Telephone</label>
+                    <input type="text" id="customer_phone" name="customer_phone"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
+                        />
                 </div>
-            </div>
-
-            <div class="basis-[35%] border rounded-lg border-gray-300 dark:border-gray-600 h-full">
-                <div class="mx-3 my-2">
-                    <div class="mb-2">
-                        <label for="customer_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Customer</label>
-                        <input type="text" id="customer_name"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500" />
-                    </div>
-                    <div class="mb-2">
-                        <label for="customer_phone"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor Telepon</label>
-                        <input type="text" id="customer_phone"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500" />
-                    </div>
-                    <div class="mb-2">
-                        <label for="customer_address"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
-                        <input type="text" id="customer_address"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500" />
+                <div class="mb-3">
+                    <label for="customer_address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
+                    <input type="text" id="customer_address" name="customer_address"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
+                        />
+                </div>
+                <div class="mb-3">
+                    <label for="branch_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pilih Cabang</label>
+                    <select name="branch_id" id="branch_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500">
+                        <option value="" selected disabled>-- Pilih Cabang --</option>
+                        @foreach ($branches as $item)
+                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div id="orderItemsContainer">
+                    <div class="mb-3 gap-x-1">
+                        <div class="">
+                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pilih Layanan</label>
+                            <select id="productSelect"
+                            class="productSelect bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500">
+                                <option disabled selected>-- Pilih Layanan --</option>
+                                @foreach ($items as $item)
+                                    <option value="{{ $loop->index }}" data-id="{{ $item->id }}" data-is-promo="{{ $item->is_promo }}" data-price="{{ $item->price }}">{{ $item->name }} - {{ 'Rp ' . number_format($item->price, 0, ',', '.') }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <input type="hidden" name="details[0][product_id]">
+                            <input type="hidden" name="details[0][service_promotions_id]">
+                            <input type="hidden" name="details[0][is_promo]">
+                        </div>
+                        <div class="">
+                            <label for="quantity" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah</label>
+                            <input type="text" id="quantity" name="details[0][quantity]"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
+                                />
+                        </div>
+                        <div class="">
+                            <label for="subtotal" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Subtotal</label>
+                            <input type="text" id="subtotal" name="details[0][subtotal]" readonly
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
+                                />
+                        </div>
                     </div>
                 </div>
-                <hr class="border-gray-200 dark:border-gray-600 mx-3">
-                <div class="mx-3 my-2">
-                    <div class="mb-2">
-                        <label for="total-harga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
-                            Harga</label>
-                        <input type="text" id="total-harga" readonly
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500" />
-                    </div>
-                    <div class="mb-2">
-                        <label for="bayar"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bayar</label>
-                        <input type="text" id="bayar"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500" />
-                    </div>
-                    <div class="mb-2">
-                        <label for="kembali"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kembalian</label>
-                        <input type="text" id="kembali" readonly
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500" />
-                    </div>
-                    <button type="button" id="btnSave"
-                        class="w-full text-white bg-customprimary-700 hover:bg-customprimary-800 focus:ring-4 focus:ring-customprimary-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-customprimary-600 dark:hover:bg-customprimary-700 focus:outline-none dark:focus:ring-customprimary-800">Simpan</button>
+                <div class="mb-3">
+                    <button type="button"
+                        class="inline-flex items-center justify-center w-full px-4 py-2 text-xs font-medium text-customprimary-500 border border-customprimary-500 rounded-lg hover:text-white hover:bg-customprimary-500 focus:ring-4 focus:ring-custompurple-200 dark:text-white dark:border-none dark:bg-customprimary-600 dark:hover:bg-customprimary-700 dark:focus:ring-customprimary-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="mr-2">
+                        <path fill="currentColor" d="M11 13H5v-2h6V5h2v6h6v2h-6v6h-2z"/>
+                        </svg>
+                        Tambah
+                    </button>
                 </div>
-            </div>
+                <div class="mb-3">
+                    <label for="total_price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total Harga</label>
+                    <input type="text" id="total_price" name="total_price" readonly
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
+                        />
+                </div>
+                <div class="mb-3">
+                    <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis Layanan</label>
+                    <select name="category" id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500">
+                        <option value="" selected disabled>-- Pilih Jenis Layanan --</option>
+                        <option value="AntarJemput">AntarJemput</option>
+                        <option value="AntarSaja">AntarSaja</option>
+                        <option value="JemputSaja">JemputSaja</option>
+                        <option value="Mandiri">Mandiri</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="payment_method_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Opsi Pembayaran</label>
+                    <input type="hidden" name="payment_method" value="">
+                    <select name="payment_method_id" id="payment_method_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500">
+                        <option value="" selected disabled>-- Pilih Pembayaran --</option>
+                        <option value="" data-type="Cash">Cash</option>
+                        @foreach ($paymentMethodsAvailable as $item)
+                            <option value="{{ $item->id }}" data-type="Transfer">{{ $item->bank_name }}({{ $item->account_name }}) - {{ $item->account_number }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <button type="submit"
+                        class="inline-flex items-center justify-center w-full px-4 py-2 text-xs font-medium text-customprimary-500 border border-customprimary-500 rounded-lg hover:text-white hover:bg-customprimary-500 focus:ring-4 focus:ring-custompurple-200 dark:text-white dark:border-none dark:bg-customprimary-600 dark:hover:bg-customprimary-700 dark:focus:ring-customprimary-800">
+                        Pesan Sekarang
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 @endsection
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        $('#productSelect').select2({
-            theme: 'tailwindcss-3',
-        });
-        $('#productSelect').on('select2:open', function () {
-            console.log('Select2 opened');
-            $('.select2-search__field').focus();
-        });
+$(document).ready(function() {
+  // Tambah baris baru dengan index yang konsisten
+  $('button:contains("Tambah")').on('click', function() {
+  const $container = $('#orderItemsContainer');
+  const $first     = $container.find('.mb-3.gap-x-1').first();
+  const idx        = $container.find('.mb-3.gap-x-1').length;
+  const $clone     = $first.clone();
 
-        const rawItems = @json($items);
+  // reset selects & inputs
+  $clone.find('select.productSelect').val(null);
+  $clone.find('input, select').each(function() {
+    // match details[<any index>][<field>]
+    const m = this.name.match(/details\[\d+\]\[(.+)\]/);
+    if (m) {
+      const field = m[1];
+      this.name  = `details[${idx}][${field}]`;
+    }
+    $(this).val('');
+  });
 
-        const itemsData = {};
-        rawItems.forEach(item => {
-            itemsData[item.id] = {
-                id: item.id,
-                name: item.name,
-                price: item.price,
-                is_promo: item.is_promo
-            };
-        });
+  $container.append($clone);
+  updateTotalHarga();
+});
 
-        $(document).ready(function() {
-            $('#btnAddProduct').on('click', function() {
-                const productId = $('#productSelect').val();
-                const quantity = parseInt($('#jumlah').val(), 10);
+  // Handle promo vs non-promo per baris
+  $('#orderItemsContainer').on('change', 'select.productSelect', function() {
+    const $opt    = $(this).find('option:selected');
+    const isPromo = $opt.data('is-promo') ? 1 : 0;
+    const dataId  = $opt.data('id') || '';
+    const $grp    = $(this).closest('.mb-3.gap-x-1');
 
-                if (!productId || productId === "-- Pilih Produk --") {
-                    alert("Silahkan pilih produk.");
-                    return;
-                }
-                if (!quantity || quantity < 1) {
-                    alert("Jumlah produk tidak valid.");
-                    return;
-                }
+    $grp.find('input[name^="details"][name$="[is_promo]"]').val(isPromo);
+    if (isPromo) {
+      $grp.find('input[name^="details"][name$="[service_promotions_id]"]').val(dataId);
+      $grp.find('input[name^="details"][name$="[product_id]"]').val('');
+    } else {
+      $grp.find('input[name^="details"][name$="[product_id]"]').val(dataId);
+      $grp.find('input[name^="details"][name$="[service_promotions_id]"]').val('');
+    }
+  });
 
-                const productInfo = itemsData[productId];
-                if (!productInfo) {
-                    alert("Data produk tidak ditemukan.");
-                    return;
-                }
+  $('#orderItemsContainer').on('input change', 'select.productSelect, input[name^="details"][name$="[quantity]"]', function() {
+    const $row     = $(this).closest('.mb-3.gap-x-1');
+    const price    = Number($row.find('select.productSelect option:selected').data('price')) || 0;
+    const qty      = parseInt($row.find('input[name^="details"][name$="[quantity]"]').val(), 10) || 0;
+    const subtotal = price * qty;
+    $row.find('input[name^="details"][name$="[subtotal]"]')
+        .val(subtotal);
+    updateTotalHarga();
+  });
 
-                const productName = productInfo.name;
-                const unitPrice = productInfo.price;
-                const totalPrice = unitPrice * quantity;
+  function updateTotalHarga() {
+    let total = 0;
+    $('#orderItemsContainer input[name^="details"][name$="[subtotal]"]').each(function() {
+      const raw = $(this).val().replace(/[^0-9]/g, '');
+      total += parseInt(raw, 10) || 0;
+    });
+    $('#total_price').val(total);
+  }
 
-                const newRow = `
-                    <tr data-product-id="${productId}" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        ${productName}
-                        </th>
-                        <td class="px-6 py-4">${quantity}</td>
-                        <td class="px-6 py-4">Rp ${unitPrice.toLocaleString('id-ID')}</td>
-                        <td class="px-6 py-4">Rp ${totalPrice.toLocaleString('id-ID')}</td>
-                        <td class="px-6 py-4">
-                        <button type="button" class="font-medium text-red-600 dark:text-red-500 btn-delete">Hapus</button>
-                        </td>
-                    </tr>
-                    `;
+  updateTotalHarga();
 
-                $('#cartTableBody').append(newRow);
+  $('select#payment_method_id').on('change', function() {
+    const type = $(this).find('option:selected').data('type') || '';
+    $('input[name="payment_method"]').val(type);
+  });
+});
+</script>
 
-                $('#productSelect').val("").trigger('change');
-                $('#jumlah').val(1);
-
-                updateTotalPayment();
-            });
-
-            $('#cartTableBody').on('click', '.btn-delete', function() {
-                $(this).closest('tr').remove();
-                updateTotalPayment();
-            });
-
-            function updateTotalPayment() {
-                let grandTotal = 0;
-                $('#cartTableBody tr').each(function() {
-                    const totalText = $(this).find('td:nth-child(4)').text();
-                    const numericVal = parseInt(totalText.replace('Rp ', '').replace(/\./g, ''), 10);
-                    grandTotal += numericVal;
-                });
-                $('#total-harga').val("Rp " + grandTotal.toLocaleString('id-ID'));
-            }
-
-            function formatRupiah(number) {
-                return "Rp " + number.toLocaleString('id-ID');
-            }
-
-            function unformatRupiah(formatted) {
-                return parseInt(formatted.replace(/Rp\s?/, '').replace(/\./g, ''), 10) || 0;
-            }
-
-            $("#bayar").on('input', function() {
-                let rawBayar = $(this).val();
-                let cleanedBayar = rawBayar.replace(/[^0-9]/g, '');
-                let bayar = parseInt(cleanedBayar, 10) || 0;
-
-                let rawTotal = $("#total-harga").val();
-                let cleanedTotal = rawTotal.replace(/[^0-9]/g, '');
-                let total = parseInt(cleanedTotal, 10) || 0;
-
-                let change = bayar - total;
-                if (change < 0) {
-                    change = 0;
-                }
-                $("#kembali").val(formatRupiah(change));
-            });
-
-            $("#bayar").on('blur', function() {
-                let rawBayar = $(this).val();
-                let cleanedBayar = rawBayar.replace(/[^0-9]/g, '');
-                if (cleanedBayar !== '') {
-                    let bayar = parseInt(cleanedBayar, 10);
-                    $(this).val(formatRupiah(bayar));
-                }
-            });
-
-            $('#btnSave').on('click', function() {
-                let items = [];
-                $('#cartTableBody tr').each(function() {
-                    let productId    = $(this).data('product-id');
-                    let quantityText = $(this).find('td:nth-child(2)').text();
-                    let quantity     = parseInt(quantityText, 10) || 0;
-                    items.push({
-                        product_id: Number(productId),
-                        quantity: quantity
-                    });
-                });
-
-                let total = unformatRupiah($('#total-harga').val());
-                let payment_amount = unformatRupiah($('#bayar').val());
-                let change_amount = unformatRupiah($('#kembali').val());
-
-                if (payment_amount < total) {
-                    const Toast2 = Swal.mixin({
-                        toast: true,
-                        position: "top-end",
-                        showConfirmButton: false,
-                        timer: 3000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.onmouseenter = Swal.stopTimer;
-                            toast.onmouseleave = Swal.resumeTimer;
-                        }
-                    });
-                    Toast2.fire({
-                        icon: "error",
-                        title: "Jumlah bayar masih kurang!"
-                    });
-                    return;
-                }
-
-                const dataPayload = {
-                    items: items,
-                    total: total,
-                    payment_amount: payment_amount,
-                    change_amount: change_amount,
-                };
-
-                console.log(dataPayload);
-                $.ajax({
-                    type: 'POST',
-                    url: '{{ route('dashboard.order.store') }}',
-                    data: dataPayload,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(response) {
-                        console.log('Transaksi berhasil disimpan!', response);
-                        const Toast = Swal.mixin({
-                            toast: true,
-                            position: "top-end",
-                            showConfirmButton: false,
-                            timer: 3000,
-                            timerProgressBar: true,
-                            didOpen: (toast) => {
-                                toast.onmouseenter = Swal.stopTimer;
-                                toast.onmouseleave = Swal.resumeTimer;
-                            }
-                        });
-                        Toast.fire({
-                            icon: "success",
-                            title: "Transaksi berhasil disimpan!"
-                        });
-                    },
-                    error: function(xhr) {
-                        console.error('Gagal menyimpan transaksi:', xhr.responseText);
-                    }
-                });
-            });
-        });
-    </script>
-@endpush
-@push('styles')
-    <style>
-        .select2-container--tailwindcss-3 .select2-results__option--highlighted {
-            background-color: #ff9000 !important;
-        }
-
-        .select2-container--tailwindcss-3.select2-container--focus .select2-selection--single {
-            border-color: #ff9000 !important;
-            --tw-ring-color: #ff9000 !important;
-        }
-        .select2-container--tailwindcss-3.select2-container--open .select2-dropdown--above {
-            height: 200px !important;
-            overflow-y: hidden !important;
-        }
-        .select2-dropdown .select2-results .select2-results__options{
-            scrollbar-width: none !important;
-        }
-        /* .select2-dropdown {
-            display: flex !important;
-            flex-direction: column !important;
-        }
-
-        .select2-dropdown .select2-search {
-            order: 2 !important;
-        }
-
-        .select2-dropdown .select2-results {
-            order: 1 !important;
-        } */
-    </style>
 @endpush
