@@ -114,7 +114,14 @@
   <h1>Layanan Kami</h1>
   <br>
   <div class="container">
+    @foreach ($displayServices as $item)
       <div class="card" style="background: url('assets/LandingPage/image/gsp7.jpg') center/cover no-repeat;">
+          <h3>{{ $item->title }}</h3>
+          <p>Mulai dari {{ $item->Harga }}</p>
+          <button>Lihat Detail</button>
+      </div>
+    @endforeach
+      {{-- <div class="card" style="background: url('assets/LandingPage/image/gsp7.jpg') center/cover no-repeat;">
           <h3>Laundry Satuan</h3>
           <p>Mulai dari Rp. 25,000</p>
           <button onclick="location.href='laundry-satuan.html'">Lihat Detail</button>
@@ -143,7 +150,7 @@
           <h3>Cuci Bantal/Bed Cover/Selimut</h3>
           <p>Mulai dari Rp. 25,000</p>
           <button onclick="location.href='cuci-bantal.html'">Lihat Detail</button>
-      </div>
+      </div> --}}
   </div>
 </section>
 

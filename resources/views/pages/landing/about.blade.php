@@ -69,7 +69,17 @@
     <div class="timeline">
       <div class="line"></div> <!-- Garis vertikal di tengah -->
 
-      <div class="timeline-item">
+      @foreach ($displayTimelines as $item)
+        <div class="timeline-item">
+        <div class="content">
+          <img src="{{ asset('display-timlines/' . $item->thumbnail_img) }}" alt="Gallery Image 2">
+          <p>{{ $item->title }}</p>
+        </div>
+        <div class="dot"></div>
+      </div>
+      @endforeach
+
+      {{-- <div class="timeline-item">
         <div class="content">
           <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 2">
           <p>Company is founded as Maschinenfabrik Lehner Alwin GmbH in Hard (Austria).</p>
@@ -103,7 +113,7 @@
           <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 2">
           <p>First branch outside of Austria opens in Markdorf (Germany).</p>
         </div>
-      </div>
+      </div> --}}
     </div>
   </section>
   <BR>

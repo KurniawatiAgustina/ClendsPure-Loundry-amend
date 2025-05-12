@@ -13,5 +13,9 @@
     <x-sidebar-menu-dashboard routeName="dashboard.service-promotion.index" title="Promo" icon="tabler:clipboard-list"/>
     <x-sidebar-menu-dashboard routeName="dashboard.article.index" title="Artikel" icon="tabler:file-text"/>
     <x-sidebar-menu-dashboard routeName="dashboard.branch.index" title="Cabang" icon="tabler:map-2"/>
+    <x-sidebar-menu-dashboard routeName="dashboard.display-promo.index" title="Display Promo" icon="tabler:map-2"/>
+    <x-sidebar-menu-dashboard routeName="dashboard.display-service.index" title="Display Layanan" icon="tabler:map-2"/>
+    <x-sidebar-menu-dashboard routeName="dashboard.display-timeline.index" title="Display Timeline" icon="tabler:map-2"/>
+
 </x-sidebar-dashboard>
 

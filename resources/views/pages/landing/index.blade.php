@@ -32,7 +32,16 @@
     </div>
 
     <div class="promo-grid">
-        <div class="promo-card">
+        @foreach ($displayPromos as $item)
+            <div class="promo-card">
+                <img src="{{ asset('display-promos/' . $item    ->thumbnail_img) }}" alt="Promo 1">
+                <div class="promo-text">
+                <h3><i class="bi bi-ui-radios"></i> {{ $item->title }}</h3>
+                </div>
+            </div>
+        @endforeach
+
+        {{-- <div class="promo-card">
             <img src="assets/LandingPage/image/promo2.png" alt="Promo 1">
             <div class="promo-text">
               <h3><i class="bi bi-ui-radios"></i> Cleds 4th Birthday!</h3>
@@ -51,7 +60,7 @@
             <div class="promo-text">
                 <h3>Heading to Brightspot</h3>
             </div>
-        </div>
+        </div> --}}
     </div>
 
     <a href="#" class="view-all">Lihat Semua</a>
@@ -91,7 +100,14 @@
     <h1>Layanan Kami</h1>
     <br>
     <div class="container">
-        <div class="card" style="background: url('assets/LandingPage/image/gsp7.jpg') center/cover no-repeat;">
+        @foreach ($displayServices as $item)
+            <div class="card" style="background: url('assets/LandingPage/image/gsp7.jpg') center/cover no-repeat;">
+                <h3>{{ $item->title }}</h3>
+                <p>Mulai dari {{ $item->Harga }}</p>
+                <button>Lihat Detail</button>
+            </div>
+        @endforeach
+        {{-- <div class="card" style="background: url('assets/LandingPage/image/gsp7.jpg') center/cover no-repeat;">
             <h3>Laundry Satuan</h3>
             <p>Mulai dari Rp. 25,000</p>
             <button onclick="location.href='laundry-satuan.html'">Lihat Detail</button>
@@ -120,7 +136,7 @@
             <h3>Cuci Bantal/Bed Cover/Selimut</h3>
             <p>Mulai dari Rp. 25,000</p>
             <button onclick="location.href='cuci-bantal.html'">Lihat Detail</button>
-        </div>
+        </div> --}}
     </div>
 </section>
 <br><br>

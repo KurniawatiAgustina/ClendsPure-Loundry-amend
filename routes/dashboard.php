@@ -4,6 +4,9 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LandingPage\DisplayPromoController;
+use App\Http\Controllers\LandingPage\DisplayServiceController;
+use App\Http\Controllers\LandingPage\DisplayTimelineController;
 use App\Http\Controllers\OnlineOrderController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentMethodController;
@@ -111,4 +114,31 @@ Route::controller(ProfileController::class)->name('profile.')->prefix('profile')
     Route::post('/update', 'update')->name('update');
     Route::get('/change-password', 'changePassword')->name('change-password');
     Route::post('/update-password', 'updatePassword')->name('update-password');
+});
+
+Route::controller(DisplayPromoController::class)->name('display-promo.')->prefix('display-promo')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::post('/store', 'store')->name('store');
+    Route::get('/edit/{id}', 'edit')->name('edit');
+    Route::post('/update/{id}', 'update')->name('update');
+    Route::get('/destroy/{id}', 'destroy')->name('destroy');
+});
+
+Route::controller(DisplayTimelineController::class)->name('display-timeline.')->prefix('display-timeline')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::post('/store', 'store')->name('store');
+    Route::get('/edit/{id}', 'edit')->name('edit');
+    Route::post('/update/{id}', 'update')->name('update');
+    Route::get('/destroy/{id}', 'destroy')->name('destroy');
+});
+
+Route::controller(DisplayServiceController::class)->name('display-service.')->prefix('display-service')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::post('/store', 'store')->name('store');
+    Route::get('/edit/{id}', 'edit')->name('edit');
+    Route::post('/update/{id}', 'update')->name('update');
+    Route::get('/destroy/{id}', 'destroy')->name('destroy');
 });
