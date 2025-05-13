@@ -27,10 +27,15 @@
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Jenis Pengguna</label>
                             <select name="role" id="role" class="block w-full mt-1 text-sm border-gray-300 rounded-md shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-customprimary-500 focus:border-customprimary-500"
                             required>
+                            @if (auth()->user()->role == 'Superadmin')
                                 <option value="" disabled selected>-- Pilih Jenis Pengguna --</option>
                                 <option value="Admin">Admin</option>
                                 <option value="Cashier">Cashier</option>
                                 <option value="Customer">Customer</option>
+                            @else
+                                <option value="" disabled selected>-- Pilih Jenis Pengguna --</option>
+                                <option value="Cashier">Cashier</option>
+                            @endif
                             </select>
                         </div>
                         <div id="branchSelectDiv" style="display: none;">

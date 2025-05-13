@@ -15,7 +15,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('id', 'desc')->paginate(10);
+        if (auth()->user()->role == 'Superadmin') {
+            $users = User::orderBy('id', 'desc')->paginate(10);
+        } else {
+            $users = User::where('branch_id', auth()->user()->branch_id)->orderBy('id', 'desc')->paginate(10);
+        }
         $branch = Branch::all();
         return view('pages.dashboard.user.index', compact('users', 'branch'));
     }

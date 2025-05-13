@@ -182,11 +182,11 @@
 <body class="{{ $whiteBg ? 'bg-white dark:bg-gray-900' : 'bg-gray-50 dark:bg-gray-800' }} scrollbar-hide">
     <x-navbar-dashboard />
     <div class="flex pt-16 overflow-hidden bg-gray-50 dark:bg-gray-900">
-        @if (auth()->user()->role == 'Owner')
+        {{-- @if (auth()->user()->role == 'Owner') --}}
             <x-sidebar.owner-sidebar />
-        @else
+        {{-- @else
             <x-sidebar.admin-sidebar />
-        @endif
+        @endif --}}
         <div id="main-content"
             class="relative w-full h-full overflow-y-auto scrollbar-hide bg-gray-50 lg:ml-64 dark:bg-gray-900">
             <main>

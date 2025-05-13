@@ -18,6 +18,12 @@ class DashboardController extends Controller
      */
     public function index(Request $request)
     {
+        if (auth()->user()->role == 'Cashier') {
+            return redirect()->route('dashboard.order.create');
+        } elseif (auth()->user()->role == 'Customer') {
+            return redirect()->route('dashboard.online-order.create');
+        }
+
         if ($request->start_date && $request->end_date) {
             $startDate = Carbon::createFromFormat('m/d/Y', $request->start_date)->startOfDay()->toDateTimeString();
             $endDate = Carbon::createFromFormat('m/d/Y', $request->end_date)->endOfDay()->toDateTimeString();

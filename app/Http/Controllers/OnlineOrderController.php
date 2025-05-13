@@ -253,7 +253,7 @@ class OnlineOrderController extends Controller
 
     public function changeStatus(string $id, string $status)
     {
-        $order = Order::findOrFail($id);
+        $order = OnlineOrder::findOrFail($id);
         $order->update(['status' => $status]);
 
         if ($status == 'Accepted') {
