@@ -14,7 +14,7 @@ class Customer extends Model
 
     protected static function booted(): void
     {
-        static::addGlobalScope(new CustomerByRoleScope);
+        // static::addGlobalScope(new CustomerByRoleScope);
     }
 
     public function order()

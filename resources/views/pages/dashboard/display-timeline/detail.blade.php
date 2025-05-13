@@ -27,7 +27,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-1 gap-x-8 gap-y-4">
                         <div>
                             <label for="title"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Judul Artikel</label>
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deskripsi</label>
                             <input type="text" id="title" name="title" disabled
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
                                 value="{{ $data->title }}" required />

@@ -117,7 +117,7 @@
                                         </div>
                                     </td>
                                     <td class="p-4 text-xs font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $data->customer->name }}
+                                        {{ $data->customer->name ?? '' }}
                                     </td>
                                     <td class="p-4 text-xs font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $data->category }}

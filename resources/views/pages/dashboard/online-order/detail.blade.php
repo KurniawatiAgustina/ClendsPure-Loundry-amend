@@ -30,7 +30,7 @@
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Customer</label>
                             <input type="text" id="nama" name="nama" disabled
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
-                                value="{{ $data->customer->name }}" required />
+                                value="{{ $data->customer->name ?? '' }}" required />
                         </div>
                         <div>
                             <label for="phone"
@@ -106,7 +106,8 @@
                                             <tr class="bg-white {{ $loop->last ? '' : 'border-b' }} dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                                                 <th scope="row"
                                                     class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white {{ $loop->last ? 'rounded-bl-lg' : '' }}">
-                                                    {{ $item->is_promo == '1' && $item->service_promotion ? $item->service->name . ' - ' . $item->service_promotion->name . ' (' . $item->service_promotion->discount_percentage . '%)' : $item->service->name }}
+                                                    {{-- {{ $item->is_promo == '1' && $item->service_promotion ? $item->service->name . ' - ' . $item->service_promotion->name . ' (' . $item->service_promotion->discount_percentage . '%)' : $item->service->name }} --}}
+                                                    {{ $item->service->name ?? '' }} {{ $item->service_promotion->name ?? '' }}
                                                 </th>
                                                 <td class="px-6 py-4">{{ $item->quantity }}</td>
                                                 <td class="px-6 py-4">

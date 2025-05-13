@@ -21,7 +21,7 @@
             <form action="{{ route('dashboard.payment-method.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="p-6 space-y-6 max-h-96 overflow-y-auto [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
-                    {{-- @if (auth()->user()->role == 'Owner') --}}
+                    @if (auth()->user()->role == 'Superadmin')
                         <div>
                             <label for="branch_id"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Cabang</label>
@@ -33,9 +33,9 @@
                                 @endforeach
                             </select>
                         </div>
-                    {{-- @else
+                    @else
                         <input type="hidden" name="branch_id" value="{{ auth()->user()->branch_id }}">
-                    @endif --}}
+                    @endif
                     <div class="grid grid-cols-1 gap-6">
                         <div>
                             <label for="bank_type"

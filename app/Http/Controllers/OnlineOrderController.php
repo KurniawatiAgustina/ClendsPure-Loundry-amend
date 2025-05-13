@@ -22,13 +22,13 @@ class OnlineOrderController extends Controller
      */
     public function index()
     {
-        $order = OnlineOrder::with(['details' => ['service', 'service_promotion']])->whereNot('status', 'New')->orderBy('id', 'desc')->paginate(10);
+        $order = OnlineOrder::with(['customer','details' => ['service', 'service_promotion']])->whereNot('status', 'New')->orderBy('id', 'desc')->paginate(10);
         return view('pages.dashboard.online-order.index', compact('order'));
     }
 
     public function new()
     {
-        $order = OnlineOrder::with(['details' => ['service', 'service_promotion']])->where('status', 'New')->orderBy('id', 'desc')->paginate(10);
+        $order = OnlineOrder::with(['customer' ,'details' => ['service', 'service_promotion']])->where('status', 'New')->orderBy('id', 'desc')->paginate(10);
         return view('pages.dashboard.new-online-order.index', compact('order'));
     }
 

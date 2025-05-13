@@ -117,7 +117,7 @@
                                         </div>
                                     </td>
                                     <td class="p-4 text-xs font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $data->customer->name }}
+                                        {{ $data->customer->name ?? '' }}
                                     </td>
                                     <td class="p-4 text-xs font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $data->category }}
@@ -196,7 +196,7 @@
 
 
     @foreach ($order as $data)
-        @include('pages.dashboard.order.detail', ['data' => $data])
-        @include('pages.dashboard.general.delete', ['data' => $data, 'url' => route('dashboard.order.destroy', ['id' => $data->id])])
+        @include('pages.dashboard.online-order.detail', ['data' => $data])
+        @include('pages.dashboard.general.delete', ['data' => $data, 'url' => route('dashboard.online-order.destroy', ['id' => $data->id])])
     @endforeach
 @endsection

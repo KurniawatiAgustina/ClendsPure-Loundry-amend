@@ -136,7 +136,7 @@
 
         <div class="grid w-full grid-cols-1 gap-y-5 lg:gap-x-5 mt-5 lg:grid-cols-3">
             <div
-                class="flex flex-col col-span-2 items-center justify-center p-4 bg-customprimary-500 border border-gray-200 rounded-lg shadow-md sm:flex-row sm:p-6 dark:border-gray-700 hover:shadow-lg transition-shadow duration-300">
+                class="flex flex-col items-center justify-center p-4 bg-customprimary-500 border border-gray-200 rounded-lg shadow-md sm:flex-row sm:p-6 dark:border-gray-700 hover:shadow-lg transition-shadow duration-300">
                 <span class="text-white text-6xl md:mr-3 mr-0 ">
                     <span class="iconify" data-icon="iconoir:wallet-solid" data-inline="false"></span>
                 </span>

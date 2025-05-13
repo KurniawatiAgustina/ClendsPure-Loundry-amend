@@ -24,7 +24,7 @@
                     <div class="grid grid-cols-1 gap-6 sm:grid-cols-1">
                         <div>
                             <label for="title"
-                                class="block text-sm font-medium text-gray-700 dark:text-gray-300">Judul Artikel</label>
+                                class="block text-sm font-medium text-gray-700 dark:text-gray-300">Deskripsi</label>
                             <input type="text" name="title" id="title"
                                 class="block w-full mt-1 text-sm border-gray-300 rounded-md shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-customprimary-500 focus:border-customprimary-500"
                                 required placeholder="Masukkan judul artikel">
