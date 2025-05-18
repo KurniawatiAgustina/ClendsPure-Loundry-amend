@@ -19,7 +19,15 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         if (auth()->user()->role == 'Cashier') {
-            return redirect()->route('dashboard.order.create');
+            $data = (object)[
+                'customerCount' => Customer::count(),
+                'customerTodayCount' => Customer::whereDate('created_at', Carbon::today())->count(),
+                'orderCount' => Order::count(),
+                'activeOrderCount' => Order::whereIn('status', ['New', 'Processing'])->count(),
+                'orderTodayCount' => Order::whereDate('created_at', Carbon::today())->count(),
+                'sumIncomeThisDay' => Order::whereDate('created_at', Carbon::today())->sum('total_price'),
+            ];
+            return view('pages.dashboard.general.cashier-dashboard', compact('data'));
         } elseif (auth()->user()->role == 'Customer') {
             return redirect()->route('dashboard.online-order.create');
         }

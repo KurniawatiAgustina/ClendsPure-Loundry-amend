@@ -54,7 +54,9 @@ class AuthController extends Controller
         $validated = $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:8|confirmed',
+            'password' => 'required|min:8',
+            'phone' => 'required',
+            'address' => 'required',
         ], [
             'name.required' => 'Nama wajib diisi.',
             'name.max' => 'Nama tidak boleh lebih dari 255 karakter.',
@@ -63,17 +65,20 @@ class AuthController extends Controller
             'email.unique' => 'Alamat email sudah terdaftar.',
             'password.required' => 'Kata sandi wajib diisi.',
             'password.min' => 'Kata sandi harus minimal 8 karakter.',
-            'password.confirmed' => 'Konfirmasi kata sandi tidak cocok.',
+            'phone.required' => 'Nomor telepon wajib diisi.',
+            'address.required' => 'Alamat wajib diisi.',
         ]);
 
-        $user = User::create([
+        User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
             'role' => 'Customer',
+            'phone' => $validated['phone'],
+            'address' => $validated['address'],
         ]);
 
-        return redirect('/')->with('toast_success', 'Registration successful');
+        return redirect('/login')->with('toast_success', 'Registration successful');
     }
 
     public function loginPage()
@@ -83,6 +88,6 @@ class AuthController extends Controller
 
     public function registerPage()
     {
-        return view('pages.auth.login');
+        return view('pages.auth.register');
     }
 }

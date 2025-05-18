@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>ClendsPure - Login</title>
+    <title>ClendsPure - Register</title>
     <link rel="icon" type="image/png" href="/logo.ico">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script>
@@ -44,28 +43,45 @@
                 <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                     <h1
                         class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                        Sign in
+                        Register
                     </h1>
-                    <form class="space-y-4 md:space-y-6" action="{{ route('auth.login') }}" method="POST">
+                    <form class="space-y-4 md:space-y-6" action="{{ route('auth.register') }}" method="POST">
                         @csrf
                         <div>
+                            <label for="name"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama</label>
+                            <input type="text" name="name" id="name"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-customprimary-600 focus:border-customprimary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
+                                required>
+                        </div>
+                        <div>
                             <label for="email"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                             <input type="email" name="email" id="email"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-customprimary-600 focus:border-customprimary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
-                                placeholder="example@gmail.com" required>
+                                required>
                         </div>
                         <div>
                             <label for="password"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                            <input type="password" name="password" id="password" placeholder="••••••••"
+                            <input type="password" name="password" id="password"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-customprimary-600 focus:border-customprimary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
                                 required>
                         </div>
+                        <div>
+                            <label for="phone"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor Telephone</label>
+                            <input type="text" name="phone" id="phone"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-customprimary-600 focus:border-customprimary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
+                                required>
+                        </div>
+                        <div>
+                            <label for="address"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
+                                <textarea required name="address" id="address" cols="30" rows="3" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-customprimary-600 focus:border-customprimary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"></textarea>
+                        </div>
                         <button type="submit"
-                            class="w-full text-white bg-customprimary-600 hover:bg-customprimary-700 focus:ring-4 focus:outline-none focus:ring-customprimary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-customprimary-600 dark:hover:bg-customprimary-700 dark:focus:ring-customprimary-800">Sign
-                            in</button>
-                        <span class="text-sm font-medium text-gray-900 dark:text-white">Belum punya akun? </span><a href="{{ route('auth.registerPage') }}" class="text-sm font-medium text-customprimary-600 hover:underline dark:text-customprimary-500">Daftar</a>
+                            class="w-full text-white bg-customprimary-600 hover:bg-customprimary-700 focus:ring-4 focus:outline-none focus:ring-customprimary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-customprimary-600 dark:hover:bg-customprimary-700 dark:focus:ring-customprimary-800">Register</button>
                     </form>
                 </div>
             </div>
@@ -74,5 +90,4 @@
 
     @include('sweetalert::alert')
 </body>
-
 </html>

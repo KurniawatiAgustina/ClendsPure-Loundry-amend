@@ -38,7 +38,10 @@
         <div class="gap-4 px-4 pb-4">
             <form action="{{ route('dashboard.online-order.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <div class="mb-3">
+                <input type="hidden" name="customer_name" value="{{ auth()->user()->name }}">
+                <input type="hidden" name="customer_phone" value="{{ auth()->user()->phone }}">
+                <input type="hidden" name="customer_address" value="{{ auth()->user()->address }}">
+                {{-- <div class="mb-3">
                     <label for="customer_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama</label>
                     <input type="text" id="customer_name" name="customer_name"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
@@ -55,7 +58,7 @@
                     <input type="text" id="customer_address" name="customer_address"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
                         />
-                </div>
+                </div> --}}
                 <div class="mb-3">
                     <label for="branch_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pilih Cabang</label>
                     <select name="branch_id" id="branch_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500">
@@ -66,8 +69,8 @@
                     </select>
                 </div>
                 <div id="orderItemsContainer">
-                    <div class="mb-3 gap-x-1">
-                        <div class="">
+                    <div class="mb-3 gap-x-1 lg:flex">
+                        <div class="lg:w-1/2">
                             <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pilih Layanan</label>
                             <select id="productSelect"
                             class="productSelect bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500">
@@ -81,13 +84,13 @@
                             <input type="hidden" name="details[0][service_promotions_id]">
                             <input type="hidden" name="details[0][is_promo]">
                         </div>
-                        <div class="">
+                        <div class="lg:w-1/4">
                             <label for="quantity" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah</label>
-                            <input type="text" id="quantity" name="details[0][quantity]"
+                            <input type="number" id="quantity" name="details[0][quantity]"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
                                 />
                         </div>
-                        <div class="">
+                        <div class="lg:w-1/4">
                             <label for="subtotal" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Subtotal</label>
                             <input type="text" id="subtotal" name="details[0][subtotal]" readonly
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
