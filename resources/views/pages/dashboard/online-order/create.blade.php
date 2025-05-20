@@ -41,42 +41,30 @@
                 <input type="hidden" name="customer_name" value="{{ auth()->user()->name }}">
                 <input type="hidden" name="customer_phone" value="{{ auth()->user()->phone }}">
                 <input type="hidden" name="customer_address" value="{{ auth()->user()->address }}">
-                {{-- <div class="mb-3">
-                    <label for="customer_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama</label>
-                    <input type="text" id="customer_name" name="customer_name"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
-                        />
-                </div>
                 <div class="mb-3">
-                    <label for="customer_phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor Telephone</label>
-                    <input type="text" id="customer_phone" name="customer_phone"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
-                        />
-                </div>
-                <div class="mb-3">
-                    <label for="customer_address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
-                    <input type="text" id="customer_address" name="customer_address"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
-                        />
-                </div> --}}
-                <div class="mb-3">
-                    <label for="branch_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pilih Cabang</label>
-                    <select name="branch_id" id="branch_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500">
+                    <label for="branch_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pilih
+                        Cabang</label>
+                    <select name="branch_id" id="branch_id"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500">
                         <option value="" selected disabled>-- Pilih Cabang --</option>
                         @foreach ($branches as $item)
-                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            <option value="{{ $item->id }}">{{ $item->name }} - {{ $item->address }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div id="orderItemsContainer">
                     <div class="mb-3 gap-x-1 lg:flex">
                         <div class="lg:w-1/2">
-                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pilih Layanan</label>
+                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pilih
+                                Layanan</label>
                             <select id="productSelect"
-                            class="productSelect bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500">
+                                class="productSelect bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500">
                                 <option disabled selected>-- Pilih Layanan --</option>
                                 @foreach ($items as $item)
-                                    <option value="{{ $loop->index }}" data-id="{{ $item->id }}" data-is-promo="{{ $item->is_promo }}" data-price="{{ $item->price }}">{{ $item->name }} - {{ 'Rp ' . number_format($item->price, 0, ',', '.') }}
+                                    <option value="{{ $loop->index }}" data-branch_id="{{ $item->branch_id }}"
+                                        data-id="{{ $item->id }}" data-is-promo="{{ $item->is_promo }}"
+                                        data-price="{{ $item->price }}">{{ $item->name }}
+                                         {{-- - {{ 'Rp ' . number_format($item->price, 0, ',', '.') }} --}}
                                     </option>
                                 @endforeach
                             </select>
@@ -85,37 +73,40 @@
                             <input type="hidden" name="details[0][is_promo]">
                         </div>
                         <div class="lg:w-1/4">
-                            <label for="quantity" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah</label>
+                            <label for="quantity"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah</label>
                             <input type="number" id="quantity" name="details[0][quantity]"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
-                                />
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500" />
                         </div>
                         <div class="lg:w-1/4">
-                            <label for="subtotal" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Subtotal</label>
+                            <label for="subtotal"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Subtotal</label>
                             <input type="text" id="subtotal" name="details[0][subtotal]" readonly
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
-                                />
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500" />
                         </div>
                     </div>
                 </div>
                 <div class="mb-3">
                     <button type="button"
                         class="inline-flex items-center justify-center w-full px-4 py-2 text-xs font-medium text-customprimary-500 border border-customprimary-500 rounded-lg hover:text-white hover:bg-customprimary-500 focus:ring-4 focus:ring-custompurple-200 dark:text-white dark:border-none dark:bg-customprimary-600 dark:hover:bg-customprimary-700 dark:focus:ring-customprimary-800">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="mr-2">
-                        <path fill="currentColor" d="M11 13H5v-2h6V5h2v6h6v2h-6v6h-2z"/>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                            class="mr-2">
+                            <path fill="currentColor" d="M11 13H5v-2h6V5h2v6h6v2h-6v6h-2z" />
                         </svg>
                         Tambah
                     </button>
                 </div>
                 <div class="mb-3">
-                    <label for="total_price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total Harga</label>
+                    <label for="total_price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
+                        Harga</label>
                     <input type="text" id="total_price" name="total_price" readonly
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
-                        />
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500" />
                 </div>
                 <div class="mb-3">
-                    <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis Layanan</label>
-                    <select name="category" id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500">
+                    <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis
+                        Layanan</label>
+                    <select name="category" id="category"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500">
                         <option value="" selected disabled>-- Pilih Jenis Layanan --</option>
                         <option value="AntarJemput">AntarJemput</option>
                         <option value="AntarSaja">AntarSaja</option>
@@ -124,13 +115,17 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="payment_method_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Opsi Pembayaran</label>
+                    <label for="payment_method_id"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Opsi Pembayaran</label>
                     <input type="hidden" name="payment_method" value="">
-                    <select name="payment_method_id" id="payment_method_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500">
+                    <select name="payment_method_id" id="payment_method_id"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500">
                         <option value="" selected disabled>-- Pilih Pembayaran --</option>
                         <option value="" data-type="Cash">Cash</option>
                         @foreach ($paymentMethodsAvailable as $item)
-                            <option value="{{ $item->id }}" data-type="Transfer">{{ $item->bank_name }}({{ $item->account_name }}) - {{ $item->account_number }}</option>
+                            <option value="{{ $item->id }}" data-type="Transfer"
+                                data-branch_id="{{ $item->branch_id }}">
+                                {{ $item->bank_name }}({{ $item->account_name }}) - {{ $item->account_number }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -147,73 +142,119 @@
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-$(document).ready(function() {
-  // Tambah baris baru dengan index yang konsisten
-  $('button:contains("Tambah")').on('click', function() {
-  const $container = $('#orderItemsContainer');
-  const $first     = $container.find('.mb-3.gap-x-1').first();
-  const idx        = $container.find('.mb-3.gap-x-1').length;
-  const $clone     = $first.clone();
+        $(document).ready(function() {
+            $('button:contains("Tambah")').on('click', function() {
+                const $container = $('#orderItemsContainer');
+                const $first = $container.find('.mb-3.gap-x-1').first();
+                const idx = $container.find('.mb-3.gap-x-1').length;
+                const $clone = $first.clone();
 
-  // reset selects & inputs
-  $clone.find('select.productSelect').val(null);
-  $clone.find('input, select').each(function() {
-    // match details[<any index>][<field>]
-    const m = this.name.match(/details\[\d+\]\[(.+)\]/);
-    if (m) {
-      const field = m[1];
-      this.name  = `details[${idx}][${field}]`;
-    }
-    $(this).val('');
-  });
+                $clone.find('select.productSelect').val(null);
+                $clone.find('input, select').each(function() {
+                    const m = this.name.match(/details\[\d+\]\[(.+)\]/);
+                    if (m) {
+                        const field = m[1];
+                        this.name = `details[${idx}][${field}]`;
+                    }
+                    $(this).val('');
+                });
 
-  $container.append($clone);
-  updateTotalHarga();
-});
+                $container.append($clone);
+                updateTotalHarga();
+            });
 
-  // Handle promo vs non-promo per baris
-  $('#orderItemsContainer').on('change', 'select.productSelect', function() {
-    const $opt    = $(this).find('option:selected');
-    const isPromo = $opt.data('is-promo') ? 1 : 0;
-    const dataId  = $opt.data('id') || '';
-    const $grp    = $(this).closest('.mb-3.gap-x-1');
+            $('#orderItemsContainer').on('change', 'select.productSelect', function() {
+                const $opt = $(this).find('option:selected');
+                const isPromo = $opt.data('is-promo') ? 1 : 0;
+                const dataId = $opt.data('id') || '';
+                const $grp = $(this).closest('.mb-3.gap-x-1');
 
-    $grp.find('input[name^="details"][name$="[is_promo]"]').val(isPromo);
-    if (isPromo) {
-      $grp.find('input[name^="details"][name$="[service_promotions_id]"]').val(dataId);
-      $grp.find('input[name^="details"][name$="[product_id]"]').val('');
-    } else {
-      $grp.find('input[name^="details"][name$="[product_id]"]').val(dataId);
-      $grp.find('input[name^="details"][name$="[service_promotions_id]"]').val('');
-    }
-  });
+                $grp.find('input[name^="details"][name$="[is_promo]"]').val(isPromo);
+                if (isPromo) {
+                    $grp.find('input[name^="details"][name$="[service_promotions_id]"]').val(dataId);
+                    $grp.find('input[name^="details"][name$="[product_id]"]').val('');
+                } else {
+                    $grp.find('input[name^="details"][name$="[product_id]"]').val(dataId);
+                    $grp.find('input[name^="details"][name$="[service_promotions_id]"]').val('');
+                }
+            });
 
-  $('#orderItemsContainer').on('input change', 'select.productSelect, input[name^="details"][name$="[quantity]"]', function() {
-    const $row     = $(this).closest('.mb-3.gap-x-1');
-    const price    = Number($row.find('select.productSelect option:selected').data('price')) || 0;
-    const qty      = parseInt($row.find('input[name^="details"][name$="[quantity]"]').val(), 10) || 0;
-    const subtotal = price * qty;
-    $row.find('input[name^="details"][name$="[subtotal]"]')
-        .val(subtotal);
-    updateTotalHarga();
-  });
+            $('#orderItemsContainer').on('input change',
+                'select.productSelect, input[name^="details"][name$="[quantity]"]',
+                function() {
+                    const $row = $(this).closest('.mb-3.gap-x-1');
+                    const price = Number($row.find('select.productSelect option:selected').data('price')) || 0;
+                    const qty = parseInt($row.find('input[name^="details"][name$="[quantity]"]').val(), 10) ||
+                    0;
+                    const subtotal = price * qty;
+                    $row.find('input[name^="details"][name$="[subtotal]"]')
+                        .val(subtotal);
+                    updateTotalHarga();
+                });
 
-  function updateTotalHarga() {
-    let total = 0;
-    $('#orderItemsContainer input[name^="details"][name$="[subtotal]"]').each(function() {
-      const raw = $(this).val().replace(/[^0-9]/g, '');
-      total += parseInt(raw, 10) || 0;
-    });
-    $('#total_price').val(total);
-  }
+            function updateTotalHarga() {
+                let total = 0;
+                $('#orderItemsContainer input[name^="details"][name$="[subtotal]"]').each(function() {
+                    const raw = $(this).val().replace(/[^0-9]/g, '');
+                    total += parseInt(raw, 10) || 0;
+                });
+                $('#total_price').val(total);
+            }
 
-  updateTotalHarga();
+            updateTotalHarga();
 
-  $('select#payment_method_id').on('change', function() {
-    const type = $(this).find('option:selected').data('type') || '';
-    $('input[name="payment_method"]').val(type);
-  });
-});
-</script>
+            $('select#payment_method_id').on('change', function() {
+                const type = $(this).find('option:selected').data('type') || '';
+                $('input[name="payment_method"]').val(type);
+            });
 
+            $('#branch_id').on('change', function() {
+                const selectedBranch = this.value;
+                filterByBranch(selectedBranch);
+            });
+
+            function filterByBranch(branchId) {
+                // untuk setiap row layanan
+                $('#orderItemsContainer select.productSelect').each(function() {
+                    const $sel = $(this);
+                    $sel.find('option').each(function() {
+                        const $opt = $(this);
+                        const optBranch = $opt.data('branch_id')?.toString();
+                        // selalu tampilkan placeholder (option tanpa data-branch_id)
+                        if (!optBranch || optBranch === branchId) {
+                            $opt.show();
+                        } else {
+                            $opt.hide();
+                        }
+                    });
+                    // reset pilihan ke placeholder jika sekarang tidak valid
+                    if ($sel.find('option:selected').is(':hidden')) {
+                        $sel.val(null);
+                        $sel.trigger('change');
+                    }
+                });
+
+                // untuk payment_method
+                $('select#payment_method_id').each(function() {
+                    const $sel = $(this);
+                    $sel.find('option').each(function() {
+                        const $opt = $(this);
+                        const optBranch = $opt.data('branch_id')?.toString();
+                        if (!optBranch || optBranch === branchId) {
+                            $opt.show();
+                        } else {
+                            $opt.hide();
+                        }
+                    });
+                    if ($sel.find('option:selected').is(':hidden')) {
+                        $sel.val('');
+                        $sel.trigger('change');
+                    }
+                });
+            }
+
+            // langsung panggil sekali untuk state awal (mis. old input)
+            filterByBranch($('#branch_id').val());
+        });
+    </script>
 @endpush

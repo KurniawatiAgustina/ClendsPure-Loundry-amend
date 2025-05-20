@@ -40,13 +40,14 @@ class OnlineOrderController extends Controller
         $now = Carbon::now()->toDateTimeString();
 
         $services = Service::where('is_active', 1)
-            ->select('id','name','price')
+            ->select('id','name','price', 'branch_id')
             ->get()
             ->map(function($s) {
                 return (object)[
                     'id'       => $s->id,
                     'name'     => $s->name,
                     'price'    => $s->price,
+                    'branch_id' => $s->branch_id,
                     'is_promo' => 0,
                 ];
             });
@@ -64,6 +65,7 @@ class OnlineOrderController extends Controller
                     'name'         => $orig->name . ' (Promo: ' . $p->name . ')',
                     'price'        => $discounted,
                     'is_promo'     => 1,
+                    'branch_id'    => $p->branch_id
                 ];
             });
 
