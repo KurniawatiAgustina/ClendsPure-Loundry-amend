@@ -119,6 +119,9 @@
                                 </table>
                             </div>
                         </div>
+                        <div class="">
+                            <img src="{{ asset('thumbnails/' . $data->proof_image) }}" alt="proof_image" class="w-full">
+                        </div>
                     </div>
                 </div>
                 <!-- Modal footer -->

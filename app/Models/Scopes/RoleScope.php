@@ -16,7 +16,7 @@ class RoleScope implements Scope
     {
         $user = Auth::user();
 
-        if ($user && $user->role === 'Admin' || $user->role === 'Cashier') {
+        if ($user && $user->role == 'Admin' || $user->role == 'Cashier') {
             $builder->where('branch_id', $user->branch_id);
         }
     }

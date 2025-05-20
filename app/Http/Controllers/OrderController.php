@@ -9,9 +9,9 @@ use App\Models\OrderDetail;
 use App\Models\PaymentMethod;
 use App\Models\Service;
 use App\Models\ServicePromotion;
-use App\utils\Whatsapp;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use function Spatie\LaravelPdf\Support\pdf;
 
 class OrderController extends Controller
 {
@@ -28,6 +28,12 @@ class OrderController extends Controller
     {
         $order = Order::with(['details' => ['service', 'service_promotion']])->where('status', 'New')->orWhere('status', 'Processing')->orderBy('id', 'desc')->paginate(10);
         return view('pages.dashboard.active-order.index', compact('order'));
+    }
+
+    public function income()
+    {
+        $order = Order::orderBy('id', 'desc')->paginate(10);
+        return view('pages.dashboard.order.income', compact('order'));
     }
 
     /**
@@ -217,6 +223,16 @@ class OrderController extends Controller
         $order->update(['status' => $status]);
 
         return redirect()->back()->with('toast_success', 'Order status updated successfully');
+    }
+
+    public function invoice(string $id)
+    {
+        $order = Order::findOrFail($id);
+        return pdf()
+            ->view('externals.invoice', compact('order'))
+            ->paperSize(90, 200, 'mm')
+            ->orientation('portrait')
+            ->name('invoice.pdf');
     }
 
     /**

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Invoice #{{ $transaction->id }}</title>
+    <title>Invoice #{{ $order->id }}</title>
     <style>
         body { font-family: sans-serif; font-size: 12px; color: #333; }
         header { text-align: center; margin-bottom: 20px; }
@@ -14,6 +14,11 @@
             border-collapse: collapse;
             margin-bottom: 20px;
         }
+        /* atur lebar kolom dengan colgroup */
+        table.items colgroup col:nth-child(1) { width: 5%; }
+        table.items colgroup col:nth-child(2) { width: auto; } /* layanan melebar */
+        table.items colgroup col:nth-child(3) { width: 10%; }  /* Qty */
+        table.items colgroup col:nth-child(4) { width: 15%; }  /* Subtotal */
         table.items th, table.items td {
             border: 1px solid #999;
             padding: 8px;
@@ -28,59 +33,64 @@
 
 <header>
     <h1>CLEDSPURE Invoice</h1>
-    <p>Invoice #{{ $transaction->id }} &bull; {{ \Carbon\Carbon::parse($transaction->created_at)->format('d M Y') }}</p>
+    <p>Invoice #{{ $order->id }} &bull; {{ \Carbon\Carbon::parse($order->created_at)->format('d M Y') }}</p>
     <hr>
 </header>
 
 <table class="customer">
     <tr>
-        <td><strong>Customer:</strong> {{ $transaction->customer_name }}</td>
-        <td><strong>Phone:</strong> {{ $transaction->customer_phone }}</td>
+        <td><strong>Customer:</strong> {{ $order->customer->name }}</td>
+        <td><strong>Phone:</strong> {{ $order->customer->phone }}</td>
     </tr>
     <tr>
-        <td><strong>Payment Method:</strong> {{ ucfirst($transaction->payment_method) }}</td>
-        <td><strong>Status:</strong> {{ ucfirst($transaction->status) }}</td>
+        <td><strong>Payment Method:</strong> {{ ucfirst($order->payment_method) }}</td>
+        <td><strong>Status:</strong> {{ ucfirst($order->status) }}</td>
     </tr>
 </table>
 
 <table class="period">
     <tr>
-        <td><strong>Mulai:</strong> {{ \Carbon\Carbon::parse($transaction->start_time)->format('d M Y H:i') }}</td>
-        <td><strong>Selesai:</strong> {{ \Carbon\Carbon::parse($transaction->end_time)->format('d M Y H:i') }}</td>
+        <td><strong>Cabang:</strong> {{ $order->branch->name }}</td>
     </tr>
 </table>
 
 <table class="items">
+    <!-- colgroup untuk mengatur lebar kolom -->
+    <colgroup>
+        <col>    <!-- # -->
+        <col>    <!-- layanan (melebar otomatis) -->
+        <col>    <!-- Qty -->
+        <col>    <!-- Subtotal -->
+    </colgroup>
+
     <thead>
         <tr>
-            <th style="width:5%">#</th>
+            <th>#</th>
             <th>Layanan</th>
-            <th style="width:15%">Harga</th>
-            <th style="width:10%">Qty</th>
-            <th style="width:15%">Subtotal</th>
+            <th>Qty</th>
+            <th>Subtotal</th>
         </tr>
     </thead>
     <tbody>
-        @foreach($transaction->details as $i => $detail)
+        @foreach($order->details as $i => $detail)
         <tr>
             <td>{{ $i+1 }}</td>
-            <td>{{ $detail->service->name }}</td>
-            <td>Rp {{ number_format($detail->price,0,',','.') }}</td>
+            <td>{{ $detail->service->name ?? '' }}</td>
             <td>{{ $detail->quantity }}</td>
-            <td>Rp {{ number_format($detail->total_price,0,',','.') }}</td>
+            <td>Rp {{ number_format($detail->subtotal,0,',','.') }}</td>
         </tr>
         @endforeach
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="4" style="text-align:right">Total Harga</td>
-            <td>Rp {{ number_format($transaction->total_price,0,',','.') }}</td>
+            <td colspan="3" style="text-align:right">Total Harga</td>
+            <td>Rp {{ number_format($order->total_price,0,',','.') }}</td>
         </tr>
     </tfoot>
 </table>
 
 <footer>
-    <p>Terima kasih telah menggunakan layanan CledsPure!</p>
+    <p>Terima kasih telah menggunakan layanan CLEDSPURE!</p>
 </footer>
 
 </body>

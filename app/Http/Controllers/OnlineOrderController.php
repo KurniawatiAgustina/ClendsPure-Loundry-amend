@@ -14,6 +14,7 @@ use App\Models\ServicePromotion;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class OnlineOrderController extends Controller
 {
@@ -28,6 +29,7 @@ class OnlineOrderController extends Controller
 
     public function new()
     {
+        // dd(auth()->user());
         $order = OnlineOrder::with(['customer' ,'details' => ['service', 'service_promotion']])->where('status', 'New')->orderBy('id', 'desc')->paginate(10);
         return view('pages.dashboard.new-online-order.index', compact('order'));
     }
@@ -39,8 +41,8 @@ class OnlineOrderController extends Controller
     {
         $now = Carbon::now()->toDateTimeString();
 
-        $services = Service::where('is_active', 1)
-            ->select('id','name','price', 'branch_id')
+        $services = Service::
+            select('id','name','price', 'branch_id')
             ->get()
             ->map(function($s) {
                 return (object)[
@@ -70,6 +72,7 @@ class OnlineOrderController extends Controller
             });
 
         $items = $services->merge($promos);
+        // dd();
         $paymentMethodsAvailable = PaymentMethod::all();
         $branches = Branch::all();
 
@@ -90,6 +93,7 @@ class OnlineOrderController extends Controller
             'category' => 'required|in:AntarJemput,AntarSaja,JemputSaja,Mandiri',
             'payment_method' => 'required|in:Cash,Transfer',
             'payment_method_id' => 'nullable',
+            'proof_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'details' => 'required|array',
             'details.*.service_id' => 'nullable|exists:services,id',
             'details.*.service_promotions_id' => 'nullable|exists:service_promotions,id',
@@ -116,7 +120,14 @@ class OnlineOrderController extends Controller
             'details.*.quantity.min' => 'Jumlah harus minimal 1.',
             'details.*.subtotal.required' => 'Subtotal harus diisi.',
         ]);
-// dd($validated);
+
+        if ($request->hasFile('proof_image')) {
+            $file = $request->file('proof_image');
+            $fileName = time() . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('thumbnails'), $fileName);
+            $validated['proof_image'] = $fileName;
+        }
+
         DB::transaction(function () use ($validated) {
             $customer = Customer::create([
                 'user_id' => auth()->user()->id,
@@ -133,6 +144,7 @@ class OnlineOrderController extends Controller
                 'category' => $validated['category'],
                 'payment_method' => $validated['payment_method'],
                 'payment_method_id' => $validated['payment_method_id'],
+                'proof_image' => $validated['proof_image'],
             ]);
 
             foreach ($validated['details'] as $detail) {

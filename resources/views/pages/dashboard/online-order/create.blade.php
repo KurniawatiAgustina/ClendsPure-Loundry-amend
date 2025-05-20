@@ -68,7 +68,7 @@
                                     </option>
                                 @endforeach
                             </select>
-                            <input type="hidden" name="details[0][product_id]">
+                            <input type="hidden" name="details[0][service_id]">
                             <input type="hidden" name="details[0][service_promotions_id]">
                             <input type="hidden" name="details[0][is_promo]">
                         </div>
@@ -130,6 +130,10 @@
                     </select>
                 </div>
                 <div class="mb-3">
+                    <label for="proof_image" class="block text-sm font-medium text-gray-900 dark:text-white">Bukti Pembayaran</label><span class="block mb-2 text-xs font-medium text-gray-900 dark:text-white">(wajib menyertakan jika bukan cash)</span>
+                    <input type="file" name="proof_image" id="proof_image" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500">
+                </div>
+                <div class="mb-3">
                     <button type="submit"
                         class="inline-flex items-center justify-center w-full px-4 py-2 text-xs font-medium text-customprimary-500 border border-customprimary-500 rounded-lg hover:text-white hover:bg-customprimary-500 focus:ring-4 focus:ring-custompurple-200 dark:text-white dark:border-none dark:bg-customprimary-600 dark:hover:bg-customprimary-700 dark:focus:ring-customprimary-800">
                         Pesan Sekarang
@@ -172,9 +176,9 @@
                 $grp.find('input[name^="details"][name$="[is_promo]"]').val(isPromo);
                 if (isPromo) {
                     $grp.find('input[name^="details"][name$="[service_promotions_id]"]').val(dataId);
-                    $grp.find('input[name^="details"][name$="[product_id]"]').val('');
+                    $grp.find('input[name^="details"][name$="[service_id]"]').val('');
                 } else {
-                    $grp.find('input[name^="details"][name$="[product_id]"]').val(dataId);
+                    $grp.find('input[name^="details"][name$="[service_id]"]').val(dataId);
                     $grp.find('input[name^="details"][name$="[service_promotions_id]"]').val('');
                 }
             });
@@ -254,7 +258,7 @@
             }
 
             // langsung panggil sekali untuk state awal (mis. old input)
-            filterByBranch($('#branch_id').val());
+            // filterByBranch($('#branch_id').val());
         });
     </script>
 @endpush

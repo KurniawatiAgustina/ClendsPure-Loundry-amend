@@ -14,6 +14,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ServicePromotionController;
 use App\Http\Controllers\UserController;
+use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +24,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/invo/{id}', function ($id) {
+    $order = Order::findOrFail($id);
+    return view('externals.invoice', compact('order'));
+});
 
 Route::controller(BranchController::class)->name('branch.')->prefix('branch')->group(function () {
     Route::get('/', 'index')->name('index');
@@ -55,11 +60,13 @@ Route::controller(OrderController::class)->name('order.')->prefix('order')->grou
     Route::get('/', 'index')->name('index');
     Route::get('/create', 'create')->name('create');
     Route::get('/active', 'active')->name('active');
+    Route::get('/income', 'income')->name('income');
     Route::post('/store', 'store')->name('store');
     Route::get('/edit/{id}', 'edit')->name('edit');
     Route::get('/change-status/{id}/{status}', 'changeStatus')->name('change-status');
     Route::post('/update/{id}', 'update')->name('update');
     Route::get('/destroy/{id}', 'destroy')->name('destroy');
+    Route::get('/invoice/{id}', 'invoice')->name('invoice');
 });
 
 Route::controller(OnlineOrderController::class)->name('online-order.')->prefix('online-order')->group(function () {
