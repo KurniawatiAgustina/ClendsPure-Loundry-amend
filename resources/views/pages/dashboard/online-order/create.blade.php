@@ -131,7 +131,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="proof_image" class="block text-sm font-medium text-gray-900 dark:text-white">Bukti Pembayaran</label><span class="block mb-2 text-xs font-medium text-gray-900 dark:text-white">(wajib menyertakan jika bukan cash)</span>
-                    <input type="file" name="proof_image" id="proof_image" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500">
+                    <input type="file" accept="image/*" name="proof_image" id="proof_image" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500">
                 </div>
                 <div class="mb-3">
                     <button type="submit"
