@@ -1,23 +1,3 @@
-@php
-    $data = (object) [
-        (object) [
-            'nama' => 'Farel',
-            'alamat' => 'Jl. Raya No. 10, Jakarta',
-            'no_hp' => '081234567890',
-        ],
-
-        (object) [
-            'nama' => 'Budi Santoso',
-            'alamat' => 'Jl. Merdeka No. 20, Bandung',
-            'no_hp' => '082345678901',
-        ],
-        (object) [
-            'nama' => 'Siti Aminah',
-            'alamat' => 'Jl. Cendana No. 15, Surabaya',
-            'no_hp' => '083456789012',
-        ],
-    ];
-@endphp
 @extends('layouts.dashboard')
 @section('content')
     <div
@@ -71,6 +51,15 @@
                                 placeholder="Cari">
                         </div>
                     </form>
+                </div>
+                <div class="flex items-center ml-4 space-x-2 sm:space-x-3">
+                    <div class="flex items-center ml-auto space-x-2 sm:space-x-3">
+                        <button type="button" data-modal-target="excel-customer-modal" data-modal-toggle="excel-customer-modal"
+                            class="inline-flex items-center justify-center w-auto px-3 py-2 text-xs font-medium text-center text-green-700 rounded-lg border border-green-700 hover:text-white hover:bg-green-700 focus:ring-4 focus:ring-green-300 sm:w-auto dark:text-white dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                            <span class="hidden sm:inline">Excel</span>
+                        </button>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -194,6 +183,7 @@
         </div>
     </div>
 
+    @include('pages.dashboard.general.excel', ['url' => route('dashboard.online-order.export')])
 
     @foreach ($order as $data)
         @include('pages.dashboard.online-order.detail', ['data' => $data])

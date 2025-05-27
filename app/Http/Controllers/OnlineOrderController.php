@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\OnlineOrderExport;
 use App\Models\Branch;
 use App\Models\Customer;
 use App\Models\OnlineOrder;
@@ -15,6 +16,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OnlineOrderController extends Controller
 {
@@ -307,5 +309,10 @@ class OnlineOrderController extends Controller
         });
 
         return redirect()->back()->with('toast_success', 'Order deleted successfully');
+    }
+
+    public function export()
+    {
+        return Excel::download(new OnlineOrderExport, 'OnlineOrder.xlsx');
     }
 }

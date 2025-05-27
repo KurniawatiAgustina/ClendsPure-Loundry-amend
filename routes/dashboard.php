@@ -67,6 +67,8 @@ Route::controller(OrderController::class)->name('order.')->prefix('order')->grou
     Route::post('/update/{id}', 'update')->name('update');
     Route::get('/destroy/{id}', 'destroy')->name('destroy');
     Route::get('/invoice/{id}', 'invoice')->name('invoice');
+    Route::get('/export', 'export')->name('export');
+    Route::get('/export-income', 'exportIncome')->name('export-income');
 });
 
 Route::controller(OnlineOrderController::class)->name('online-order.')->prefix('online-order')->group(function () {
@@ -78,6 +80,7 @@ Route::controller(OnlineOrderController::class)->name('online-order.')->prefix('
     Route::get('/change-status/{id}/{status}', 'changeStatus')->name('change-status');
     Route::post('/update/{id}', 'update')->name('update');
     Route::get('/destroy/{id}', 'destroy')->name('destroy');
+    Route::get('/export', 'export')->name('export');
 });
 
 Route::controller(PaymentMethodController::class)->name('payment-method.')->prefix('payment-method')->group(function () {

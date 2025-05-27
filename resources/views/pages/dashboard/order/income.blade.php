@@ -52,6 +52,15 @@
                         </div>
                     </form>
                 </div>
+                <div class="flex items-center ml-4 space-x-2 sm:space-x-3">
+                    <div class="flex items-center ml-auto space-x-2 sm:space-x-3">
+                        <button type="button" data-modal-target="excel-customer-modal" data-modal-toggle="excel-customer-modal"
+                            class="inline-flex items-center justify-center w-auto px-3 py-2 text-xs font-medium text-center text-green-700 rounded-lg border border-green-700 hover:text-white hover:bg-green-700 focus:ring-4 focus:ring-green-300 sm:w-auto dark:text-white dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                            <span class="hidden sm:inline">Excel</span>
+                        </button>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
@@ -136,7 +145,7 @@
         </div>
     </div>
 
-
+    @include('pages.dashboard.general.excel', ['url' => route('dashboard.order.export-income')])
     {{-- @foreach ($order as $data)
         @include('pages.dashboard.order.detail', ['data' => $data])
         @include('pages.dashboard.general.delete', ['data' => $data, 'url' => route('dashboard.order.destroy', ['id' => $data->id])])

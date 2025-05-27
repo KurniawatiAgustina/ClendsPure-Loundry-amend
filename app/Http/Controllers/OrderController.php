@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\IncomeExport;
+use App\Exports\OrderExport;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Models\Order;
@@ -11,6 +13,8 @@ use App\Models\Service;
 use App\Models\ServicePromotion;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+
 use function Spatie\LaravelPdf\Support\pdf;
 
 class OrderController extends Controller
@@ -247,5 +251,15 @@ class OrderController extends Controller
         });
 
         return redirect()->back()->with('toast_success', 'Order deleted successfully');
+    }
+
+    public function export()
+    {
+        return Excel::download(new OrderExport, 'Order.xlsx');
+    }
+
+    public function exportIncome()
+    {
+        return Excel::download(new IncomeExport, 'Income.xlsx');
     }
 }
