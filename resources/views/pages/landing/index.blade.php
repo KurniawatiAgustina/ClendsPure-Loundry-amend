@@ -17,9 +17,8 @@
         </div>
     </div>
     <div class="hero-content1">
-        <h1>Solusi Terpercaya Perawatan <br> Sepatu Kesayangan Kamu.</h1>
-        <p>Kami memberikan layanan terbaik untuk perawatan sepatu. Bekerja secara profesional, <br> menggunakan teknik
-            khusus dengan alat dan bahan premium.</p>
+        <h1>{{ $displaySlides->title }}</h1>
+        <p>{{ $displaySlides->description }}</p>
         <a href="#services" class="cta-button1">Kunjungi Cleds Sekarang</a>
     </div>
 </section>
@@ -150,16 +149,18 @@
         <img src="assets/LandingPage/image/gsp4.jpg" alt="Laundry Process">
       </div>
       <div class="steps">
+        @foreach ($displayTutorials as $item)
         <div class="step">
           <div class="icon">
-            <i class="bi bi-whatsapp"></i>
+            <i class="bi bi-arrow-right"></i>
           </div>
           <div class="text">
-            <h3>Chat melalui WhatsApp</h3>
-            <p>Hubungi kami melalui WhatsApp, dan kirimkan lokasi penjemputan</p>
+            <h3>{{ $item->title }}</h3>
+            <p>{{ $item->description }}</p>
           </div>
         </div>
-        <div class="step">
+        @endforeach
+        {{-- <div class="step">
           <div class="icon">
             <i class="bi bi-truck"></i>
           </div>
@@ -194,7 +195,7 @@
             <h3>Pengantaran Laundry</h3>
             <p>Kami antarkan laundry yang sudah kami kerjakan ke tempat Anda</p>
           </div>
-        </div>
+        </div> --}}
       </div>
     </div>
   </section>
@@ -204,11 +205,13 @@
 
     <!-- Statistik -->
     <div class="statistics">
+      @foreach ($displayStatistics as $item)
         <div class="stat-card">
-            <h3>30.3K</h3>
-            <p>Students Enrolled</p>
+            <h3>{{ $item->number }}</h3>
+            <p>{{ $item->title }}</p>
         </div>
-        <div class="stat-card">
+      @endforeach
+        {{-- <div class="stat-card">
             <h3>40.5K</h3>
             <p>Classes Completed</p>
         </div>
@@ -219,7 +222,7 @@
         <div class="stat-card">
             <h3>6.3+</h3>
             <p>Top Instructors</p>
-        </div>
+        </div> --}}
     </div>
 </div>
 

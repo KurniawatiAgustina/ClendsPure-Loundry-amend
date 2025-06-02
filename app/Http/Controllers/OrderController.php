@@ -281,6 +281,20 @@ class OrderController extends Controller
             ->with('toast_success', 'Invoice berhasil digenerate & dikirim via WhatsApp.');
     }
 
+    public function notification(string $id)
+    {
+        $order = Order::with('customer')->findOrFail($id);
+
+        $message = "Hallo {$order->customer->name},\n\n" .
+                   "Pesanan Anda dengan ID {$order->id} telah selesai." .
+                   "\n" .
+                   "Terima kasih.";
+
+        Whatsapp::send($order->customer->phone, $message);
+
+        return redirect()->back()->with('toast_success', 'Notification sent successfully');
+    }
+
     /**
      * Remove the specified resource from storage.
      */

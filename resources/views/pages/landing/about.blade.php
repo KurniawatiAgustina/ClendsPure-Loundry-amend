@@ -27,14 +27,14 @@
                     <p>Years Experience<br>In Construction Company</p>
                   </div>
                   <div class="text-content">
-                    <h2>We Are Always Think On Your Dream</h2>
+                    <h2>{{ $displayAboutSlides->title }}</h2>
                     <p>
-                      Many students residentials completely focus on sustainable building practices, incorporating user-friendly modern design and efficient systems.
+                      {{ $displayAboutSlides->description }}
                     </p>
-                    <ul>
+                    {{-- <ul>
                       <li><strong>WORLDWIDE SERVICES</strong><br>They provide quality services to expand your company.</li>
                       <li><strong>BEST COMPANY AWARD WINNER</strong><br>A reliable construction company is critical to managing budget and construction efficiency.</li>
-                    </ul>
+                    </ul> --}}
                     <button class="cta-button">KNOW MORE</button>
                   </div>
                 </div>
@@ -148,20 +148,14 @@
 <section class="gallery1">
   <div class="image-container">
     <!-- Gambar-gambar asli -->
-    <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 1">
-    <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 2">
+    @foreach ($displayAboutGaleries as $item)
+        <img src="{{ asset('thumbnails/' . $item->thumbnail_img) }}" alt="Gallery Image 1">
+    @endforeach
+    {{-- <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 2">
     <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 3">
     <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 4">
     <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 5">
-    <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 6">
-
-    <!-- Duplikasi gambar untuk seamless scroll -->
-    <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 1">
-    <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 2">
-    <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 3">
-    <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 4">
-    <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 5">
-    <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 6">
+    <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 6"> --}}
   </div>
 </section>
 

@@ -20,6 +20,7 @@ Route::controller(LandingController::class)->name('landing.')->group(function ()
     Route::get('/', 'index')->name('index');
     Route::get('/about', 'about')->name('about');
     Route::get('/blog', 'blog')->name('blog');
+    Route::get('/blog/{id}', 'detailBlog')->name('detailBlog');
     Route::get('/service', 'service')->name('service');
     Route::get('/store', 'store')->name('store');
 });

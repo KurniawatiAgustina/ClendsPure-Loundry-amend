@@ -22,7 +22,7 @@
                     <div class="content">
                         <h3>{{ $item->title }}</h3>
                         <p>{{ Str::words($item->content, 5, '...') }}</p>
-                        <a href="#" class="button">Lihat Detail</a>
+                        <a href="{{ route('landing.detailBlog', ['id' => $item->id]) }}" class="button">Lihat Detail</a>
                     </div>
                 </div>
             @endforeach
@@ -38,6 +38,6 @@
             @endfor --}}
         </div>
     </div>
-@endsection
 </body>
 </html>
+@endsection

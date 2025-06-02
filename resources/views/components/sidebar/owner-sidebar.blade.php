@@ -13,16 +13,24 @@
         <x-sidebar-menu-dropdown-item-dashboard routeName="dashboard.service.index" title="Layanan"/>
         <x-sidebar-menu-dropdown-item-dashboard routeName="dashboard.service-promotion.index" title="Promo"/>
     </x-sidebar-menu-dropdown-dashboard>
-    <x-sidebar-menu-dropdown-dashboard routeName="dashboard.display*" title="Landing Page" icon="tabler:settings">
-        <x-sidebar-menu-dropdown-item-dashboard routeName="dashboard.display-promo.index" title="Display Promo"/>
-        <x-sidebar-menu-dropdown-item-dashboard routeName="dashboard.display-service.index" title="Display Service"/>
-        <x-sidebar-menu-dropdown-item-dashboard routeName="dashboard.display-timeline.index" title="Display Timeline"/>
-    </x-sidebar-menu-dropdown-dashboard>
     <x-sidebar-menu-dropdown-diff-dashboard icon="tabler:settings" parentPattern="dashboard.payment-method*" title="Pengaturan" :activeRoutes="['dashboard.payment-method.index','dashboard.branch.index','dashboard.article.index']">
         <x-sidebar-menu-dashboard routeName="dashboard.payment-method.index" title="Metode Pembayaran" />
         <x-sidebar-menu-dashboard routeName="dashboard.branch.index" title="Cabang" />
         <x-sidebar-menu-dashboard routeName="dashboard.article.index" title="Artikel" />
-    </x-sidebar-menu-dropdown-diff-dashboard>
+    </x-sidebar-menu-dropdown-diff-dashboard>   
+    <x-sidebar-menu-dropdown-dashboard routeName="dashboard.display*" title="Landing Page" icon="tabler:settings">
+        <x-sidebar-menu-dropdown-item-dashboard routeName="dashboard.display-promo.index" title="Display Promo"/>
+        <x-sidebar-menu-dropdown-item-dashboard routeName="dashboard.display-service.index" title="Display Service"/>
+        <x-sidebar-menu-dropdown-item-dashboard routeName="dashboard.display-timeline.index" title="Display Timeline"/>
+        <x-sidebar-menu-dropdown-item-dashboard routeName="dashboard.display-slide.index" title="Display Slide"/>
+        <x-sidebar-menu-dropdown-item-dashboard routeName="dashboard.display-tutorial.index" title="Display Tutorial"/>
+        <x-sidebar-menu-dropdown-item-dashboard routeName="dashboard.display-statistic.index" title="Display Statistik"/>
+        <x-sidebar-menu-dropdown-item-dashboard routeName="dashboard.display-profit.index" title="Display Profit"/>
+        <x-sidebar-menu-dropdown-item-dashboard routeName="dashboard.display-condition.index" title="Display Condition"/>
+        <x-sidebar-menu-dropdown-item-dashboard routeName="dashboard.display-review.index" title="Display Review"/>
+        <x-sidebar-menu-dropdown-item-dashboard routeName="dashboard.display-about-slide.index" title="Display About Slide"/>
+        <x-sidebar-menu-dropdown-item-dashboard routeName="dashboard.display-about-galery.index" title="Display About Galery"/>
+    </x-sidebar-menu-dropdown-dashboard>
 </x-sidebar-dashboard>
 @elseif (auth()->user()->role == 'Admin')
 <x-sidebar-dashboard>
