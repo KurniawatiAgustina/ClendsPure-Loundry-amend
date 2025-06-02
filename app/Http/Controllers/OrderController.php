@@ -274,7 +274,7 @@ class OrderController extends Controller
                    "\n" .
                    "Terima kasih.";
 
-        Whatsapp::send($phone, $message);
+        Whatsapp::send($phone, $message, $invoiceUrl);
 
         return redirect()
             ->back()
