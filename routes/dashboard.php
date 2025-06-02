@@ -67,6 +67,7 @@ Route::controller(OrderController::class)->name('order.')->prefix('order')->grou
     Route::post('/update/{id}', 'update')->name('update');
     Route::get('/destroy/{id}', 'destroy')->name('destroy');
     Route::get('/invoice/{id}', 'invoice')->name('invoice');
+    Route::get('/send-invoice/{id}', 'sendInvoice')->name('send-invoice');
     Route::get('/export', 'export')->name('export');
     Route::get('/export-income', 'exportIncome')->name('export-income');
 });

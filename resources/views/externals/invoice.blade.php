@@ -4,94 +4,175 @@
     <meta charset="UTF-8">
     <title>Invoice #{{ $order->id }}</title>
     <style>
-        body { font-family: sans-serif; font-size: 12px; color: #333; }
-        header { text-align: center; margin-bottom: 20px; }
-        h1 { margin: 0; }
-        .meta, .customer, .period { width: 100%; margin-bottom: 10px; }
-        .meta td, .customer td, .period td { padding: 4px 0; }
-        table.items {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
+        /* Gunakan ukuran kertas kecil (misalnya 80 mm x auto) */
+        @page {
+            size: 80mm auto;
+            margin: 5mm 2mm;
         }
-        /* atur lebar kolom dengan colgroup */
-        table.items colgroup col:nth-child(1) { width: 5%; }
-        table.items colgroup col:nth-child(2) { width: auto; } /* layanan melebar */
-        table.items colgroup col:nth-child(3) { width: 10%; }  /* Qty */
-        table.items colgroup col:nth-child(4) { width: 15%; }  /* Subtotal */
-        table.items th, table.items td {
-            border: 1px solid #999;
-            padding: 8px;
+        body {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 11px;
+            line-height: 1.2;
+            color: #000;
+            margin: 0;
+            padding: 0;
+            width: 78mm; /* Sisakan sedikit margin */
+        }
+        .center {
+            text-align: center;
+        }
+        .dashed {
+            border-top: 1px dashed #000;
+            margin: 4px 0;
+        }
+        .fields {
+            /* untuk dua kolom: label di kiri, value di kanan */
+            display: flex;
+            justify-content: space-between;
+        }
+        .fields .label {
             text-align: left;
         }
-        table.items th { background: #f0f0f0; }
-        tfoot td { font-weight: bold; }
-        footer { text-align: center; font-size: 10px; color: #666; }
+        .fields .value {
+            text-align: right;
+        }
+        .items, .summary {
+            width: 100%;
+            margin-top: 4px;
+        }
+        .items .row {
+            display: flex;
+            justify-content: space-between;
+        }
+        .items .row .desc {
+            flex: 1;
+        }
+        .items .row .qty {
+            width: 18%;
+            text-align: center;
+        }
+        .items .row .amount {
+            width: 22%;
+            text-align: right;
+        }
+        .footer-text {
+            font-size: 10px;
+            margin-top: 6px;
+        }
+        /* Supaya PDF-nya tidak memotong isi: */
+        .no-break {
+            page-break-inside: avoid;
+        }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>CLEDSPURE Invoice</h1>
-    <p>Invoice #{{ $order->id }} &bull; {{ \Carbon\Carbon::parse($order->created_at)->format('d M Y') }}</p>
-    <hr>
-</header>
+    {{-- Logo --}}
+    <div class="center">
+        <img src="{{ public_path('invoice_logo.png') }}" alt="Logo" style="width: 40px; height: auto; margin-bottom: 4px;">
+    </div>
 
-<table class="customer">
-    <tr>
-        <td><strong>Customer:</strong> {{ $order->customer->name }}</td>
-        <td><strong>Phone:</strong> {{ $order->customer->phone }}</td>
-    </tr>
-    <tr>
-        <td><strong>Payment Method:</strong> {{ ucfirst($order->payment_method) }}</td>
-        <td><strong>Status:</strong> {{ ucfirst($order->status) }}</td>
-    </tr>
-</table>
+    {{-- Nama Toko --}}
+    <div class="center">
+        CLEDS.ID
+    </div>
 
-<table class="period">
-    <tr>
-        <td><strong>Cabang:</strong> {{ $order->branch->name }}</td>
-    </tr>
-</table>
+    {{-- Subtitle --}}
+    <div class="center" style="margin-top: 2px; margin-bottom: 4px;">
+        CUCI &amp; REPARASI SEPATU TAS HELM
+    </div>
 
-<table class="items">
-    <!-- colgroup untuk mengatur lebar kolom -->
-    <colgroup>
-        <col>    <!-- # -->
-        <col>    <!-- layanan (melebar otomatis) -->
-        <col>    <!-- Qty -->
-        <col>    <!-- Subtotal -->
-    </colgroup>
+    {{-- Garis dash --}}
+    <div class="dashed"></div>
 
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Layanan</th>
-            <th>Qty</th>
-            <th>Subtotal</th>
-        </tr>
-    </thead>
-    <tbody>
+    {{-- Bagian informasi header --}}
+    <div class="fields">
+        <div class="label">Pembeli</div>
+        <div class="value">{{ $order->customer->name }}</div>
+    </div>
+    <div class="fields">
+        <div class="label">Pembayaran</div>
+        <div class="value">{{ ucfirst($order->payment_method) }}</div>
+    </div>
+    <div class="fields">
+        <div class="label">Tanggal</div>
+        <div class="value">{{ \Carbon\Carbon::parse($order->created_at)->format('d/m/Y H:i') }}</div>
+    </div>
+    <div class="fields">
+        <div class="label">Kasir</div>
+        <div class="value">CLEDS.ID</div>
+    </div>
+
+    {{-- Garis dash --}}
+    <div class="dashed"></div>
+
+    {{-- Daftar barang/layanan --}}
+    <div class="items no-break">
         @foreach($order->details as $i => $detail)
-        <tr>
-            <td>{{ $i+1 }}</td>
-            <td>{{ $detail->service->name ?? '' }}</td>
-            <td>{{ $detail->quantity }}</td>
-            <td>Rp {{ number_format($detail->subtotal,0,',','.') }}</td>
-        </tr>
-        @endforeach
-    </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="3" style="text-align:right">Total Harga</td>
-            <td>Rp {{ number_format($order->total_price,0,',','.') }}</td>
-        </tr>
-    </tfoot>
-</table>
+            @php
+                $namaLayanan = $detail->service->name ?? '-';
+                $qty        = $detail->quantity;
+                $subtotal   = number_format($detail->subtotal, 0, ',', '.');
+            @endphp
+            {{-- Judul layanan (hanya sekali, no kolom #) --}}
+            @if($i === 0)
+                {{-- Baris pertama: tulis nama layanan --}}
+                <div class="row">
+                    <div class="desc" style="font-weight: bold;">{{ strtoupper($namaLayanan) }}</div>
+                </div>
+            @endif
 
-<footer>
-    <p>Terima kasih telah menggunakan layanan CLEDSPURE!</p>
-</footer>
+            {{-- Baris detail kuantitas & harga --}}
+            <div class="row" style="margin-top: 2px;">
+                <div class="desc">&nbsp;&nbsp;{{ number_format($detail->subtotal / $qty,0,',','.') }} x {{ $qty }}</div>
+                <div class="amount">{{ $subtotal }}</div>
+            </div>
+        @endforeach
+    </div>
+
+    {{-- Garis dash --}}
+    <div class="dashed"></div>
+
+    {{-- Ringkasan total --}}
+    <div class="summary">
+        <div class="fields">
+            <div class="label">TOTAL {{ $order->details->sum('quantity') }} QTY</div>
+            <div class="value">Rp {{ number_format($order->total_price, 0, ',', '.') }}</div>
+        </div>
+        <div class="fields">
+            <div class="label">Bayar</div>
+            <div class="value">Rp {{ number_format($order->payment_amount ?? $order->total_price, 0, ',', '.') }}</div>
+            {{-- Asumsi Anda punya field payment_amount; kalau tidak, gunakan total_price --}}
+        </div>
+        <div class="fields">
+            <div class="label">Kembali</div>
+            <div class="value">Rp {{ number_format(($order->payment_amount ?? $order->total_price) - $order->total_price, 0, ',', '.') }}</div>
+        </div>
+    </div>
+
+    {{-- Garis dash --}}
+    <div class="dashed"></div>
+
+    {{-- Keterangan tambahan --}}
+    @if(! empty($order->notes))
+    <div style="margin-top: 2px;">
+        <strong>Keterangan</strong>
+        <div style="margin-left: 4px; margin-top: 2px;">
+            {!! nl2br(e($order->notes)) !!}
+        </div>
+        <div class="dashed" style="margin-top: 2px;"></div>
+    </div>
+    @endif
+
+    {{-- Catatan Perhatian --}}
+    <div class="footer-text no-break">
+        <strong>PERHATIAN :</strong>
+        <div style="margin-left: 4px; margin-top: 2px;">
+            - Komplain Cuci Maksimal H+1<br>
+            - Garansi Repair H+20<br>
+            - Barang Yang Tidak Diambil Lebih Dari 2 Bulan Tidak Menjadi Tanggung Jawab Kami
+        </div>
+    </div>
 
 </body>
 </html>

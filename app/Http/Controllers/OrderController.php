@@ -11,8 +11,10 @@ use App\Models\OrderDetail;
 use App\Models\PaymentMethod;
 use App\Models\Service;
 use App\Models\ServicePromotion;
+use App\Utils\Whatsapp;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Maatwebsite\Excel\Facades\Excel;
 
 use function Spatie\LaravelPdf\Support\pdf;
@@ -234,9 +236,44 @@ class OrderController extends Controller
         $order = Order::findOrFail($id);
         return pdf()
             ->view('externals.invoice', compact('order'))
-            ->paperSize(90, 200, 'mm')
+            ->paperSize(82, 150, 'mm')
             ->orientation('portrait')
             ->name('invoice.pdf');
+    }
+
+    public function sendInvoice(string $id)
+    {
+        $order = Order::with('customer')->findOrFail($id);
+
+        $fileName   = 'invoice_' . $order->id .'_'. time() . '.pdf';
+        $directory  = public_path('invoices');
+        $fullPath   = $directory . DIRECTORY_SEPARATOR . $fileName;
+
+        if (! File::exists($directory)) {
+            File::makeDirectory($directory, 0755, true);
+        }
+
+        $pdf = pdf()
+            ->view('externals.invoice', compact('order'))
+            ->paperSize(82, 150, 'mm')
+            ->orientation('portrait')
+            ->name($fileName);
+
+        $pdf->save($fullPath);
+
+        $invoiceUrl = url('/') . asset('invoices/' . $fileName);
+
+        $phone = $order->customer->phone;
+        $message = "Hallo {$order->customer->name},\n\n" .
+                   "Berikut invoice untuk pesanan Anda, Jika sudah selesai akan kami hubungi kembali." .
+                   "\n" .
+                   "Terima kasih.";
+
+        Whatsapp::send($phone, $message, $invoiceUrl);
+
+        return redirect()
+            ->back()
+            ->with('toast_success', 'Invoice berhasil digenerate & dikirim via WhatsApp.');
     }
 
     /**
