@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 use function Spatie\LaravelPdf\Support\pdf;
 
@@ -234,11 +235,15 @@ class OrderController extends Controller
     public function invoice(string $id)
     {
         $order = Order::findOrFail($id);
-        return pdf()
-            ->view('externals.invoice', compact('order'))
-            ->paperSize(82, 150, 'mm')
-            ->orientation('portrait')
-            ->name('invoice.pdf');
+
+        $paperWidth  = 82 * 2.83465;
+        $paperHeight = 150 * 2.83465;
+
+        $pdf = Pdf::loadView('externals.invoice', compact('order'))
+                ->setPaper([0, 0, $paperWidth, $paperHeight]);
+
+        return $pdf->download('invoice.pdf');
+
     }
 
     public function sendInvoice(string $id)
@@ -253,11 +258,11 @@ class OrderController extends Controller
             File::makeDirectory($directory, 0755, true);
         }
 
-        $pdf = pdf()
-            ->view('externals.invoice', compact('order'))
-            ->paperSize(82, 150, 'mm')
-            ->orientation('portrait')
-            ->name($fileName);
+        $paperWidth  = 82 * 2.83465;
+        $paperHeight = 150 * 2.83465;
+
+        $pdf = Pdf::loadView('externals.invoice', compact('order'))
+                ->setPaper([0, 0, $paperWidth, $paperHeight]);
 
         $pdf->save($fullPath);
 
@@ -269,7 +274,7 @@ class OrderController extends Controller
                    "\n" .
                    "Terima kasih.";
 
-        Whatsapp::send($phone, $message, $invoiceUrl);
+        Whatsapp::send($phone, $message);
 
         return redirect()
             ->back()
