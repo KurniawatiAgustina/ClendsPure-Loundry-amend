@@ -270,9 +270,10 @@ class OrderController extends Controller
 
         $phone = $order->customer->phone;
         $message = "Hallo {$order->customer->name},\n\n" .
-                   "Berikut invoice untuk pesanan Anda, Jika sudah selesai akan kami hubungi kembali." .
-                   "\n" .
-                   "Terima kasih.";
+                   "Invoice untuk layanan perawatan sepatu Anda terlampir. " .
+                    "Sepatu Anda sedang dalam proses pembersihan profesional dan akan kami informasikan ketika sudah siap diambil.\n\n" .
+                    "Terima kasih atas kepercayaan Anda.\n\n" .
+                    "Happy feet, happy you! 😊👟✨";
 
         Whatsapp::send($phone, $message, $invoiceUrl);
 
@@ -286,9 +287,11 @@ class OrderController extends Controller
         $order = Order::with('customer')->findOrFail($id);
 
         $message = "Hallo {$order->customer->name},\n\n" .
-                   "Pesanan Anda dengan ID {$order->id} telah selesai." .
-                   "\n" .
-                   "Terima kasih.";
+                    "Pesanan Anda (ID: {$order->id}) telah selesai dikerjakan dan siap untuk diambil.\n\n" .
+                    "Sepatu Anda sudah dalam kondisi bersih dan terawat sesuai standar kualitas kami. " .
+                    "Silakan kunjungi lokasi kami untuk pengambilan atau hubungi kami untuk informasi lebih lanjut.\n\n" .
+                    "Terima kasih telah mempercayakan perawatan sepatu kepada kami.\n\n" .
+                    "Happy feet, happy you! 😊👟✨";
 
         Whatsapp::send($order->customer->phone, $message);
 
