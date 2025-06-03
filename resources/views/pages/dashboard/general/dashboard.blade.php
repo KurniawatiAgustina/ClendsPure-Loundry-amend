@@ -110,7 +110,7 @@
             </div>
 
             <div
-                class="flex flex-col  items-center justify-center p-4 bg-customprimary-500 border border-gray-200 rounded-lg shadow-md sm:flex-row sm:p-6 dark:border-gray-700 hover:shadow-lg transition-shadow duration-300">
+                class="flex flex-col  items-center justify-center p-4 bg-blue-500 border border-gray-200 rounded-lg shadow-md sm:flex-row sm:p-6 dark:border-gray-700 hover:shadow-lg transition-shadow duration-300">
                 <span class="text-white text-6xl md:mr-3 mr-0 ">
                     <span class="iconify" data-icon="mdi:handshake" data-inline="false"></span>
                 </span>
@@ -122,7 +122,7 @@
             </div>
 
             <div
-                class="flex flex-col  items-center justify-center p-4 bg-customprimary-500 border border-gray-200 rounded-lg shadow-md sm:flex-row sm:p-6 dark:border-gray-700 hover:shadow-lg transition-shadow duration-300">
+                class="flex flex-col  items-center justify-center p-4 bg-red-500 border border-gray-200 rounded-lg shadow-md sm:flex-row sm:p-6 dark:border-gray-700 hover:shadow-lg transition-shadow duration-300">
                 <span class="text-white text-6xl md:mr-3 mr-0 ">
                     <span class="iconify" data-icon="raphael:customer" data-inline="false"></span>
                 </span>
@@ -136,7 +136,7 @@
 
         <div class="grid w-full grid-cols-1 gap-y-5 lg:gap-x-5 mt-5 lg:grid-cols-3">
             <div
-                class="flex flex-col items-center justify-center p-4 bg-customprimary-500 border border-gray-200 rounded-lg shadow-md sm:flex-row sm:p-6 dark:border-gray-700 hover:shadow-lg transition-shadow duration-300">
+                class="flex flex-col items-center justify-center p-4 bg-lime-500 border border-gray-200 rounded-lg shadow-md sm:flex-row sm:p-6 dark:border-gray-700 hover:shadow-lg transition-shadow duration-300">
                 <span class="text-white text-6xl md:mr-3 mr-0 ">
                     <span class="iconify" data-icon="iconoir:wallet-solid" data-inline="false"></span>
                 </span>
@@ -148,7 +148,7 @@
             </div>
 
             <div
-                class="flex flex-col  items-center justify-center p-4 bg-customprimary-500 border border-gray-200 rounded-lg shadow-md sm:flex-row sm:p-6 dark:border-gray-700 hover:shadow-lg transition-shadow duration-300">
+                class="flex flex-col  items-center justify-center p-4 bg-pink-500 border border-gray-200 rounded-lg shadow-md sm:flex-row sm:p-6 dark:border-gray-700 hover:shadow-lg transition-shadow duration-300">
                 <span class="text-white text-6xl md:mr-3 mr-0 ">
                     <span class="iconify" data-icon="clarity:clipboard-solid" data-inline="false"></span>
                 </span>
