@@ -83,6 +83,10 @@
                                 </th>
                                 <th scope="col"
                                     class="p-4 text-sm font-medium text-left text-white uppercase dark:text-gray-400">
+                                    Gambar
+                                </th>
+                                <th scope="col"
+                                    class="p-4 text-sm font-medium text-left text-white uppercase dark:text-gray-400">
                                     Judul
                                 </th>
                                 <th scope="col"
@@ -102,6 +106,9 @@
                                         <div class="flex items-center justify-center">
                                             {{ $loop->iteration }}
                                         </div>
+                                    </td>
+                                    <td class="p-4 text-xs font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <img class="max-w-20 max-h-20 rounded-lg" src="{{ asset('display-service/' . $data->image) }}" alt="image">
                                     </td>
                                     <td class="p-4 text-xs font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $data->title }}
