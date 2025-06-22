@@ -27,14 +27,21 @@
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Judul Display Layanan</label>
                             <input type="text" name="title" id="title"
                                 class="block w-full mt-1 text-sm border-gray-300 rounded-md shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-customprimary-500 focus:border-customprimary-500"
-                                required placeholder="Masukkan judul artikel">
+                                required placeholder="Masukkan judul">
+                        </div>
+                        <div>
+                            <label for="description"
+                                class="block text-sm font-medium text-gray-700 dark:text-gray-300">Deskripsi</label>
+                            <input type="text" name="description" id="description"
+                                class="block w-full mt-1 text-sm border-gray-300 rounded-md shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-customprimary-500 focus:border-customprimary-500"
+                                required placeholder="Masukkan Deskripsi">
                         </div>
                         <div>
                             <label for="harga"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Harga</label>
                             <input type="text" name="harga" id="harga"
                                 class="block w-full mt-1 text-sm border-gray-300 rounded-md shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-customprimary-500 focus:border-customprimary-500"
-                                required placeholder="Masukkan judul artikel">
+                                required placeholder="Masukkan harga">
                         </div>
                         <div>
                             <label for="image"

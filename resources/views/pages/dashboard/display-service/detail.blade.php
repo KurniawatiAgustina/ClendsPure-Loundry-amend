@@ -33,6 +33,14 @@
                                 value="{{ $data->title }}" required />
                         </div>
                         <div>
+                            <label for="description"
+                                class="block text-sm font-medium text-gray-700 dark:text-gray-300">Deskripsi</label>
+                            <input type="text" name="description" id="description"
+                                class="block w-full mt-1 text-sm border-gray-300 rounded-md shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-customprimary-500 focus:border-customprimary-500"
+                                required placeholder="Masukkan Deskripsi"
+                                value="{{ $data->description ?? '' }}">
+                        </div>
+                        <div>
                             <label for="harga"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga</label>
                             <input type="text" id="harga" name="harga" disabled

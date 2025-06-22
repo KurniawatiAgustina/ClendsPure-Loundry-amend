@@ -89,6 +89,13 @@
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
                                 value="{{ $data->status }}" required />
                         </div>
+                        <div>
+                            <label for="note"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Catatan</label>
+                            <input type="text" id="note" name="note" disabled
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
+                                value="{{ $data->note ?? '' }}" required />
+                        </div>
                         <div class="grid grid-cols-1 gap-x-4">
                             <label for="role"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Detail</label>
@@ -133,18 +140,11 @@
                 <!-- Modal footer -->
                 <div
                     class="items-center p-6 border-t border-gray-200 rounded-b dark:border-gray-700 flex justify-end space-x-2">
-                    {{-- <button type="button" id="edit-btn" data-modal-id="detail-customer-modal{{ $data->id }}"
-                        class="edit-btn inline-flex items-center px-3 py-2.5 text-xs font-medium text-center text-customprimary-700 border border-customprimary-700 rounded-lg hover:text-white hover:bg-customprimary-700 focus:ring-4 focus:ring-customblue-200 dark:text-white dark:border-none dark:bg-customprimary-600 dark:hover:bg-customprimary-700 dark:focus:ring-customprimary-800">
-                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z">
-                            </path>
-                            <path fill-rule="evenodd"
-                                d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                        Edit
-                    </button> --}}
+                    <button type="button"
+                        class="@if (auth()->user()->role == 'Customer' || auth()->user()->role == 'Owner') hidden @endif ubah-catatan-btn inline-flex items-center px-3 py-2 text-xs font-medium text-center text-blue-600 border border-blue-600 rounded-lg hover:text-white hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 dark:text-white dark:border-none dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900"
+                        data-modal-toggle="ubah-catatan-modal{{ $data->id }}" data-modal-target="ubah-catatan-modal{{ $data->id }}">
+                        Ubah Catatan
+                    </button>
                     <button type="button" onclick="location.href='{{ route('dashboard.order.notification', $data->id) }}'"
                         class="@if (auth()->user()->role == 'Customer' || auth()->user()->role == 'Owner') hidden @endif close-btn inline-flex items-center px-3 py-2.5 text-xs font-medium text-center text-green-600 border border-green-600 rounded-lg hover:text-white hover:bg-green-600 focus:ring-4 focus:ring-green-300 dark:text-white dark:border-none dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900">
                         Notif Selesai
@@ -216,6 +216,40 @@
                                 stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                         Batal
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal Change Note -->
+<div class="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto hidden"
+    id="ubah-catatan-modal{{ $data->id }}">
+    <div class="relative w-full max-w-md mx-auto px-4">
+        <div class="bg-white rounded-lg shadow dark:bg-gray-800">
+            <div class="flex items-center justify-between px-5 py-3 border-b dark:border-gray-700">
+                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Ubah Catatan</h3>
+                <button type="button" data-modal-toggle="ubah-catatan-modal{{ $data->id }}"
+                    class="text-gray-400 hover:text-gray-900 dark:hover:text-white">
+                    &times;
+                </button>
+            </div>
+            <form action="{{ route('dashboard.order.change-note', ['id' => $data->id]) }}" method="POST" class="p-6 space-y-4">
+                @csrf
+                <div>
+                    <textarea id="note_input_{{ $data->id }}" name="note"
+                        class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                        rows="4">{{ $data->note ?? '' }}</textarea>
+                </div>
+                <div class="flex justify-end space-x-2">
+                    <button type="button"
+                        class="cancel-ubah-btn inline-flex px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700"
+                        data-modal-toggle="ubah-catatan-modal{{ $data->id }}">
+                        Cancel
+                    </button>
+                    <button type="submit"
+                        class="submit-ubah-btn inline-flex px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700">
+                        Submit
                     </button>
                 </div>
             </form>
