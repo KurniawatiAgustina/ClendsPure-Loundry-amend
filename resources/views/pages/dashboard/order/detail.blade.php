@@ -137,18 +137,18 @@
                         Edit
                     </button> --}}
                     @if (auth()->user()->role == 'Cashier')
-                    <button type="button" onclick="location.href='{{ '#' }}'"
+                    <button type="button" onclick="location.href='{{ route('dashboard.order.notification', $data->id) }}'"
                         class="@if (auth()->user()->role == 'Customer' || auth()->user()->role == 'Owner') hidden @endif close-btn inline-flex items-center px-3 py-2.5 text-xs font-medium text-center text-green-600 border border-green-600 rounded-lg hover:text-white hover:bg-green-600 focus:ring-4 focus:ring-green-300 dark:text-white dark:border-none dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900">
                         Notif Selesai
                     </button>
-                    <button type="button" onclick="location.href='{{ '#' }}'"
-                        class="@if (auth()->user()->role == 'Customer' || auth()->user()->role == 'Owner') hidden @endif close-btn inline-flex items-center px-3 py-2.5 text-xs font-medium text-center text-green-600 border border-green-600 rounded-lg hover:text-white hover:bg-green-600 focus:ring-4 focus:ring-green-300 dark:text-white dark:border-none dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900">
-                        Kirim Invoice Whatsapp
+                    <button type="button" onclick="location.href='{{ route('dashboard.order.send-invoice', $data->id) }}'"
+                        class="@if (auth()->user()->role == 'Customer' || auth()->user()->role == 'Owner' || $data->status == 'Delivered' || $data->status == 'Cancelled') hidden @endif close-btn inline-flex items-center px-3 py-2.5 text-xs font-medium text-center text-green-600 border border-green-600 rounded-lg hover:text-white hover:bg-green-600 focus:ring-4 focus:ring-green-300 dark:text-white dark:border-none dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900">
+                        Kirim Nota Whatsapp
                     </button>
                     <a href="{{ route('dashboard.order.invoice', $data->id) }}" style="text-decoration: none">
                         <button type="button"
                             class="close-btn inline-flex items-center px-3 py-2.5 text-xs font-medium text-center text-green-600 border border-green-600 rounded-lg hover:text-white hover:bg-green-600 focus:ring-4 focus:ring-green-300 dark:text-white dark:border-none dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900">
-                            Download Invoice
+                            Download Nota
                         </button>
                     </a>
                     @endif

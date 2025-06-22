@@ -4,6 +4,13 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\DisplayAboutSlide;
+use App\Models\DisplayCondition;
+use App\Models\DisplayProfit;
+use App\Models\DisplayReview;
+use App\Models\DisplaySlide;
+use App\Models\DisplayStatistic;
+use App\Models\DisplayTutorial;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -198,6 +205,178 @@ class DatabaseSeeder extends Seeder
             ];
         }
         DB::table('service_promotions')->insert($promos);
+
+        //Display Landing Page
+
+        DisplaySlide::create([
+            'title'       => 'Solusi Terpercaya Perawatan Sepatu Kesayangan Kamu',
+            'description' => 'Kami memberikan layanan terbaik untuk perawatan sepatu. Bekerja secara profesional, menggunakan teknik khusus dengan alat dan bahan premium.',
+        ]);
+
+        DisplayTutorial::create([
+            'title'       => 'Chat melalui WhatsApp',
+            'description' => 'Hubungi kami melalui WhatsApp untuk mendapatkan informasi lebih lanjut tentang layanan kami.',
+        ]);
+
+        DisplayTutorial::create([
+            'title' => 'Penjemputan dan Pengantaran',
+            'description' => 'Nikmati layanan penjemputan dan pengantaran sepatu kami.',
+        ]);
+
+        DisplayTutorial::create([
+            'title' => 'Pembayaran',
+            'description' => 'Lakukan pembayaran dengan cara yang mudah dan aman.',
+        ]);
+
+        DisplayTutorial::create([
+            'title' => 'Pengerjaan',
+            'description' => 'Kami memberikan layanan terbaik untuk perawatan sepatu.',
+        ]);
+
+        DisplayTutorial::create([
+            'title' => 'Pengambilan',
+            'description' => 'Ambil sepatu kamu setelah selesai dirawat.',
+        ]);
+
+        DisplayStatistic::create([
+            'number' => "1000+",
+            'title' => 'Total Sepatu yang Dirawat',
+        ]);
+
+        DisplayStatistic::create([
+            'number' => "500+",
+            'title' => 'Total Pelanggan',
+        ]);
+
+        DisplayStatistic::create([
+            'number' => "90%+",
+            'title' => 'Total Kepuasan Pelanggan',
+        ]);
+
+        DisplayStatistic::create([
+            'number' => "5+",
+            'title' => 'Total Cabang',
+        ]);
+
+        DisplayAboutSlide::create([
+            'title'       => 'Tentang Kami',
+            'description' => 'Kami adalah layanan perawatan sepatu yang terpercaya, berkomitmen untuk memberikan layanan terbaik dengan menggunakan teknik khusus dan bahan premium.',
+        ]);
+
+        DisplayProfit::create([
+            'title'       => 'Ditangani Oleh Ahli',
+            'description' => 'Berpengalaman lebih dari 10 tahun di industri jasa cuci sepatu.',
+        ]);
+
+        DisplayProfit::create([
+            'title'       => 'Dukungan Customer Service',
+            'description' => 'Selalu siap membantu kamu. Kapan pun, di mana pun.',
+        ]);
+
+        DisplayProfit::create([
+            'title'       => 'Layanan Penjemputan & Pengantaran',
+            'description' => 'Kami menyediakan layanan penjemputan dan pengantaran sepatu untuk kenyamanan kamu.',
+        ]);
+
+        DisplayProfit::create([
+            'title'       => 'Jaminan Garansi Layanan',
+            'description' => 'Kami memberikan garansi layanan untuk memastikan kepuasan kamu.',
+        ]);
+
+        DisplayCondition::create([
+            'radius'    => '0-2 km',
+            'minimum'   => 'Rp 50.000',
+            'note'      => 'Free Ongkir',
+        ]);
+
+        DisplayCondition::create([
+            'radius'    => '3-7 km',
+            'minimum'   => 'Rp 50.000',
+            'note'      => 'Rp 6.000/km',
+        ]);
+
+        DisplayCondition::create([
+            'radius'    => '8-12 km',
+            'minimum'   => 'Rp 75.000',
+            'note'      => 'Rp 5.000/km',
+        ]);
+
+        DisplayCondition::create([
+            'radius'    => '13-17 km',
+            'minimum'   => 'Rp 100.000',
+            'note'      => 'Rp 4.000/km',
+        ]);
+
+        DisplayReview::create([
+            'name'          => 'Asril',
+            'description'   => 'Layanan yang sangat memuaskan! Sepatu saya terlihat seperti baru lagi.',
+            'role'          => 'Karyawan Swasta',
+        ]);
+
+        DisplayReview::create([
+            'name'          => 'Dewi',
+            'description'   => 'Pelayanan yang cepat dan ramah. Sangat merekomendasikan!',
+            'role'          => 'Mahasiswa',
+        ]);
+
+        DisplayReview::create([
+            'name'          => 'Budi',
+            'description'   => 'Kualitas layanan yang sangat baik. Sepatu saya dirawat dengan sangat baik.',
+            'role'          => 'PNS',
+        ]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // $customerIds = DB::table('customers')->pluck('id')->toArray();
         // $paymentIds  = DB::table('payment_methods')->pluck('id')->toArray();

@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 use function Spatie\LaravelPdf\Support\pdf;
 
@@ -234,11 +235,15 @@ class OrderController extends Controller
     public function invoice(string $id)
     {
         $order = Order::findOrFail($id);
-        return pdf()
-            ->view('externals.invoice', compact('order'))
-            ->paperSize(82, 150, 'mm')
-            ->orientation('portrait')
-            ->name('invoice.pdf');
+
+        $paperWidth  = 82 * 2.83465;
+        $paperHeight = 150 * 2.83465;
+
+        $pdf = Pdf::loadView('externals.invoice', compact('order'))
+                ->setPaper([0, 0, $paperWidth, $paperHeight]);
+
+        return $pdf->download('invoice.pdf');
+
     }
 
     public function sendInvoice(string $id)
@@ -253,11 +258,11 @@ class OrderController extends Controller
             File::makeDirectory($directory, 0755, true);
         }
 
-        $pdf = pdf()
-            ->view('externals.invoice', compact('order'))
-            ->paperSize(82, 150, 'mm')
-            ->orientation('portrait')
-            ->name($fileName);
+        $paperWidth  = 82 * 2.83465;
+        $paperHeight = 150 * 2.83465;
+
+        $pdf = Pdf::loadView('externals.invoice', compact('order'))
+                ->setPaper([0, 0, $paperWidth, $paperHeight]);
 
         $pdf->save($fullPath);
 
@@ -265,15 +270,32 @@ class OrderController extends Controller
 
         $phone = $order->customer->phone;
         $message = "Hallo {$order->customer->name},\n\n" .
-                   "Berikut invoice untuk pesanan Anda, Jika sudah selesai akan kami hubungi kembali." .
-                   "\n" .
-                   "Terima kasih.";
+                   "Invoice untuk layanan perawatan sepatu Anda terlampir. " .
+                    "Sepatu Anda sedang dalam proses pembersihan profesional dan akan kami informasikan ketika sudah siap diambil.\n\n" .
+                    "Terima kasih atas kepercayaan Anda.\n\n" .
+                    "Happy feet, happy you! 😊👟✨";
 
         Whatsapp::send($phone, $message, $invoiceUrl);
 
         return redirect()
             ->back()
             ->with('toast_success', 'Invoice berhasil digenerate & dikirim via WhatsApp.');
+    }
+
+    public function notification(string $id)
+    {
+        $order = Order::with('customer')->findOrFail($id);
+
+        $message = "Hallo {$order->customer->name},\n\n" .
+                    "Pesanan Anda (ID: {$order->id}) telah selesai dikerjakan dan siap untuk diambil.\n\n" .
+                    "Sepatu Anda sudah dalam kondisi bersih dan terawat sesuai standar kualitas kami. " .
+                    "Silakan kunjungi lokasi kami untuk pengambilan atau hubungi kami untuk informasi lebih lanjut.\n\n" .
+                    "Terima kasih telah mempercayakan perawatan sepatu kepada kami.\n\n" .
+                    "Happy feet, happy you! 😊👟✨";
+
+        Whatsapp::send($order->customer->phone, $message);
+
+        return redirect()->back()->with('toast_success', 'Notification sent successfully');
     }
 
     /**

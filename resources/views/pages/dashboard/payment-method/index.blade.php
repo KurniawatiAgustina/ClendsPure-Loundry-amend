@@ -83,6 +83,10 @@
                                 </th>
                                 <th scope="col"
                                     class="p-4 text-sm font-medium text-left text-white uppercase dark:text-gray-400">
+                                    Cabang
+                                </th>
+                                <th scope="col"
+                                    class="p-4 text-sm font-medium text-left text-white uppercase dark:text-gray-400">
                                     Tipe Bank
                                 </th>
                                 <th scope="col"
@@ -110,6 +114,9 @@
                                         <div class="flex items-center justify-center">
                                             {{ $loop->iteration }}
                                         </div>
+                                    </td>
+                                    <td class="p-4 text-xs font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {{ $data->branch->name }}
                                     </td>
                                     <td class="p-4 text-xs font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $data->bank_type }}

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Scopes\RoleScope;
+use App\Models\Scopes\OrderByRoleScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,7 +14,7 @@ class Order extends Model
 
     protected static function booted(): void
     {
-        static::addGlobalScope(new RoleScope);
+        static::addGlobalScope(new OrderByRoleScope);
     }
 
     public function details()

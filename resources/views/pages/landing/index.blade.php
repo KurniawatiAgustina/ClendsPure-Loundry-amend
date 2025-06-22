@@ -8,19 +8,44 @@
 <link rel="stylesheet" href="{{ asset('assets/LandingPage/styles.css') }}">
 <br><br><br>
  <!-- Hero Section -->
-<section id="home" class="hero">
+<section id="home" class="hero" data-slideshow-speed="1000">
     <div class="overlay"></div>
     <div class="slideshow-container">
-        <!-- Slides -->
-        <div class="slide-fade">
-            <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image">
+        <!-- Multiple Slides -->
+        <div class="slide-fade active">
+            <img src="{{ asset('assets/LandingPage/image/gsp1.jpg') }}" alt="Gallery Image 1">
         </div>
+        <div class="slide-fade">
+            <img src="{{ asset('assets/LandingPage/image/gsp2.jpg') }}" alt="Gallery Image 2">
+        </div>
+        <div class="slide-fade">
+            <img src="{{ asset('assets/LandingPage/image/gsp3.jpg') }}" alt="Gallery Image 3">
+        </div>
+        <div class="slide-fade">
+            <img src="{{ asset('assets/LandingPage/image/gsp4.jpg') }}" alt="Gallery Image 4">
+        </div>
+        <div class="slide-fade">
+            <img src="{{ asset('assets/LandingPage/image/gsp5.jpg') }}" alt="Gallery Image 5">
+        </div>
+        
+        <!-- Navigation dots (optional) -->
+        <div class="dots-container">
+            <span class="dot active" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+            <span class="dot" onclick="currentSlide(4)"></span>
+            <span class="dot" onclick="currentSlide(5)"></span>
+        </div>
+        
+        <!-- Navigation arrows (optional) -->
+        <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
+        <a class="next" onclick="changeSlide(1)">&#10095;</a>
     </div>
     <div class="hero-content1">
-        <h1>Solusi Terpercaya Perawatan <br> Sepatu Kesayangan Kamu.</h1>
-        <p>Kami memberikan layanan terbaik untuk perawatan sepatu. Bekerja secara profesional, <br> menggunakan teknik
-            khusus dengan alat dan bahan premium.</p>
-        <a href="#services" class="cta-button1">Kunjungi Cleds Sekarang</a>
+        <h1>{{ $displaySlides->title }}</h1>
+        <p>{{ $displaySlides->description }}</p>
+        <a href="{{ route('landing.store') }}" class="cta-button1">Kunjungi Cleds Sekarang</a>
+
     </div>
 </section>
 <br>
@@ -63,7 +88,7 @@
         </div> --}}
     </div>
 
-    <a href="#" class="view-all">Lihat Semua</a>
+ 
 </div>
 
  <!-- bottom grid -->
@@ -97,50 +122,25 @@
  <!-- Layanan -->
 
 <section class="layanan-kami">
+    <div class="lihat-semua-wrapper">
     <h1>Layanan Kami</h1>
-    <br>
+    <p>Kami memberikan berbagai macam layanan untuk perawatan barang kesayangan anda yang akan dikerjakan oleh tim kami yang sudah berpengalaman dan profesional.</p>
+    
+        {{-- <a href="{{ route('landing.service') }}" class="btn-lihat-menu">Lihat Daftar Menu</a> --}}
+    </div>
+
     <div class="container">
         @foreach ($displayServices as $item)
-            <div class="card" style="background: url('assets/LandingPage/image/gsp7.jpg') center/cover no-repeat;">
+            <div class="card">
+                <img src="{{ asset('display-service/' . $item->image) }}" alt="{{ $item->title }}">
                 <h3>{{ $item->title }}</h3>
-                <p>Mulai dari {{ $item->Harga }}</p>
-                <button>Lihat Detail</button>
+                <p>{{ $item->deskripsi }}</p>
             </div>
         @endforeach
-        {{-- <div class="card" style="background: url('assets/LandingPage/image/gsp7.jpg') center/cover no-repeat;">
-            <h3>Laundry Satuan</h3>
-            <p>Mulai dari Rp. 25,000</p>
-            <button onclick="location.href='laundry-satuan.html'">Lihat Detail</button>
-        </div>
-        <div class="card" style="background: url('assets/LandingPage/image/gsp7.jpg') center/cover no-repeat;">
-            <h3>Laundry Kiloan</h3>
-            <p>Mulai dari Rp. 10,000</p>
-            <button onclick="location.href='laundry-kiloan.html'">Lihat Detail</button>
-        </div>
-        <div class="card" style="background: url('assets/LandingPage/image/gsp7.jpg') center/cover no-repeat;">
-            <h3>Laundry Karpet</h3>
-            <p>Mulai dari Rp. 40,000</p>
-            <button onclick="location.href='laundry-karpet.html'">Lihat Detail</button>
-        </div>
-        <div class="card" style="background: url('assets/LandingPage/image/gsp7.jpg') center/cover no-repeat;">
-            <h3>Laundry Sepatu</h3>
-            <p>Mulai dari Rp. 35,000</p>
-            <button onclick="location.href='laundry-sepatu.html'">Lihat Detail</button>
-        </div>
-        <div class="card" style="background: url('assets/LandingPage/image/gsp7.jpg') center/cover no-repeat;">
-            <h3>Stroller & Baby Care</h3>
-            <p>Mulai dari Rp. 20,000</p>
-            <button onclick="location.href='stroller-baby-care.html'">Lihat Detail</button>
-        </div>
-        <div class="card" style="background: url('assets/LandingPage/image/gsp7.jpg') center/cover no-repeat;">
-            <h3>Cuci Bantal/Bed Cover/Selimut</h3>
-            <p>Mulai dari Rp. 25,000</p>
-            <button onclick="location.href='cuci-bantal.html'">Lihat Detail</button>
-        </div> --}}
     </div>
 </section>
-<br><br>
-<br>
+
+
 
 <!-- Pemesanan -->
 <section class="order-online">
@@ -150,16 +150,18 @@
         <img src="assets/LandingPage/image/gsp4.jpg" alt="Laundry Process">
       </div>
       <div class="steps">
+        @foreach ($displayTutorials as $item)
         <div class="step">
           <div class="icon">
-            <i class="bi bi-whatsapp"></i>
+            <i class="bi bi-arrow-right"></i>
           </div>
           <div class="text">
-            <h3>Chat melalui WhatsApp</h3>
-            <p>Hubungi kami melalui WhatsApp, dan kirimkan lokasi penjemputan</p>
+            <h3>{{ $item->title }}</h3>
+            <p>{{ $item->description }}</p>
           </div>
         </div>
-        <div class="step">
+        @endforeach
+        {{-- <div class="step">
           <div class="icon">
             <i class="bi bi-truck"></i>
           </div>
@@ -194,7 +196,7 @@
             <h3>Pengantaran Laundry</h3>
             <p>Kami antarkan laundry yang sudah kami kerjakan ke tempat Anda</p>
           </div>
-        </div>
+        </div> --}}
       </div>
     </div>
   </section>
@@ -204,11 +206,13 @@
 
     <!-- Statistik -->
     <div class="statistics">
+      @foreach ($displayStatistics as $item)
         <div class="stat-card">
-            <h3>30.3K</h3>
-            <p>Students Enrolled</p>
+            <h3>{{ $item->number }}</h3>
+            <p>{{ $item->title }}</p>
         </div>
-        <div class="stat-card">
+      @endforeach
+        {{-- <div class="stat-card">
             <h3>40.5K</h3>
             <p>Classes Completed</p>
         </div>
@@ -219,7 +223,7 @@
         <div class="stat-card">
             <h3>6.3+</h3>
             <p>Top Instructors</p>
-        </div>
+        </div> --}}
     </div>
 </div>
 
@@ -294,4 +298,61 @@ function navigateToServicePage(service) {
 
 // Panggil fungsi untuk render promo
 renderPromosFromBackend();
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    let currentSlideIndex = 0;
+    const slides = document.querySelectorAll('.slide-fade');
+    const dots = document.querySelectorAll('.dot');
+    const totalSlides = slides.length;
+
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.classList.remove('active');
+            dots[i]?.classList.remove('active');
+        });
+        slides[index].classList.add('active');
+        dots[index]?.classList.add('active');
+    }
+
+    function nextSlide() {
+        currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
+        showSlide(currentSlideIndex);
+    }
+
+    function prevSlide() {
+        currentSlideIndex = (currentSlideIndex - 1 + totalSlides) % totalSlides;
+        showSlide(currentSlideIndex);
+    }
+
+    window.currentSlide = function(index) {
+        currentSlideIndex = index - 1;
+        showSlide(currentSlideIndex);
+    }
+
+    window.changeSlide = function(direction) {
+        if (direction === 1) nextSlide();
+        else prevSlide();
+    }
+
+    const heroSection = document.querySelector('.hero');
+    const slideshowSpeed = parseInt(heroSection.getAttribute('data-slideshow-speed')) || 1000;
+
+    let autoSlideInterval;
+    function startAutoSlide() {
+        autoSlideInterval = setInterval(nextSlide, slideshowSpeed);
+    }
+
+    function stopAutoSlide() {
+        clearInterval(autoSlideInterval);
+    }
+
+    // Start the slideshow
+    showSlide(currentSlideIndex);
+    startAutoSlide();
+
+    heroSection.addEventListener('mouseenter', stopAutoSlide);
+    heroSection.addEventListener('mouseleave', startAutoSlide);
+});
 </script>

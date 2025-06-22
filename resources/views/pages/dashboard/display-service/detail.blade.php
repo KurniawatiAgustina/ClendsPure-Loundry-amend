@@ -39,6 +39,13 @@
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
                                 value="{{ $data->Harga }}" required />
                         </div>
+                        <div>
+                            <label for="image"
+                                class="block text-sm font-medium text-gray-700 dark:text-gray-300">Gambar</label>
+                            <input type="file" name="image" id="image"
+                                class="block w-full mt-1 text-sm border-gray-300 rounded-md shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-customprimary-500 focus:border-customprimary-500"
+                                accept="image/*">
+                        </div>
                     </div>
                 </div>
                 <!-- Modal footer -->

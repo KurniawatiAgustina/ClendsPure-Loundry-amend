@@ -38,12 +38,13 @@
 
 <!-- Fitur-fitur Layanan -->
 <div class="features">
-  <div class="feature-card">
-      <div class="icon">🛡️</div>
-      <h3>Ditangani oleh Ahli</h3>
-      <p>Berpengalaman lebih dari 10 tahun di industri jasa cuci sepatu.</p>
-  </div>
-  <div class="feature-card">
+    @foreach ($displayProfits as $item)
+      <div class="feature-card">
+          <h3>{{ $item->title }}</h3>
+          <p>{{ $item->description }}</p>
+      </div>
+    @endforeach
+  {{-- <div class="feature-card">
       <div class="icon">🎧</div>
       <h3>Dukungan Customer Service</h3>
       <p>Selalu siap membantu kamu. Kapan pun, di mana pun.</p>
@@ -57,7 +58,7 @@
       <div class="icon">✅</div>
       <h3>Jaminan Garansi Layanan</h3>
       <p>Jaminan garansi apabila terjadi kerusakan selama pelayanan.</p>
-  </div>
+  </div> --}}
 </div>
 </div>
 
@@ -81,12 +82,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="table-header1">
-              <td>0-2 km</td>
-              <td>Rp 50.000</td>
-              <td>Free Ongkir</td>
-            </tr>
-            <tr>
+            @foreach ($displayConditions as $item)
+                <tr class="">
+                    <td>{{ $item->radius }}</td>
+                    <td>{{ $item->minimum }}</td>
+                    <td>{{ $item->note }}</td>
+                </tr>
+            @endforeach
+            {{-- <tr>
               <td>3-7 km<br>+ free 2 km</td>
               <td>Rp 50.000</td>
               <td>Rp 6.000/km</td>
@@ -100,7 +103,7 @@
               <td>13-17 km<br>+ free 2 km</td>
               <td>Rp 100.000</td>
               <td>Rp 4.000/km</td>
-            </tr>
+            </tr> --}}
           </tbody>
         </table>
       </section>
@@ -110,7 +113,7 @@
 
    <!-- Layanan -->
 
-<section class="layanan-kami">
+{{-- <section class="layanan-kami">
   <h1>Layanan Kami</h1>
   <br>
   <div class="container">
@@ -118,57 +121,29 @@
       <div class="card" style="background: url('assets/LandingPage/image/gsp7.jpg') center/cover no-repeat;">
           <h3>{{ $item->title }}</h3>
           <p>Mulai dari {{ $item->Harga }}</p>
-          <button>Lihat Detail</button>
+         <a href="{{ route('landing.detailService', ['id' => $item->id]) }}" class="button1">Lihat Detail</a>
       </div>
-    @endforeach
-      {{-- <div class="card" style="background: url('assets/LandingPage/image/gsp7.jpg') center/cover no-repeat;">
-          <h3>Laundry Satuan</h3>
-          <p>Mulai dari Rp. 25,000</p>
-          <button onclick="location.href='laundry-satuan.html'">Lihat Detail</button>
-      </div>
-      <div class="card" style="background: url('assets/LandingPage/image/gsp7.jpg') center/cover no-repeat;">
-          <h3>Laundry Kiloan</h3>
-          <p>Mulai dari Rp. 10,000</p>
-          <button onclick="location.href='laundry-kiloan.html'">Lihat Detail</button>
-      </div>
-      <div class="card" style="background: url('assets/LandingPage/image/gsp7.jpg') center/cover no-repeat;">
-          <h3>Laundry Karpet</h3>
-          <p>Mulai dari Rp. 40,000</p>
-          <button onclick="location.href='laundry-karpet.html'">Lihat Detail</button>
-      </div>
-      <div class="card" style="background: url('assets/LandingPage/image/gsp7.jpg') center/cover no-repeat;">
-          <h3>Laundry Sepatu</h3>
-          <p>Mulai dari Rp. 35,000</p>
-          <button onclick="location.href='laundry-sepatu.html'">Lihat Detail</button>
-      </div>
-      <div class="card" style="background: url('assets/LandingPage/image/gsp7.jpg') center/cover no-repeat;">
-          <h3>Stroller & Baby Care</h3>
-          <p>Mulai dari Rp. 20,000</p>
-          <button onclick="location.href='stroller-baby-care.html'">Lihat Detail</button>
-      </div>
-      <div class="card" style="background: url('assets/LandingPage/image/gsp7.jpg') center/cover no-repeat;">
-          <h3>Cuci Bantal/Bed Cover/Selimut</h3>
-          <p>Mulai dari Rp. 25,000</p>
-          <button onclick="location.href='cuci-bantal.html'">Lihat Detail</button>
-      </div> --}}
+    @endforeach   
   </div>
-</section>
+</section> --}}
 
 <section class="client-feedback">
   <h2 class="section-title">Client Feedback & Reviews Pelanggan Happy Laundry</h2>
   <div class="feedback-container">
-    <div class="feedback-card">
-      <p class="feedback-text">Iseng2 laundry disini kemarin.. Hasilnya bagus juga ternyata, hehe.. Makasih om.</p>
-      <div class="client-info">
-        <img src="assets/LandingPage/image/gsp7.jpg" alt="Asril" class="client-photo">
-        <div>
-          <h4 class="client-name">Asril</h4>
-          <p class="client-job">Karyawan Swasta</p>
+    @foreach ($displayReviews as $item)
+      <div class="feedback-card">
+        <p class="feedback-text">{{ $item->description }}</p>
+        <div class="client-info">
+          <img src="https://api.dicebear.com/9.x/big-smile/svg?seed={{ $item->name }}&accessories=catEars,glasses,sailormoonCrown,sunglasses&eyes=cheery,normal,winking&mouth=braces,kawaii,openedSmile,teethSmile" alt="Asril" class="client-photo">
+          <div>
+            <h4 class="client-name">{{ $item->name }}</h4>
+            <p class="client-job">{{ $item->role }}</p>
+          </div>
         </div>
+        <i class="quote-icon">❝</i>
       </div>
-      <i class="quote-icon">❝</i>
-    </div>
-    <div class="feedback-card">
+    @endforeach
+    {{-- <div class="feedback-card">
       <p class="feedback-text">Bersih, wangi, pelayanan ramah, ada layanan antar-jemput. TOP!</p>
       <div class="client-info">
         <img src="assets/LandingPage/image/gsp7.jpg" alt="Lela" class="client-photo">
@@ -192,7 +167,7 @@
         </div>
       </div>
       <i class="quote-icon">❝</i>
-    </div>
+    </div> --}}
   </div>
 </section>
 

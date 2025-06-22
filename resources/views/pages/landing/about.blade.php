@@ -27,14 +27,14 @@
                     <p>Years Experience<br>In Construction Company</p>
                   </div>
                   <div class="text-content">
-                    <h2>We Are Always Think On Your Dream</h2>
+                    <h2>{{ $displayAboutSlides->title }}</h2>
                     <p>
-                      Many students residentials completely focus on sustainable building practices, incorporating user-friendly modern design and efficient systems.
+                      {{ $displayAboutSlides->description }}
                     </p>
-                    <ul>
+                    {{-- <ul>
                       <li><strong>WORLDWIDE SERVICES</strong><br>They provide quality services to expand your company.</li>
                       <li><strong>BEST COMPANY AWARD WINNER</strong><br>A reliable construction company is critical to managing budget and construction efficiency.</li>
-                    </ul>
+                    </ul> --}}
                     <button class="cta-button">KNOW MORE</button>
                   </div>
                 </div>
@@ -65,19 +65,22 @@
   </div>
 </div>
 
-<section class="history">
-    <div class="timeline">
-      <div class="line"></div> <!-- Garis vertikal di tengah -->
 
-      @foreach ($displayTimelines as $item)
-        <div class="timeline-item">
-        <div class="content">
-          <img src="{{ asset('display-timlines/' . $item->thumbnail_img) }}" alt="Gallery Image 2">
-          <p>{{ $item->title }}</p>
-        </div>
-        <div class="dot"></div>
-      </div>
-      @endforeach
+    <div class="timeline">
+        <div class="line"></div> <!-- Garis vertikal di tengah -->
+
+        @foreach ($displayTimelines as $index => $item)
+            <div class="timeline-item {{ $index % 2 == 0 ? 'left' : 'right' }}">
+                <div class="content">
+                    <img src="{{ asset('display-timlines/' . $item->thumbnail_img) }}" alt="{{ $item->title }}">
+                    <p>{{ $item->title }}</p>
+                </div>
+                <div class="dot"></div>
+            </div>
+       </div>
+        @endforeach
+        
+    
 
       {{-- <div class="timeline-item">
         <div class="content">
@@ -118,51 +121,14 @@
   </section>
   <BR>
   <!-- Course and Study Program Section -->
-<section class="courses">
-    <h2>Course And Study Program</h2>
-    <div class="courses-container">
-        <div class="course-item">
-            <i class="fas fa-book"></i>
-            <h3>Public Courses</h3>
-        </div>
-        <div class="course-item">
-            <i class="fas fa-graduation-cap"></i>
-            <h3>Undergraduate Courses</h3>
-        </div>
-        <div class="course-item">
-            <i class="fas fa-chalkboard-teacher"></i>
-            <h3>Master's Courses</h3>
-        </div>
-        <div class="course-item">
-            <i class="fas fa-flask"></i>
-            <h3>Postgraduate Research</h3>
-        </div>
-        <div class="course-item">
-            <i class="fas fa-user-tie"></i>
-            <h3>Become Lecturer</h3>
-        </div>
-    </div>
-
-</section>
 
 <section class="gallery1">
   <div class="image-container">
     <!-- Gambar-gambar asli -->
-    <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 1">
-    <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 2">
-    <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 3">
-    <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 4">
-    <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 5">
-    <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 6">
-
-    <!-- Duplikasi gambar untuk seamless scroll -->
-    <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 1">
-    <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 2">
-    <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 3">
-    <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 4">
-    <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 5">
-    <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 6">
-  </div>
+    @foreach ($displayAboutGaleries as $item)
+        <img src="{{ asset('thumbnails/' . $item->thumbnail_img) }}" alt="Gallery Image 1">
+    @endforeach
+    </div>
 </section>
 
 </body>
