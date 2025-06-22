@@ -14,6 +14,7 @@ use App\Models\DisplaySlide;
 use App\Models\DisplayStatistic;
 use App\Models\DisplayTimeline;
 use App\Models\DisplayTutorial;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
 class LandingController extends Controller
@@ -49,6 +50,12 @@ class LandingController extends Controller
         $article = Article::findOrFail($id);
         return view('pages.landing.detail-blog', compact('article'));
     }
+    
+//     public function detailService($id)
+// {
+//     $service = Service::findOrFail($id);
+//     return view('pages.landing.detail-service', compact('service'));
+// }
 
     public function service()
     {

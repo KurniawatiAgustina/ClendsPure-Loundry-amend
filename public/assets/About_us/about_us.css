@@ -246,102 +246,219 @@
     color: #333;
 
 }
-
-/* Container utama */
-.history {
-    padding: 40px 0;
+  .history {
+    padding: 60px 0;
     position: relative;
-  }
-  
-  /* Timeline container */
-  .timeline {
+    background: #f8f9fa;
+}
+
+/* Timeline container */
+.timeline {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 90%;
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
     position: relative;
-  }
-  
-  /* Garis vertikal di tengah */
-  .line {
+}
+
+/* Garis vertikal di tengah */
+.line {
     position: absolute;
     top: 0;
     bottom: 0;
     left: 50%;
-    width: 2px;
-    background-color: #ff9000;
+    width: 4px;
+    background: linear-gradient(to bottom, #ff9000, #ffb347);
     z-index: 1;
-  }
-  
-  /* Item timeline */
-  .timeline-item {
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+/* Item timeline */
+.timeline-item {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     width: 100%;
     position: relative;
-  }
-  
-  
-  /* Titik di tengah garis */
-  .dot {
+    min-height: 120px;
+}
+
+/* Posisi konten untuk item kiri */
+.timeline-item.left {
+    justify-content: flex-start;
+}
+
+.timeline-item.left .content {
+    margin-right: auto;
+    margin-left: 0;
+    transform: translateX(-25px);
+}
+
+/* Posisi konten untuk item kanan */
+.timeline-item.right {
+    justify-content: flex-end;
+}
+
+.timeline-item.right .content {
+    margin-left: auto;
+    margin-right: 0;
+    transform: translateX(25px);
+}
+
+/* Titik di tengah garis */
+.dot {
     position: absolute;
     left: 50%;
-    transform: translateX(-50%);
-    width: 12px;
-    height: 12px;
-    background-color: #000000;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    background: #ff9000;
+    border: 4px solid white;
     border-radius: 50%;
-    z-index: 2;
-  }
-  
-  /* Tahun di samping titik */
-  .year {
-    font-size: 24px;
-    font-weight: bold;
-    margin-right: 20px;
-    width: 50px;
-    text-align: center;
-    z-index: 2;
-  }
- /* Tahun di sebelah kiri */
-.timeline-item:nth-child(odd) .year {
-    left: 45%;
-    text-align: right;
-  }
-  
-  /* Tahun di sebelah kanan */
-  .timeline-item:nth-child(even) .year {
-    left: 55%;
-    text-align: left;
-  }
-  
-  /* Konten */
-  .content {
-    background: #000000;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 35%;  /* Lebar konten lebih kecil */
-  }
-  
-  .content img {
-    width: 100%;  /* Ukuran gambar mengikuti lebar konten */
-    max-width: 350px; /* Membatasi lebar gambar, sesuaikan dengan ukuran yang diinginkan */
-    height: auto;   /* Menjaga proporsi gambar */
-    margin-bottom: 10px;
-  }
-  
-  
-  .content p {
+    z-index: 3;
+    box-shadow: 0 2px 8px rgba(255, 144, 0, 0.3);
+}
+
+/* Konten */
+.content {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    width: 45%;
+    max-width: 400px;
+    position: relative;
+    transition: all 0.3s ease;
+    border: 1px solid #e9ecef;
+}
+
+.content:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+/* Arrow untuk konten kiri */
+.timeline-item.left .content::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -15px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 15px solid white;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+}
+
+/* Arrow untuk konten kanan */
+.timeline-item.right .content::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -15px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-right: 15px solid white;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+}
+
+.content img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
+}
+
+.content img:hover {
+    transform: scale(1.02);
+}
+
+.content p {
     margin: 0;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.6;
-    color: white;
-  }
+    color: #333;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .timeline {
+        width: 95%;
+    }
+    
+    .line {
+        left: 30px;
+        transform: none;
+    }
+    
+    .timeline-item {
+        justify-content: flex-start !important;
+        padding-left: 60px;
+    }
+    
+    .timeline-item.left .content,
+    .timeline-item.right .content {
+        width: calc(100% - 60px);
+        max-width: none;
+        margin: 0;
+        transform: none;
+    }
+    
+    .dot {
+        left: 30px;
+        transform: translate(-50%, -50%);
+    }
+    
+    /* Remove arrows on mobile */
+    .timeline-item.left .content::after,
+    .timeline-item.right .content::after {
+        display: none;
+    }
+    
+    /* Add left arrow for mobile */
+    .content::before {
+        content: '';
+        position: absolute;
+        top: 30px;
+        left: -15px;
+        width: 0;
+        height: 0;
+        border-right: 15px solid white;
+        border-top: 15px solid transparent;
+        border-bottom: 15px solid transparent;
+    }
+}
+
+@media (max-width: 480px) {
+    .history {
+        padding: 40px 0;
+    }
+    
+    .content {
+        padding: 15px;
+    }
+    
+    .content img {
+        height: 150px;
+    }
+    
+    .content p {
+        font-size: 14px;
+    }
+}
+
   
   /* Posisi konten kiri untuk item ganjil */
   .timeline-item:nth-child(odd) .content {
@@ -385,4 +502,98 @@
       transform: translateX(-20%); /* Bergeser seluruh panjang container */
     }
   }
+  /* Responsive Design */
+@media (max-width: 768px) {
+    .timeline {
+        width: 95%;
+    }
+    
+    .line {
+        left: 30px;
+        transform: none;
+    }
+    
+    .timeline-item {
+        justify-content: flex-start !important;
+        padding-left: 60px;
+    }
+    
+    .timeline-item.left .content,
+    .timeline-item.right .content {
+        width: calc(100% - 60px);
+        max-width: none;
+        margin: 0;
+        transform: none;
+    }
+    
+    .dot {
+        left: 30px;
+        transform: translate(-50%, -50%);
+    }
+    
+    /* Remove arrows on mobile */
+    .timeline-item.left .content::after,
+    .timeline-item.right .content::after {
+        display: none;
+    }
+    
+    /* Add left arrow for mobile */
+    .content::before {
+        content: '';
+        position: absolute;
+        top: 30px;
+        left: -15px;
+        width: 0;
+        height: 0;
+        border-right: 15px solid white;
+        border-top: 15px solid transparent;
+        border-bottom: 15px solid transparent;
+    }
+}
+
+@media (max-width: 480px) {
+    .history {
+        padding: 40px 0;
+    }
+    
+    .content {
+        padding: 15px;
+    }
+    
+    .content img {
+        height: 150px;
+    }
+    
+    .content p {
+        font-size: 14px;
+    }
+}
+
+/* Animation untuk item yang muncul */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.timeline-item {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+/* Delay animation untuk setiap item */
+.timeline-item:nth-child(2) { animation-delay: 0.1s; }
+.timeline-item:nth-child(3) { animation-delay: 0.2s; }
+.timeline-item:nth-child(4) { animation-delay: 0.3s; }
+.timeline-item:nth-child(5) { animation-delay: 0.4s; }
+.timeline-item:nth-child(6) { animation-delay: 0.5s; }
+.timeline-item:nth-child(7) { animation-delay: 0.6s; }
+.timeline-item:nth-child(8) { animation-delay: 0.7s; }
+.timeline-item:nth-child(9) { animation-delay: 0.8s; }
+.timeline-item:nth-child(10) { animation-delay: 0.9s; }
+
 

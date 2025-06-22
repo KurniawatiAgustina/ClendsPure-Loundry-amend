@@ -376,77 +376,101 @@ body {
     text-align: center;
     font-size: 18px;
     color: #000;
-    padding: 60px 0;
+    padding: 40px 0;
     background-color: #f7f7f7;
 }
 
-.layanan-kami h1 {
+.layanan-kami .lihat-semua-wrapper h1 {
     font-size: 32px;
     font-weight: bold;
     margin-bottom: 10px;
+    text-align: center;
 }
 
-.layanan-kami p {
+.Layanan-kami .lihat-semua-wrapper p {
     font-size: 16px;
-    color: #555;
+    color: #000000;
     margin-bottom: 30px;
     max-width: 700px;
     margin-left: auto;
-    margin-right: auto;
+    margin-right: auto;  
+}
+.layanan-kami .lihat-semua-wrapper {
+    background-color: #ff9000 !important; /* Warna oranye */
+    width: 100%;
+    padding: 40px 20px; /* Atur jarak isi ke dalam */
+    border-radius: 12px;
+    min-height: 200px; /* Tambahan: atur tinggi minimum sesuai kebutuhan */
+    box-sizing: border-box;
 }
 
 .btn-lihat-menu {
-    background-color: #ffb100;
-    padding: 10px 20px;
-    border-radius: 10px;
+    background-color: #000;
+    color: #ffffff;
+    padding: 12px 24px;
+    border-radius: 8px;
     text-decoration: none;
-    color: #000;
     font-weight: bold;
-    margin-bottom: 40px;
+    transition: 0.3s ease;
     display: inline-block;
-    transition: background-color 0.3s ease;
+    float: right; /* atau text-align: right di parent */
 }
 
-.btn-lihat-menu:hover {
-    background-color: #e89c00;
+.btn-lihat-menu:hover,
+.btn-lihat-menu:active {
+    background-color: #fed729;
+    color: #000;
+    border: 2px solid #000;
+      text-align:right;
 }
 
 .container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 30px;
-    padding: 20px 40px;
-}
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 15px; /* 🔧 jarak antar card diperkecil */
+    padding: 10px 60px;
+} 
 
+/* layanan */
 .card {
-    background-color: #000;
-    color: white;
-    border-radius: 20px;
-    overflow: hidden;
+    background-color: #000 !important;
+    color: #fff !important;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease;
-    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+    min-height: 550px; /* ✅ tambahkan tinggi minimum */
+    max-width: 360px; /* Ubah ini untuk mengatur lebar maksimal card */
+    width: 100%;    
+    margin: 0 auto; 
+    border-radius: 25px !important;
+    overflow: hidden !important;   
 }
-
 .card img {
-    width: 100%;
-    height: 220px;
+    width: 88%;
+    height: 320px;
     object-fit: cover;
+    margin-bottom: 20px;
+    margin-top: 13px;
+     border-radius: 25px !important;
+    overflow: hidden !important;  
 }
-
 .card h3 {
-    font-size: 20px;
-    margin: 15px 0 10px;
+    font-size: 18px;
+    margin: 15px 0 5px;
 }
 
 .card p {
     font-size: 14px;
-    margin: 5px 20px;
+    margin: 5px 15px;
+    text-align: center;
 }
-
 .card button {
     background-color: #ffb100;
-    color: black;
+    color: rgb(255, 255, 255);
     border: none;
     padding: 10px 20px;
     margin-top: 20px;
@@ -457,11 +481,18 @@ body {
 }
 
 .card button:hover {
-    background-color: #e89c00;
+    background-color: #000000;
 }
 
 .card:hover {
     transform: scale(1.03);
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    padding: 20px 40px;
 }
 
 
@@ -486,7 +517,7 @@ body {
   display: block;
   width: 80px;
   height: 2px;
-  background-color: #e91e63;
+  background-color: #ff9000;
   margin: 10px auto 0;
 }
 
@@ -552,14 +583,14 @@ body {
 
 .icon {
   font-size: 24px;
-  color: #e91e63;
+  color: #ff9000;
   width: 40px;
   height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #f9f9f9;
-  border: 2px solid #e91e63;
+  border: 2px solid #ff9000;
   border-radius: 50%;
   flex-shrink: 0;
 }

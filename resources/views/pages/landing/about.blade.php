@@ -65,19 +65,22 @@
   </div>
 </div>
 
-<section class="history">
-    <div class="timeline">
-      <div class="line"></div> <!-- Garis vertikal di tengah -->
 
-      @foreach ($displayTimelines as $item)
-        <div class="timeline-item">
-        <div class="content">
-          <img src="{{ asset('display-timlines/' . $item->thumbnail_img) }}" alt="Gallery Image 2">
-          <p>{{ $item->title }}</p>
-        </div>
-        <div class="dot"></div>
-      </div>
-      @endforeach
+    <div class="timeline">
+        <div class="line"></div> <!-- Garis vertikal di tengah -->
+
+        @foreach ($displayTimelines as $index => $item)
+            <div class="timeline-item {{ $index % 2 == 0 ? 'left' : 'right' }}">
+                <div class="content">
+                    <img src="{{ asset('display-timlines/' . $item->thumbnail_img) }}" alt="{{ $item->title }}">
+                    <p>{{ $item->title }}</p>
+                </div>
+                <div class="dot"></div>
+            </div>
+       </div>
+        @endforeach
+        
+    
 
       {{-- <div class="timeline-item">
         <div class="content">
@@ -118,32 +121,6 @@
   </section>
   <BR>
   <!-- Course and Study Program Section -->
-<section class="courses">
-    <h2>Course And Study Program</h2>
-    <div class="courses-container">
-        <div class="course-item">
-            <i class="fas fa-book"></i>
-            <h3>Public Courses</h3>
-        </div>
-        <div class="course-item">
-            <i class="fas fa-graduation-cap"></i>
-            <h3>Undergraduate Courses</h3>
-        </div>
-        <div class="course-item">
-            <i class="fas fa-chalkboard-teacher"></i>
-            <h3>Master's Courses</h3>
-        </div>
-        <div class="course-item">
-            <i class="fas fa-flask"></i>
-            <h3>Postgraduate Research</h3>
-        </div>
-        <div class="course-item">
-            <i class="fas fa-user-tie"></i>
-            <h3>Become Lecturer</h3>
-        </div>
-    </div>
-
-</section>
 
 <section class="gallery1">
   <div class="image-container">
@@ -151,12 +128,7 @@
     @foreach ($displayAboutGaleries as $item)
         <img src="{{ asset('thumbnails/' . $item->thumbnail_img) }}" alt="Gallery Image 1">
     @endforeach
-    {{-- <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 2">
-    <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 3">
-    <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 4">
-    <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 5">
-    <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 6"> --}}
-  </div>
+    </div>
 </section>
 
 </body>

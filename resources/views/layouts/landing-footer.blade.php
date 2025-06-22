@@ -17,30 +17,32 @@
     <footer class="footer">
         <div class="footer-container">
           <div class="footer-section logo-section">
-            <h2>Shoe <span>Care</span></h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <div class="social-icons">
-              <a href="#"><i class="fab fa-facebook-f"></i></a>
-              <a href="#"><i class="fab fa-twitter"></i></a>
-              <a href="#"><i class="fab fa-instagram"></i></a>
-              <a href="#"><i class="fab fa-youtube"></i></a>
+            <h2>Cleds <span>Laundry</span></h2>
+            <p>adalah layanan cuci dan perawatan sepatu profesional di Sidoarjo, dengan hasil bersih, rapi, dan aman untuk berbagai jenis sepatu.
+.</p>
+           <div class="social-icons">
+              <a href="https://www.facebook.com/profile.php?id=100089106993274" target="_blank"><i class="fab fa-facebook-f"></i></a>
+              <a href="https://twitter.com/cleds" target="_blank"><i class="fab fa-twitter"></i></a>
+              <a href="https://www.instagram.com/cleds.id?igsh=eTVvOGhyNjV4eThq" target="_blank"><i class="fab fa-instagram"></i></a>
+              <a href="https://www.youtube.com/@cleds" target="_blank"><i class="fab fa-youtube"></i></a>
             </div>
+
           </div>
           <div class="footer-section contact-section">
             <h3>Get In Touch</h3>
-            <p><i class="fas fa-map-marker-alt"></i> 918 Abner Road, Hudson</p>
-            <p><i class="fas fa-envelope"></i> example@mail.com</p>
-            <p><i class="fas fa-phone-alt"></i> +1 234 567 890</p>
+            <p><i class="fas fa-map-marker-alt"></i> Cleds Laundry</p>
+            <p><i class="fas fa-envelope"></i> cleds@gmail.com</p>
+            <p><i class="fas fa-phone-alt"></i> 081333539691</p>
             <p><i class="fas fa-clock"></i> 07:00 AM - 16:00 PM</p>
           </div>
           <div class="footer-section quicklinks-section">
             <h3>Quicklinks</h3>
             <ul>
-              <li><a href="#">Home</a></li>
-              <li><a href="#">About</a></li>
-              <li><a href="#">FAQs</a></li>
-              <li><a href="#">Blog</a></li>
-              <li><a href="#">Contact</a></li>
+              <li><a href="{{ route('landing.index') }}">Home</a></li>
+              <li><a href="{{ route('landing.about') }}">About</a></li>
+              <li><a href="{{ route('landing.service') }}">Layanan</a></li>
+              <li><a href="{{ route('landing.store') }}">Store</a></li>
+              <li><a href="{{ route('landing.blog') }}">Artikel</a></li>
             </ul>
           </div>
           <div class="footer-section gallery-section">

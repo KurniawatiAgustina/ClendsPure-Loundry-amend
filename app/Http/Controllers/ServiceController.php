@@ -76,4 +76,6 @@ class ServiceController extends Controller
 
         return redirect()->back()->with('toast_success', 'Service deleted successfully');
     }
+
+ 
 }

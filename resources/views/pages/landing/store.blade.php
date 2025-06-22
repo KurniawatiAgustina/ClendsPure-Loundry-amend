@@ -59,58 +59,32 @@
   </div>
 </div>
 
-<div class="more-info">
-    <div class="d-flex justify-content-center flex-wrap text-center gap-3">
-        <!-- Card 1 -->
-        <div class="card fade-in-up shadow" style="width: 18rem; border-radius: 10px;">
-            <div class="card-body-3">
-                <i class="bi bi-megaphone-fill custom-icon fade-in-up"></i>
-                <p class="card-end-text fade-in-up">
-                    <strong>"SPEAK UP" MOVEMENT</strong><br>
-                    Share your opinions and ideas that you feel will support our company's growth as well as report information deemed as unethical or poses as a violation to Rapid Plast working environment.<br><br>
-                    Email: <a href="mailto:speak.up@dynapackasia.com">info@rapid.co.id</a><br>
-                    Call: <a href="tel:+628159797971"><strong>+62 815 9797971</strong></a>
-                </p>
-            </div>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="card fade-in-up shadow" style="width: 18rem; border-radius: 10px;">
-            <div class="card-body-3">
-                <i class="bi bi-person-circle custom-icon fade-in-up"></i>
-                <p class="card-end-text fade-in-up">
-                    <strong>Sales:</strong><br>
-                    Email: <a href="mailto:nbd@dynapackasia.com">info@rapid.co.id</a><br><br>
-                    <strong>Call Center Sales</strong><br>
-                    <strong>Consumer Packaging:</strong><br>
-                    <a href="tel:+6287876751548">+62 878 76751548</a><br>
-                    <a href="tel:+6281901407160">+62 819 01407160</a><br><br>
-
-                </p>
-            </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="card fade-in-up shadow" style="width: 18rem; border-radius: 10px;">
-            <div class="card-body-3">
-                <i class="bi bi-bag-dash-fill custom-icon fade-in-up"></i>
-                <p class="card-end-text fade-in-up">
-                    <strong>Career:</strong><br>
-                    <a href="mailto:recruitment@dynapackasia.com">recruitment@rapidplast.com</a>
-                </p>
-            </div>
-        </div>
+{{-- <section class="foto1">
+  <div class="image-container">
+    <!-- Gambar-gambar asli -->
+    @foreach ($displayFotoStore as $item)
+        <img src="{{ asset('thumbnails/' . $item->thumbnail_img) }}" alt="foto 1">
+    @endforeach
     </div>
+</section>
 
-
-
-    <div class="end-text fade-in-up p-5" style="color: rgb(255, 255, 255);">
-        <p class="paragraph" style="margin-top: 0;">Rapid plast has the expertise, facilities, and technology to meet your specific requirements for plastic packaging.</p>
-        <p class="paragraph" style="margin-top: 0;">With our focus on innovation, design, and essential safety aspects, we strive to ensure consumer confidence in your products.</p>
-        <p class="paragraph" style="margin-top: 0;">We are committed to serving you so do let us know of your needs and inquiries.</p>
+<section class="foto2">
+  <div class="image-container">
+    <!-- Gambar-gambar asli -->
+    @foreach ($displayFotoStore2 as $item)
+        <img src="{{ asset('thumbnails/' . $item->thumbnail_img) }}" alt="foto 2">
+    @endforeach
     </div>
+</section>
 
-</div>
+<section class="foto3">
+  <div class="image-container">
+    <!-- Gambar-gambar asli -->
+    @foreach ($displayFotoStore3 as $item)
+        <img src="{{ asset('thumbnails/' . $item->thumbnail_img) }}" alt="foto 3">
+    @endforeach
+    </div>
+</section> --}}
 
 
 

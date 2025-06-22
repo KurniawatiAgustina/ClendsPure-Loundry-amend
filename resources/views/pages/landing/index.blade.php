@@ -44,7 +44,8 @@
     <div class="hero-content1">
         <h1>{{ $displaySlides->title }}</h1>
         <p>{{ $displaySlides->description }}</p>
-        <a href="#services" class="cta-button1">Kunjungi Cleds Sekarang</a>
+        <a href="{{ route('landing.store') }}" class="cta-button1">Kunjungi Cleds Sekarang</a>
+
     </div>
 </section>
 <br>
@@ -87,7 +88,7 @@
         </div> --}}
     </div>
 
-    <a href="#" class="view-all">Lihat Semua</a>
+ 
 </div>
 
  <!-- bottom grid -->
@@ -121,23 +122,24 @@
  <!-- Layanan -->
 
 <section class="layanan-kami">
+    <div class="lihat-semua-wrapper">
     <h1>Layanan Kami</h1>
     <p>Kami memberikan berbagai macam layanan untuk perawatan barang kesayangan anda yang akan dikerjakan oleh tim kami yang sudah berpengalaman dan profesional.</p>
     
-    {{-- <a href="{{ route('layanan.index') }}" class="btn-lihat-menu">Lihat Daftar Menu</a> --}}
+        {{-- <a href="{{ route('landing.service') }}" class="btn-lihat-menu">Lihat Daftar Menu</a> --}}
+    </div>
 
     <div class="container">
         @foreach ($displayServices as $item)
             <div class="card">
-                <img src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->title }}">
+                <img src="{{ asset('display-service/' . $item->image) }}" alt="{{ $item->title }}">
                 <h3>{{ $item->title }}</h3>
                 <p>{{ $item->deskripsi }}</p>
-                <p><strong>Mulai dari {{ $item->harga }}</strong></p>
-                {{-- <button onclick="location.href='{{ route('layanan.show', $item->id) }}'">Lihat Detail</button> --}}
             </div>
         @endforeach
     </div>
 </section>
+
 
 
 <!-- Pemesanan -->

@@ -73,7 +73,7 @@
                     </form>
                 </div>
                 <div class="flex items-center ml-4 space-x-2 sm:space-x-3">
-                    <div class="flex items-center ml-auto space-x-2 sm:space-x-3">
+                    {{-- <div class="flex items-center ml-auto space-x-2 sm:space-x-3">
                         <button type="button" data-modal-target="add-customer-modal" data-modal-toggle="add-customer-modal"
                             class="inline-flex items-center justify-center w-auto px-3 py-2 text-xs font-medium text-center text-customprimary-700 rounded-lg border border-customprimary-700 hover:text-white hover:bg-customprimary-700 focus:ring-4 focus:ring-customprimary-300 sm:w-auto dark:text-white dark:bg-customprimary-600 dark:hover:bg-customprimary-700 dark:focus:ring-customprimary-800">
                             <svg class="w-5 h-5 md:mr-2 mr-0" fill="currentColor" viewBox="0 0 20 20"
@@ -84,7 +84,7 @@
                             </svg>
                             <span class="hidden sm:inline">Tambah</span>
                         </button>
-                    </div>
+                    </div> --}}
 
                 </div>
             </div>
