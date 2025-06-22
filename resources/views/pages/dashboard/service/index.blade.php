@@ -1,23 +1,3 @@
-@php
-    $data = (object) [
-        (object) [
-            'nama' => 'Farel',
-            'alamat' => 'Jl. Raya No. 10, Jakarta',
-            'no_hp' => '081234567890',
-        ],
-
-        (object) [
-            'nama' => 'Budi Santoso',
-            'alamat' => 'Jl. Merdeka No. 20, Bandung',
-            'no_hp' => '082345678901',
-        ],
-        (object) [
-            'nama' => 'Siti Aminah',
-            'alamat' => 'Jl. Cendana No. 15, Surabaya',
-            'no_hp' => '083456789012',
-        ],
-    ];
-@endphp
 @extends('layouts.dashboard')
 @section('content')
     <div

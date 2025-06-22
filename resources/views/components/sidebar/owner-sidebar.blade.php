@@ -17,7 +17,7 @@
         <x-sidebar-menu-dashboard routeName="dashboard.payment-method.index" title="Metode Pembayaran" />
         <x-sidebar-menu-dashboard routeName="dashboard.branch.index" title="Cabang" />
         <x-sidebar-menu-dashboard routeName="dashboard.article.index" title="Artikel" />
-    </x-sidebar-menu-dropdown-diff-dashboard>   
+    </x-sidebar-menu-dropdown-diff-dashboard>
     <x-sidebar-menu-dropdown-dashboard routeName="dashboard.display*" title="Landing Page" icon="tabler:settings">
         <x-sidebar-menu-dropdown-item-dashboard routeName="dashboard.display-promo.index" title="Display Promo"/>
         <x-sidebar-menu-dropdown-item-dashboard routeName="dashboard.display-service.index" title="Display Layanan"/>
