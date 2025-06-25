@@ -91,6 +91,10 @@
                                 </th>
                                 <th scope="col"
                                     class="p-4 text-sm font-medium text-left text-white uppercase dark:text-gray-400">
+                                    Deskripsi
+                                </th>
+                                <th scope="col"
+                                    class="p-4 text-sm font-medium text-left text-white uppercase dark:text-gray-400">
                                     Harga
                                 </th>
                                 <th scope="col"
@@ -112,6 +116,9 @@
                                     </td>
                                     <td class="p-4 text-xs font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $data->title }}
+                                    </td>
+                                    <td class="p-4 text-xs font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {{ Str::words($data->description, 7, '...') }}
                                     </td>
                                     <td class="p-4 text-xs font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $data->Harga }}

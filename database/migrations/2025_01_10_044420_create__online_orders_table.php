@@ -21,6 +21,7 @@ return new class extends Migration
             $table->enum('payment_method', ['Cash', 'Transfer']);
             $table->unsignedBigInteger('payment_method_id')->nullable();
             $table->string('proof_image')->nullable();
+            $table->string('note')->nullable();
             $table->timestamps();
         });
     }

@@ -128,6 +128,8 @@ class OnlineOrderController extends Controller
             $fileName = time() . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('thumbnails'), $fileName);
             $validated['proof_image'] = $fileName;
+        }  else {
+            $validated['proof_image'] = null;
         }
 
         DB::transaction(function () use ($validated) {

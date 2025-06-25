@@ -26,6 +26,7 @@ class DisplayServiceController extends Controller
         $validated = $request->validate([
             'image' => 'required|image',
             'title' => 'required',
+            'description' => 'nullable',
             'harga' => 'required',
         ], [
             'image.required' => 'Gambar harus diisi',
@@ -45,6 +46,7 @@ class DisplayServiceController extends Controller
             'image' => $validated['image'],
             'title' => $validated['title'],
             'Harga' => $validated['harga'],
+            'description' => $validated['description'] ?? null,
         ]);
 
         return redirect()->back()->with('toast_success', 'Display Service created successfully');
@@ -58,6 +60,7 @@ class DisplayServiceController extends Controller
         $validated = $request->validate([
             'image' => 'nullable|image',
             'title' => 'required',
+            'description' => 'nullable',
             'harga' => 'required',
         ], [
             'image.image' => 'File harus berupa gambar',
@@ -79,6 +82,7 @@ class DisplayServiceController extends Controller
             'image' => $validated['image'] ?? $article->image,
             'title' => $validated['title'],
             'Harga' => $validated['harga'],
+            'description' => $validated['description'] ?? null,
         ]);
 
         return redirect()->back()->with('toast_success', 'Display Service updated successfully');

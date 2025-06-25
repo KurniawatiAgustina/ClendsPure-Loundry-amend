@@ -81,6 +81,13 @@
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
                                 value="{{ $data->status }}" required />
                         </div>
+                        <div>
+                            <label for="note"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Catatan</label>
+                            <input type="text" id="note" name="note" disabled
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
+                                value="{{ $data->note ?? '' }}" required />
+                        </div>
                         <div class="grid grid-cols-1 gap-x-4">
                             <label for="role"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Detail</label>

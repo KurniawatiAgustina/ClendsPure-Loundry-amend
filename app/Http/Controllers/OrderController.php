@@ -224,6 +224,13 @@ class OrderController extends Controller
         return redirect()->back()->with('toast_success', 'Order updated successfully');
     }
 
+    public function changeNote(Request $request, string $id)
+    {
+        $order = Order::findOrFail($id);
+        $order->update(['note' => $request->note]);
+        return redirect()->back()->with('toast_success', 'Note updated successfully');
+    }
+
     public function changeStatus(string $id, string $status)
     {
         $order = Order::findOrFail($id);

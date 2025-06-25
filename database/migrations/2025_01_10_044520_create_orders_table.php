@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('category', ['AntarJemput', 'AntarSaja', 'JemputSaja', 'Mandiri']);
             $table->enum('payment_method', ['Cash', 'Transfer']);
             $table->unsignedBigInteger('payment_method_id')->nullable();
+            $table->string('note')->nullable();
             $table->timestamps();
         });
     }

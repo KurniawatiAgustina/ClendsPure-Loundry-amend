@@ -66,61 +66,23 @@
 </div>
 
 
-    <div class="timeline">
-        <div class="line"></div> <!-- Garis vertikal di tengah -->
+    <!-- Ganti bagian timeline di about.blade.php -->
+<div class="timeline">
+    <div class="line"></div>
 
-        @foreach ($displayTimelines as $index => $item)
-            <div class="timeline-item {{ $index % 2 == 0 ? 'left' : 'right' }}">
-                <div class="content">
-                    <img src="{{ asset('display-timlines/' . $item->thumbnail_img) }}" alt="{{ $item->title }}">
-                    <p>{{ $item->title }}</p>
-                </div>
-                <div class="dot"></div>
+    @foreach ($displayTimelines as $index => $item)
+        <div class="timeline-item">
+            <div class="content">
+                <img src="{{ asset('display-timlines/' . $item->thumbnail_img) }}" alt="{{ $item->title }}">
+                <p>{{ $item->title }}</p>
             </div>
-       </div>
-        @endforeach
+            <div class="dot"></div>
+        </div>
+    @endforeach
+</div>
         
     
 
-      {{-- <div class="timeline-item">
-        <div class="content">
-          <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 2">
-          <p>Company is founded as Maschinenfabrik Lehner Alwin GmbH in Hard (Austria).</p>
-        </div>
-        <div class="dot"></div>
-        <div class="year">1955</div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="year">1958</div>
-        <div class="dot"></div>
-        <div class="content">
-          <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 2">
-          <p>Alwin Lehner designs and builds the company's first in-house machine—the legendary diplomat.</p>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="content">
-          <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 2">
-          <p>The first bottle for plant cleaners produced by the Alpla company.</p>
-        </div>
-        <div class="dot"></div>
-        <div class="year">1958</div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="year">1964</div>
-        <div class="dot"></div>
-        <div class="content">
-          <img src="{{ asset('assets/LandingPage/image/gsp7.jpg') }}" alt="Gallery Image 2">
-          <p>First branch outside of Austria opens in Markdorf (Germany).</p>
-        </div>
-      </div> --}}
-    </div>
-  </section>
-  <BR>
-  <!-- Course and Study Program Section -->
 
 <section class="gallery1">
   <div class="image-container">
