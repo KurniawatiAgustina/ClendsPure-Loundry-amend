@@ -59,9 +59,9 @@
                             </select>
                         </div>
                         <div>
-                            <label for="discount_percetage"
+                            <label for="discount_percentage"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Persentase Diskon(%)</label>
-                            <input type="number" id="discount_percetage" name="discount_percetage" disabled
+                            <input type="number" id="discount_percentage" name="discount_percentage" disabled
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customprimary-500 focus:border-customprimary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-customprimary-500 dark:focus:border-customprimary-500"
                                 value="{{ $data->discount_percentage }}" required />
                         </div>

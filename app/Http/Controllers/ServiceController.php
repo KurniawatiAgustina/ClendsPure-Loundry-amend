@@ -49,11 +49,14 @@ class ServiceController extends Controller
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
+            'branch_id' => 'required|exists:branches,id',
             'name' => 'required',
             'description' => 'required',
             'price' => 'required',
             'is_active' => 'boolean',
         ], [
+            'branch_id.required' => 'Cabang wajib dipilih.',
+            'branch_id.exists' => 'Cabang tidak ditemukan.',
             'name.required' => 'Nama harus diisi.',
             'description.required' => 'Deskripsi harus diisi.',
             'price.required' => 'Harga harus diisi.',

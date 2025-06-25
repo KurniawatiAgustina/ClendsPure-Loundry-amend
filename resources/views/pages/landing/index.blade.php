@@ -42,8 +42,8 @@
         <a class="next" onclick="changeSlide(1)">&#10095;</a>
     </div>
     <div class="hero-content1">
-        <h1>{{ $displaySlides->title }}</h1>
-        <p>{{ $displaySlides->description }}</p>
+        <h1>{{ $displaySlides->title ?? '' }}</h1>
+        <p>{{ $displaySlides->description ?? '' }}</p>
         <a href="{{ route('landing.store') }}" class="cta-button1">Kunjungi Cleds Sekarang</a>
 
     </div>
