@@ -5,22 +5,32 @@ namespace App\Utils;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class Whatsapp
 {
-    /**
-     * Kirim pesan WhatsApp (opsional dengan media) ke API eksternal.
-     *
-     * @param  string      $phone
-     * @param  string      $message
-     * @param  string|null $mediaUrl
-     * @return array|bool
-     *
-     * @throws \Illuminate\Http\Client\RequestException Jika request HTTP error
-     */
+    protected static function normalizePhone(string $phone): string
+    {
+        $digits = preg_replace('/\D+/', '', $phone);
+
+        if (Str::startsWith($digits, '08')) {
+            return '62' . substr($digits, 1);
+        }
+
+        if (Str::startsWith($digits, '628')) {
+            return $digits;
+        }
+
+        if (Str::startsWith($digits, '62')) {
+            return $digits;
+        }
+
+        return $digits;
+    }
+
     public static function send($phone, $message, $mediaUrl = null)
     {
-
+        $phone = self::normalizePhone($phone);
         if ($mediaUrl === null) {
             $endpoint = 'https://wa.cleds.web.id/whatsapp/send-message';
             $payload = [

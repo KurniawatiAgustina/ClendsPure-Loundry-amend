@@ -23,16 +23,32 @@ class OnlineOrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $order = OnlineOrder::with(['customer','details' => ['service', 'service_promotion']])->whereNot('status', 'New')->orderBy('id', 'desc')->paginate(10);
+        $order = OnlineOrder::with(['customer','details' => ['service', 'service_promotion']])->whereNot('status', 'New')->when($request->search, function ($query, $search) {
+            $query->whereHas('customer', function ($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%')
+                  ->orWhere('phone', 'like', '%' . $search . '%');
+            })->orWhere('id', 'like', '%' . $search . '%')
+            ->orWhere('status', 'like', '%' . $search . '%')
+            ->orWhere('category', 'like', '%' . $search . '%')
+            ->orWhere('payment_method', 'like', '%' . $search . '%');
+        })->orderBy('id', 'desc')->paginate(10);
         return view('pages.dashboard.online-order.index', compact('order'));
     }
 
-    public function new()
+    public function new(Request $request)
     {
         // dd(auth()->user());
-        $order = OnlineOrder::with(['customer' ,'details' => ['service', 'service_promotion']])->where('status', 'New')->orderBy('id', 'desc')->paginate(10);
+        $order = OnlineOrder::with(['customer' ,'details' => ['service', 'service_promotion']])->where('status', 'New')->when($request->search, function ($query, $search) {
+            $query->whereHas('customer', function ($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%')
+                  ->orWhere('phone', 'like', '%' . $search . '%');
+            })->orWhere('id', 'like', '%' . $search . '%')
+            ->orWhere('status', 'like', '%' . $search . '%')
+            ->orWhere('category', 'like', '%' . $search . '%')
+            ->orWhere('payment_method', 'like', '%' . $search . '%');
+        })->orderBy('id', 'desc')->paginate(10);
         return view('pages.dashboard.new-online-order.index', compact('order'));
     }
 

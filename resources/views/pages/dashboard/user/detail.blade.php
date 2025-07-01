@@ -30,6 +30,7 @@
                             <select disabled name="role" id="role_detail_{{ $data->id }}" class="role-detail block w-full mt-1 text-sm border-gray-300 rounded-md shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                                 required>
                                 <option value="" disabled>-- Pilih Jenis Pengguna --</option>
+                                <option value="Owner" {{ $data->role === 'Owner' ? 'selected' : '' }}>Owner</option>
                                 <option value="Admin" {{ $data->role === 'Admin' ? 'selected' : '' }}>Admin</option>
                                 <option value="Cashier" {{ $data->role === 'Cashier' ? 'selected' : '' }}>Cashier</option>
                                 <option value="Customer" {{ $data->role === 'Customer' ? 'selected' : '' }}>Customer</option>

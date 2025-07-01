@@ -30,6 +30,7 @@
                             @if (auth()->user()->role == 'Superadmin')
                                 <option value="" disabled selected>-- Pilih Jenis Pengguna --</option>
                                 <option value="Admin">Admin</option>
+                                <option value="Owner">Owner</option>
                                 <option value="Cashier">Cashier</option>
                                 <option value="Customer">Customer</option>
                             @else

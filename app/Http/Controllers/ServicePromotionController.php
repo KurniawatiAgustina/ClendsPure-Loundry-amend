@@ -26,6 +26,7 @@ class ServicePromotionController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'branch_id' => 'required|exists:branches,id',
             'name' => 'required',
             'service_id' => 'required|exists:services,id',
             'discount_percentage' => 'required|min:0|max:100',
@@ -33,6 +34,8 @@ class ServicePromotionController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
         ], [
+            'branch_id.required' => 'Cabang wajib dipilih.',
+            'branch_id.exists' => 'Cabang tidak ditemukan.',
             'name.required' => 'Nama harus diisi.',
             'service_id.required' => 'ID layanan harus diisi.',
             'service_id.exists' => 'ID layanan tidak ditemukan.',

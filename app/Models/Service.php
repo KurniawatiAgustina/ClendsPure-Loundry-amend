@@ -16,4 +16,9 @@ class Service extends Model
     {
         static::addGlobalScope(new RoleScope);
     }
+    
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
 }

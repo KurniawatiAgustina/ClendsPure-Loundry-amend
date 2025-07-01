@@ -50,7 +50,7 @@
                             required>
                                 <option value="" disabled selected>-- Pilih Layanan --</option>
                                 @foreach ($services as $service)
-                                    <option value="{{ $service->id }}">{{ $service->name }}</option>
+                                    <option value="{{ $service->id }}">{{ $service->name }} - {{ $service->branch->name }}</option>
                                 @endforeach
                             </select>
                         </div>

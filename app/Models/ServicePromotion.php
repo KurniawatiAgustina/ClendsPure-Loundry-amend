@@ -21,4 +21,9 @@ class ServicePromotion extends Model
     {
         return $this->belongsTo(Service::class);
     }
+    
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
 }

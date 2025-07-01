@@ -134,7 +134,8 @@
             <div class="card">
                 <img src="{{ asset('display-service/' . $item->image) }}" alt="{{ $item->title }}">
                 <h3>{{ $item->title }}</h3>
-                <p>{{ $item->deskripsi }}</p>
+                <p>{{ $item->description }}</p>
+                <p>{{ $item->Harga }}</p>
             </div>
         @endforeach
     </div>
